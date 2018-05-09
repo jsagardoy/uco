@@ -28,17 +28,7 @@ class OperationAPI {
         const allClose:Array<OperationEntity> = all.filter (operation => !operation.state);
         return allClose;
     }
-    updateToogle = (operation:OperationEntity) =>{
-        operation: {
-            ...operation,
-            operations.state=!operation.state
-        }
-        const all:Array<OperationEntity> = this.getAllOperations();
-        const elem:OperationEntity = all.find(op=>op.id===operation.id);
-        all.delete(elem);
-        all.add(operation);
-
-    }
+    
 }
 
 export const operationAPI = new OperationAPI();

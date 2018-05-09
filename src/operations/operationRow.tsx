@@ -5,23 +5,37 @@ import { Toggle } from 'material-ui';
 
 
 interface Props {
-    operation:OperationEntity;
-    onToggleUpdate:OperationEntity=>void
+    
+    operation:OperationEntity
+}
+
+interface State {
+    operation: OperationEntity;
+}
+
+export class ComposeRowComponent extends React.Component<Props,State>{
+
+    constructor (props:Props){
+        super(props);
+        this.state = {operation: this.props.operation}
+    }
+
+onToggleSubmit = (e) =>{
+    this.setState({operation:e.target.value})
 }
 
 
-
-
-//hay que hacer el handle button {props.operation.state} para el estado
-export const OperationRowComponent = (props:Props) => (
-    
-    <tr>
-        <td>{props.operation.name}</td>
-        <td>{props.operation.type}</td>
-        <td>
-           <Toggle onToggle = {props.onToggleUpdate(props.operation)}
-                   toggled={props.operation.state}
-            />
-        </td>
-    </tr>
-)
+    public render () {
+    return (
+        <tr>
+            <td>{this.state.operation.name}</td>
+            <td>{this.state.operation.type}</td>
+            <td>
+            <Toggle onToggle = {this.onToggleSubmit}
+                    toggled={this.state.operation.state}
+                />
+            </td>
+        </tr>
+        );
+    }
+}

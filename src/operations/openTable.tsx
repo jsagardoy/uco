@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {OperationRowComponent} from './operationRow';
+import {ComposeRowComponent} from './operationRow';
 import {OperationEntity} from '../model/operation';
 //import operationMockData from '../api/operationMockData';
 //import {operationAPI} from '../api/operationAPI';
@@ -29,11 +29,11 @@ export const OpenTableComponent = (props:Props) =>(
                     {   
                         (props.typeOperation) ?
                             props.openOperations.map( (operation : OperationEntity) => 
-                            <OperationRowComponent key={operation.id} operation = {operation} onToggleUpdate={operation} />
+                            <ComposeRowComponent key={operation.id} operation = {operation} />
                             )
                         :
                             props.closedOperations.map( (operation : OperationEntity) => 
-                            <OperationRowComponent key={operation.id} operation = {operation} onToggleUpdate={operation}/>
+                            <ComposeRowComponent key={operation.id} operation = {operation}/>
                             )
                     }   
                 

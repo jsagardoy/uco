@@ -1,4 +1,4 @@
 export { OperationTableComponent } from './operationTable';
-export { OperationRowComponent } from './operationRow';
+export { ComposeRowComponent } from './operationRow';
 export { OpenTableComponent } from './openTable';
 

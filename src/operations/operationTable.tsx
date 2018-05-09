@@ -12,7 +12,7 @@ interface State {
     operations: Array <OperationEntity>,
     openOperations: Array <OperationEntity>,
     closedOperations: Array <OperationEntity>,
-    updateToggle: void
+    
 }
 
 export class OperationTableComponent extends React.Component<Props, State> {
@@ -27,7 +27,6 @@ export class OperationTableComponent extends React.Component<Props, State> {
             operations: operationAPI.getAllOperations(),
             openOperations: operationAPI.getOpenOperations(),
             closedOperations: operationAPI.getClosedOperations(),
-            updateToggle: operatorAPI.updateToogle(operator:OperationEntity),
         });
     }
 
