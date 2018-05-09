@@ -5,8 +5,8 @@ import { Toggle } from 'material-ui';
 
 
 interface Props {
-    
-    operation:OperationEntity
+    initialOperation: OperationEntity;
+    onToggleUpdated:(newOperation:OperationEntity) =>void;
 }
 
 interface State {
@@ -17,23 +17,25 @@ export class ComposeRowComponent extends React.Component<Props,State>{
 
     constructor (props:Props){
         super(props);
-        this.state = {operation: this.props.operation}
+        this.state = {operation: this.props.initialOperation}
     }
 
-onToggleSubmit = (e) =>{
-    this.setState({operation:e.target.value})
+onChange = (newOperation:OperationEntity) =>{
+    this.setState({operation: newOperation})
 }
-
+onToogleSubmit = (e) => {
+    this.props.onToggleUpdated(this.state.operation);
+}
 
     public render () {
     return (
         <tr>
-            <td>{this.state.operation.name}</td>
-            <td>{this.state.operation.type}</td>
+            <td>{this.props.initialOperation.name}</td>
+            <td>{this.props.initialOperation.type}</td>
             <td>
-            <Toggle onToggle = {this.onToggleSubmit}
+            <Toggle onToggle = {this.onChange}
                     toggled={this.state.operation.state}
-                />
+            />
             </td>
         </tr>
         );
