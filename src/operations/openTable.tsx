@@ -5,12 +5,13 @@ import {OperationEntity} from '../model/operation';
 import {operationAPI} from '../api/operationAPI';
 
 interface Props {
-    
-    
+    type: boolean, //true for openOperations false for closed Operations
 }
 interface State{
-    openOperations: Array <OperationEntity>;
-    closedOperations: Array<OperationEntity>;
+    state:{
+        allOperations: Array<OperationEntity>
+        operation: <OperationEntity>
+    }
 }
 
 
@@ -18,30 +19,29 @@ export class OpenTableComponent extends React.Component<Props,State> {
     constructor(props:Props){
         super(props);
         this.state = { 
-            openOperations: operationAPI.getOpenOperations(),
-            closedOperations: operationAPI.getClosedOperations()
+            allOperations: operationAPI.getAllOperations(),
+            operation: null;
         }
     }
 
-    changeItem(newOperation){
-        const all: OperationEntity[];
-        all.push(...this.state.openOperations,...this.state.closedOperations);
+    changeItem = (newOperation:OperationEntity):void => {
+        this.setState({
+            allOperations: operationAPI.getAllOperations(),
+                operation: newOperation;
+        })
+        operationAPI.updateAllOperations(this.state.allOperations, newOperation);
+        console.log(this.state.allOperations.map((item)=>{`nombre: ${item.name} estado ${item.state}`}));
     }
 
     setToggle = (newOperation:OperationEntity, status:boolean):void =>{
-        status?
-        this.setState({
-            //rellenar
-        });
-        :
-        this.setState({
-            this.state.
-        });
+       
     }   
 
     public render(){
         return (<div className='table-responsive col-6'>
-            <h2>{this.state.openOperations?'Operaciones abiertas':'Operaciones cerradas'}</h2>
+            
+            <h2>{this.props.type?'Operaciones abiertas':'Operaciones cerradas'}</h2>
+            
             <div className='table-responsive'>
                 <table className="table table-striped" >
                     <thead>
@@ -52,21 +52,16 @@ export class OpenTableComponent extends React.Component<Props,State> {
                         </tr>
                     </thead>
                     <tbody>
-                    
-                        {   
-                            (this.state.openOperations) ?
-                                this.state.openOperations.map( (operation : OperationEntity) => 
-                                <ComposeRowComponent key={operation.id} 
-                                                    initialOperation = {operation} 
-                                                    onToggleUpdated = {}/>
-                                )
-                            :
-                                this.state.closedOperations.map( (operation : OperationEntity) => 
-                                <ComposeRowComponent key={operation.id} operation = {operation}/>
-                                )
-                        }   
-                    
-                        
+                        {
+                            this.state.allOperations
+                                .filter(operation=>operation.state===this.props.type)
+                                .map((operation : OperationEntity) => (                          
+                                    <ComposeRowComponent key={operation.id} 
+                                                            initialOperation = {operation}
+                                                            onEditingOperation = {this.changeItem}                    
+                                    />
+                                ))    
+                        }  
                     </tbody>
                 </table>
             </div>
