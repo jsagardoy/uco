@@ -22,11 +22,7 @@ export class ComposeRowComponent extends React.Component<Props,State>{
 
 onChangeToggle = (event) =>{
     const newOperation = {...this.props.initialOperation}
-    newOperation.state=!newOperation.state;
-    console.log("hola"+newOperation);
-    //this.setState({operation: newOperation})
     this.props.onEditingOperation(newOperation);
-    
 }
 
 

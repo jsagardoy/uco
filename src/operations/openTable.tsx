@@ -3,15 +3,14 @@ import {ComposeRowComponent} from './operationRow';
 import {OperationEntity} from '../model/operation';
 //import operationMockData from '../api/operationMockData';
 import {operationAPI} from '../api/operationAPI';
+import {updateElementFromArray} from '../model/';
 
 interface Props {
     type: boolean, //true for openOperations false for closed Operations
+    updateData:Array<OperationEntity>
 }
 interface State{
-    state:{
-        allOperations: Array<OperationEntity>
-        operation: <OperationEntity>
-    }
+      allOperations: Array<OperationEntity>
 }
 
 
@@ -19,18 +18,18 @@ export class OpenTableComponent extends React.Component<Props,State> {
     constructor(props:Props){
         super(props);
         this.state = { 
-            allOperations: operationAPI.getAllOperations(),
-            operation: null;
+            allOperations: operationAPI.getAllOperations()  
         }
     }
 
     changeItem = (newOperation:OperationEntity):void => {
-        this.setState({
-            allOperations: operationAPI.getAllOperations(),
-                operation: newOperation;
-        })
-        operationAPI.updateAllOperations(this.state.allOperations, newOperation);
-        console.log(this.state.allOperations.map((item)=>{`nombre: ${item.name} estado ${item.state}`}));
+        const newOp:OperationEntity = {...newOperation};
+        console.log(`Operacion a cambiar ${newOp}`);
+        newOp.state=!newOperation.state
+        const updatedList = updateElementFromArray(this.state.allOperations,newOp,(item)=>item.id===newOp.id)
+        updatedList.map((item)=>(console.log(`nombre: ${item.name} estado ${item.state}`)));
+//actualizar el component
+
     }
 
     setToggle = (newOperation:OperationEntity, status:boolean):void =>{

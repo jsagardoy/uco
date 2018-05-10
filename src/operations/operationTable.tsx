@@ -9,28 +9,35 @@ interface Props{
     
 }
 interface State {
-    operations: Array <OperationEntity>,
+    allOperations: Array <OperationEntity>,
 }
 
 export class OperationTableComponent extends React.Component<Props, State> {
  
     constructor (props: Props){
         super(props);
-        this.state = {operations: []};
+        this.state = {allOperations: []};
     }
 
     componentDidMount (){
         this.setState({
-            operations: operationAPI.getAllOperations(),
+            allOperations: operationAPI.getAllOperations(),
         });
     }
-
-
+    static getDerivedStateFromProps (nextProps, prevState){
+        return{
+            allOperations: nextProps
+        }
+    }
+    updateDataList(newListOperations:Array<OperationEntity>){
+        this.setState({allOperations:newListOperations})
+    }
+    
     public render (){ 
         return(
             <div className='row'>
-                    <OpenTableComponent type= {true} />
-                    <OpenTableComponent type= {false}/>             
+                    <OpenTableComponent type= {true} updateData={this.updateDataList}/>
+                    <OpenTableComponent type= {false} updateData={this.updateDataList}/>             
             </div>
         );
     }
