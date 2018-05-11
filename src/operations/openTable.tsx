@@ -27,7 +27,7 @@ export class OpenTableComponent extends React.Component<Props,State> {
         const newOp:OperationEntity = {...newOperation};
         console.log(`Operacion a cambiar ${newOp}`);
         newOp.state=!newOperation.state
-        const updatedList = updateElementFromArray(this.state.allOperations,newOp,(item)=>item.id===newOp.id)
+        const updatedList = updateElementFromArray(this.props.operationList,newOp,(item)=>item.id===newOp.id)
         this.props.updateData(updatedList);
     }
 
@@ -49,7 +49,7 @@ export class OpenTableComponent extends React.Component<Props,State> {
                     </thead>
                     <tbody>
                         {
-                            this.state.allOperations
+                            this.props.operationList
                                 .filter(operation=>operation.state===this.props.type)
                                 .map((operation : OperationEntity) => (                          
                                     <ComposeRowComponent key={operation.id} 
