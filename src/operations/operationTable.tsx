@@ -6,38 +6,35 @@ import {operationAPI} from '../api/operationAPI';
 
 
 interface Props{
-    
+    operationList:Array <OperationEntity>
 }
 interface State {
-    allOperations: Array <OperationEntity>,
+    allOperations: Array<OperationEntity>,
 }
 
 export class OperationTableComponent extends React.Component<Props, State> {
  
     constructor (props: Props){
         super(props);
-        this.state = {allOperations: []};
+        const operations = this.props.operationList;
+        this.state = {allOperations: operations};
     }
 
     componentDidMount (){
-        this.setState({
-            allOperations: operationAPI.getAllOperations(),
-        });
+        this.setState({allOperations: operationAPI.getAllOperations()});
     }
-    static getDerivedStateFromProps (nextProps, prevState){
-        return{
-            allOperations: nextProps
-        }
+
+
+    updateDataList = (newOperations: Array<OperationEntity>):void => {
+        this.setState({allOperations:newOperations})
     }
-    updateDataList(newListOperations:Array<OperationEntity>){
-        this.setState({allOperations:newListOperations})
-    }
-    
+
+
     public render (){ 
         return(
             <div className='row'>
-                    <OpenTableComponent type= {true} updateData={this.updateDataList}/>
-                    <OpenTableComponent type= {false} updateData={this.updateDataList}/>             
+                <OpenTableComponent type= {true} operationList={this.state.allOperations} updateData={this.updateDataList}/>
+                <OpenTableComponent type={false} operationList={this.state.allOperations} updateData={this.updateDataList}/>             
             </div>
         );
     }

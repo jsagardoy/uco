@@ -13,7 +13,7 @@ class OperationAPI {
         this._clone (OperationMockData)    
     ) 
     
-    getOpenOperations = () : Array<OperationEntity> =>
+    /* getOpenOperations = () : Array<OperationEntity> =>
     {
         
         const all:Array<OperationEntity> = this.getAllOperations();
@@ -31,7 +31,7 @@ class OperationAPI {
     
     updateAllOperations(all: Array<OperationEntity>, newItem:OperationEntity){
         all.splice(all.findIndex(item=>item.id==newItem.id),1,newItem);
-    }
+    } */
 }
 
 export const operationAPI = new OperationAPI();

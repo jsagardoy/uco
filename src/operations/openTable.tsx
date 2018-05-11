@@ -7,7 +7,8 @@ import {updateElementFromArray} from '../model/';
 
 interface Props {
     type: boolean, //true for openOperations false for closed Operations
-    updateData:Array<OperationEntity>
+    operationList: Array<OperationEntity>,
+    updateData:(newOperations:Array<OperationEntity>)=>void
 }
 interface State{
       allOperations: Array<OperationEntity>
@@ -18,7 +19,7 @@ export class OpenTableComponent extends React.Component<Props,State> {
     constructor(props:Props){
         super(props);
         this.state = { 
-            allOperations: operationAPI.getAllOperations()  
+            allOperations:this.props.operationList //operationAPI.getAllOperations()  
         }
     }
 
@@ -27,14 +28,10 @@ export class OpenTableComponent extends React.Component<Props,State> {
         console.log(`Operacion a cambiar ${newOp}`);
         newOp.state=!newOperation.state
         const updatedList = updateElementFromArray(this.state.allOperations,newOp,(item)=>item.id===newOp.id)
-        updatedList.map((item)=>(console.log(`nombre: ${item.name} estado ${item.state}`)));
-//actualizar el component
-
+        this.props.updateData(updatedList);
     }
 
-    setToggle = (newOperation:OperationEntity, status:boolean):void =>{
-       
-    }   
+    
 
     public render(){
         return (<div className='table-responsive col-6'>

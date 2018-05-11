@@ -5,14 +5,15 @@ import {OperationTableComponent} from './operations'
 import { MuiThemeProvider } from 'material-ui';
 
 interface Props {
-
+ 
 }
 interface State {
-
+  operationList: Array<OperationEntity>
 }
+
 
 export const App = () => (
   <MuiThemeProvider>
-    <OperationTableComponent />  
+    <OperationTableComponent operationList={[]} />  
   </MuiThemeProvider>
 )

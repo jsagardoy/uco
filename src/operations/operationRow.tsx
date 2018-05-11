@@ -6,7 +6,7 @@ import { Toggle } from 'material-ui';
 
 interface Props {
     initialOperation: OperationEntity;
-    onEditingOperation: (newOperation:OperationEntity) =>void
+    onEditingOperation: (newOperation:OperationEntity) =>void;
 }
 
 interface State {
