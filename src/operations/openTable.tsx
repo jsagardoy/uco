@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {ComposeRowComponent} from './operationRow';
 import {OperationEntity} from '../model/operation';
-//import operationMockData from '../api/operationMockData';
 import {operationAPI} from '../api/operationAPI';
 import {updateElementFromArray} from '../model/';
 
@@ -25,7 +24,6 @@ export class OpenTableComponent extends React.Component<Props,State> {
 
     changeItem = (newOperation:OperationEntity):void => {
         const newOp:OperationEntity = {...newOperation};
-        console.log(`Operacion a cambiar ${newOp}`);
         newOp.state=!newOperation.state
         const updatedList = updateElementFromArray(this.props.operationList,newOp,(item)=>item.id===newOp.id)
         this.props.updateData(updatedList);
@@ -33,7 +31,7 @@ export class OpenTableComponent extends React.Component<Props,State> {
 
     
 
-    public render(){
+     render(){
         return (<div className='table-responsive col-6'>
             
             <h2>{this.props.type?'Operaciones abiertas':'Operaciones cerradas'}</h2>
