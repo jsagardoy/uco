@@ -4,7 +4,7 @@ var OperationMockData: OperationEntity[] =
     [
        {
             name: "operacion 1",
-            id: 1,
+            id:1,
             type: "tipo 1",
             state: false,
             people: 

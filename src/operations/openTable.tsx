@@ -3,6 +3,7 @@ import {ComposeRowComponent} from './operationRow';
 import {OperationEntity} from '../model/operation';
 import {operationAPI} from '../api/operationAPI';
 import {updateElementFromArray} from '../model/';
+import {ShowOperation} from '../operationDetails';
 
 interface Props {
     type: boolean, //true for openOperations false for closed Operations
@@ -29,36 +30,35 @@ export class OpenTableComponent extends React.Component<Props,State> {
         this.props.updateData(updatedList);
     }
 
-    
-
      render(){
-        return (<div className='table-responsive col-6'>
-            
-            <h2>{this.props.type?'Operaciones abiertas':'Operaciones cerradas'}</h2>
-            
-            <div className='table-responsive'>
-                <table className="table table-striped" >
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Operacion</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.props.operationList
-                                .filter(operation=>operation.state===this.props.type)
-                                .map((operation : OperationEntity) => (                          
-                                    <ComposeRowComponent key={operation.id} 
-                                                            initialOperation = {operation}
-                                                            onEditingOperation = {this.changeItem}                    
-                                    />
-                                ))    
-                        }  
-                    </tbody>
-                </table>
-            </div>
+        return (
+        <div className="row col-6">
+            <div className='operations col-12'>
+                <h2>{this.props.type?'Operaciones abiertas':'Operaciones cerradas'}</h2>
+                <div className='table-responsive'>
+                    <table className='table table-striped'>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Operacion</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.props.operationList
+                                    .filter(operation=>operation.state===this.props.type)
+                                    .map((operation : OperationEntity) => (                          
+                                        <ComposeRowComponent key={operation.id} 
+                                                                initialOperation = {operation}
+                                                                onEditingOperation = {this.changeItem}                    
+                                        />
+                                    ))    
+                            }  
+                        </tbody>
+                    </table>
+                </div>    
+            </div>     
         </div>
         )
     }
