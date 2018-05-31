@@ -13,11 +13,11 @@ interface State {
   operationList: Array<OperationEntity>
 }
 export const App = () => (
-  <HashRouter>
+  <Router>
     <Switch>
       <Route exact ={true} path="/" component = {HomePage}/>
       <Route path="/operations" component={OperationsTable}/>
       <Route path="/operationDetail/:id" component={OperationDetailed} />
     </Switch>
-  </HashRouter>
+  </Router>
 )

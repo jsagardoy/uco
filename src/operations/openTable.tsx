@@ -36,12 +36,13 @@ export class OpenTableComponent extends React.Component<Props,State> {
             <div className='operations col-12'>
                 <h2>{this.props.type?'Operaciones abiertas':'Operaciones cerradas'}</h2>
                 <div className='table-responsive'>
-                    <table className='table table-striped'>
+                    <table className='table table-striped table-hover'>
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Operacion</th>
                                 <th>Estado</th>
+                                <th/>
                             </tr>
                         </thead>
                         <tbody>
