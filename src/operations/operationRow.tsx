@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {OperationEntity} from '../model';
+
 import {Route, HashRouter, Switch, withRouter, BrowserRouter as Router} from 'react-router-dom';
 import { Toggle } from 'material-ui';
-import {ChevronRight} from 'material-ui-icons'
+
 import {OperationDetailed} from '../pages';
+import {OperationEntity} from '../model';
+import {AdvanceButton} from '.';
 
 interface Props {
     initialOperation: OperationEntity;
@@ -14,6 +16,7 @@ interface Props {
 interface State {
     operation: OperationEntity;
 }
+
 
 export class ComposeRowComponent extends React.Component<Props,State>{
 
@@ -27,14 +30,7 @@ onChangeToggle = (event) =>{
     this.props.onEditingOperation(newOperation);
 }
 
-onChangeButton = (event) =>{
-    
-    <Route path={`/operationDetail/${this.state.operation.id}`} 
-            component={OperationDetailed}/>
-
-}
-
-    public render () {
+public render () {
     return (
         <tr>
             <td>{this.props.initialOperation.name}</td>
@@ -45,11 +41,8 @@ onChangeButton = (event) =>{
             />
             </td>
             <td>  
-                    const Button = withRouter (({ this.refs.history })
-                    <button type="button" onClick={this.refs.history.path (`/operationDetail/${this.state.operation.id}`)}>
-                        <ChevronRight />
-                    </button>
-                    ) 
+                 <AdvanceButton id={1}
+                 />
 
             </td>
         </tr>
