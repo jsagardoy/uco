@@ -1,13 +1,36 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
-import {Route, HashRouter, Switch,Link, withRouter, BrowserRouter as Router} from 'react-router-dom';
 import { Toggle } from 'material-ui';
 import {ChevronRight} from 'material-ui-icons';
 
-import {OperationDetailed} from '../pages';
+//import {OperationDetailed} from '../pages';
 import {OperationEntity} from '../model';
 
+interface Props{
+    operation: OperationEntity;
+    onToogle: (newOperation:OperationEntity) => void;
+    onClickRow: (id:number) =>void;
+}
+
+
+export const RowComponent: React.StatelessComponent<Props> = (props) => {
+
+    return (
+        <tr>
+            <td onClick={()=> props.onClickRow(props.operation.id)}>{props.operation.name}</td>
+            <td>{props.operation.type}</td>
+            <td><Toggle onToggle={()=>props.onToogle(props.operation)}
+                defaultToggled={props.operation.state}
+                />
+            </td>
+        </tr>
+    );
+}
+
+
+
+
+/* 
 interface Props {
     initialOperation: OperationEntity;
     onEditingOperation: (newOperation:OperationEntity) =>void;
@@ -55,4 +78,4 @@ public render () {
         </tr>
         );
     }
-}
+} */
