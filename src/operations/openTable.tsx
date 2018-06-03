@@ -5,6 +5,10 @@ import {operationAPI} from '../api/operationAPI';
 import {updateElementFromArray} from '../model/';
 import {ShowOperation} from '../operationDetails';
 
+
+
+
+
 interface Props {
     type: boolean, //true for openOperations false for closed Operations
     operationList: Array<OperationEntity>,
@@ -42,7 +46,6 @@ export class OpenTableComponent extends React.Component<Props,State> {
                                 <th>Nombre</th>
                                 <th>Operacion</th>
                                 <th>Estado</th>
-                                <th/>
                             </tr>
                         </thead>
                         <tbody>

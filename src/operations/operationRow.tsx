@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {Route, HashRouter, Switch, withRouter, BrowserRouter as Router} from 'react-router-dom';
+import {Route, HashRouter, Switch,Link, withRouter, BrowserRouter as Router} from 'react-router-dom';
 import { Toggle } from 'material-ui';
+import {ChevronRight} from 'material-ui-icons';
 
 import {OperationDetailed} from '../pages';
 import {OperationEntity} from '../model';
-import {AdvanceButton} from '.';
 
 interface Props {
     initialOperation: OperationEntity;
@@ -16,6 +16,9 @@ interface Props {
 interface State {
     operation: OperationEntity;
 }
+
+
+
 
 
 export class ComposeRowComponent extends React.Component<Props,State>{
@@ -30,20 +33,24 @@ onChangeToggle = (event) =>{
     this.props.onEditingOperation(newOperation);
 }
 
+handleClickAdvance= (id:number, event) =>{
+    window.location.assign(`/#/operationDetail/${id}`);
+}
+
+
 public render () {
+    
     return (
-        <tr>
-            <td>{this.props.initialOperation.name}</td>
-            <td>{this.props.initialOperation.type}</td>
+        <tr >
+         
+            <td onClick={(e)=>this.handleClickAdvance(this.props.initialOperation.id,e)}>{this.props.initialOperation.name}</td>
+            <td onClick={(e)=>this.handleClickAdvance(this.props.initialOperation.id,e)}>{this.props.initialOperation.type}</td> 
+                <td>{this.props.initialOperation.name}</td>
+                <td>{this.props.initialOperation.type}</td> 
             <td>
                 <Toggle defaultToggled = {this.props.initialOperation.state}
                         onToggle = {this.onChangeToggle}
             />
-            </td>
-            <td>  
-                 <AdvanceButton id={1}
-                 />
-
             </td>
         </tr>
         );
