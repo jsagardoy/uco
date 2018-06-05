@@ -1,5 +1,5 @@
 import * as React  from 'react';
-import {OperationEntity} from '../model/operation';
+import {OperationEntity} from '../../model/operation';
 import {RowComponent} from './'
 
 interface Props{

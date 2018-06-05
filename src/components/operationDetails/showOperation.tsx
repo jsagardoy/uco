@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {OperationEntity,PeopleEntity} from '../model';
+import {OperationEntity,PeopleEntity} from '../../model';
 import {PersonRow} from './personRow';
 import {TableHeaderOperationDetailComponent, TableBodyComponent} from '.';
 

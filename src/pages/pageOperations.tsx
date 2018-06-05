@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {OperationTableComponent} from '../operations';
+import {OperationTableComponent} from '../components/operations';
 import { OperationEntity } from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';

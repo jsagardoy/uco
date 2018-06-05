@@ -1,13 +1,11 @@
 import * as React from 'react';
-import {RowComponent} from './operationRow';
-import {OperationEntity} from '../model/operation';
-import {operationAPI} from '../api/operationAPI';
-
-import {ShowOperation} from '../operationDetails';
-import {TableHeaderComponent, TableBodyComponent} from './';
-
 import { RouteComponentProps} from 'react-router';
 
+import {RowComponent} from './operationRow';
+import {OperationEntity} from '../../model/operation';
+import {operationAPI} from '../../api/operationAPI';
+import {ShowOperation} from '../operationDetails';
+import {TableHeaderComponent, TableBodyComponent} from './';
 
 
 interface Props {
