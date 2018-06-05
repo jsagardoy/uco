@@ -13,9 +13,8 @@ import { RouteComponentProps} from 'react-router';
 interface Props {
     type: boolean, //true for openOperations false for closed Operations
     operationList: Array<OperationEntity>,
-   // updateData:(newOperations:Array<OperationEntity>)=>void
-    onClickRow:(id:number) =>void;
-    onToggle:(operation:OperationEntity)=>void;
+    onClickRow:(id:number) =>void,
+    onToggle:(operation:OperationEntity)=>void,
 }
 
 

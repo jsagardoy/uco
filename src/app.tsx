@@ -4,7 +4,7 @@ import {OperationEntity} from './model/operation';
 import {OperationTableComponent} from './operations'
 import { MuiThemeProvider } from 'material-ui';
 import {Route, Switch, HashRouter} from 'react-router-dom';
-import {OperationsTable, OperationDetailed, HomePage} from './pages';
+import {OperationsTable, OperationDetailedPage , HomePage, DetailPersonPage} from './pages';
 
 interface Props {
  
@@ -17,7 +17,9 @@ export const App = () => (
     <Switch>
       <Route exact ={true} path="/" component = {HomePage}/>
       <Route path="/operations" component={OperationsTable}/>
-      <Route path="/operationDetail/:id" component={OperationDetailed} />
+      <Route path="/operationDetail/:idOperation" component={OperationDetailedPage} >
+      <Route path="/personDetail/:idPerson" component={DetailPersonPage} /> 
+      </Route>
     </Switch>
   </HashRouter>
 )
