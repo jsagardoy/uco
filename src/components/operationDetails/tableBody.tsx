@@ -5,7 +5,7 @@ import { PersonRow } from '.';
 
 interface Props {
     people: Array <PeopleEntity>,
-    onClickRow: (id:number) =>void
+    onClickRow: (idPerson:number) =>void
     
 }
 
