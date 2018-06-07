@@ -12,8 +12,11 @@
   "author": "Jehu",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "@types/react-router": "^4.0.26",
     "bootstrap": "^4.1.1",
+    "fine-uploader": "^5.16.2",
     "jquery": "^3.3.1",
     "material-ui": "^0.20.0",
     "material-ui-icons": "^1.0.0-beta.36",
@@ -21,6 +24,9 @@
     "popper.js": "^1.14.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-fine-uploader": "^1.1.0",
+    "react-grid-gallery": "^0.4.11",
+    "react-images-upload": "^1.1.99",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "typescript": "^2.8.3"
