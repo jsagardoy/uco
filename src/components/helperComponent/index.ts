@@ -1,0 +1,2 @@
+export {GalleryComponent} from './galleryComponent';
+

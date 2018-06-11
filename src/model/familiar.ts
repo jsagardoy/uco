@@ -3,6 +3,6 @@ export interface FamiliarEntity{
     name: string;
     familiarPics?: string[];
     familiarAddress?: string;
-    adressLink?:string;
+    addressLink?:string;
     related?: string;
 }

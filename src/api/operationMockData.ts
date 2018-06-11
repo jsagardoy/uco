@@ -82,7 +82,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Elmer",
                               familiarPics: [`https://k26.kn3.net/978EE4179.jpg`],
                               familiarAddress: `La casa del padre, 5432`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre`
                             }
                         ] 
@@ -141,7 +141,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Dios",
                               familiarPics: [`https://vignette.wikia.nocookie.net/simpsons/images/0/0e/God_%28The_Simpsons%29.png/revision/latest?cb=20110922135521`],
                               familiarAddress: `El cierlo, 1`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre, el de él y el de todos`
                             }
                         ] 
@@ -228,7 +228,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Elmer",
                               familiarPics: [`https://k26.kn3.net/978EE4179.jpg`],
                               familiarAddress: `La casa del padre, 5432`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre`
                             }
                         ] 
@@ -287,7 +287,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Dios",
                               familiarPics: [`https://vignette.wikia.nocookie.net/simpsons/images/0/0e/God_%28The_Simpsons%29.png/revision/latest?cb=20110922135521`],
                               familiarAddress: `El cierlo, 1`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre, el de él y el de todos`
                             }
                         ] 
@@ -374,7 +374,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Elmer",
                               familiarPics: [`https://k26.kn3.net/978EE4179.jpg`],
                               familiarAddress: `La casa del padre, 5432`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre`
                             }
                         ] 
@@ -433,7 +433,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Dios",
                               familiarPics: [`https://vignette.wikia.nocookie.net/simpsons/images/0/0e/God_%28The_Simpsons%29.png/revision/latest?cb=20110922135521`],
                               familiarAddress: `El cierlo, 1`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre, el de él y el de todos`
                             }
                         ] 
@@ -520,7 +520,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Elmer",
                               familiarPics: [`https://k26.kn3.net/978EE4179.jpg`],
                               familiarAddress: `La casa del padre, 5432`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre`
                             }
                         ] 
@@ -579,7 +579,7 @@ var OperationMockData: OperationEntity[] =
                               name: "Dios",
                               familiarPics: [`https://vignette.wikia.nocookie.net/simpsons/images/0/0e/God_%28The_Simpsons%29.png/revision/latest?cb=20110922135521`],
                               familiarAddress: `El cierlo, 1`,
-                              adressLink:`https://goo.gl/maps/46bGB8wWMR92`,
+                              addressLink:`https://goo.gl/maps/46bGB8wWMR92`,
                               related: `Padre, el de él y el de todos`
                             }
                         ] 
