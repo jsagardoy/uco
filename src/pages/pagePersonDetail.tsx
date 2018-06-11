@@ -11,6 +11,7 @@ import {operationAPI} from '../api/operationAPI';
 interface State{
     person: PeopleEntity;
     notEditable:boolean;
+    showVehicle:boolean;
 }
 
 export class DetailPersonPage extends React.Component< RouteComponentProps<any>,State> {
@@ -30,21 +31,33 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         !!this.props.history.location.state?
             this.state = {         
                 person:this.props.history.location.state.person, 
-                notEditable: this.props.history.location.state.notEditable
+                notEditable: this.props.history.location.state.notEditable,
+                showVehicle:false,
             } 
         :
              this.state= ({
                  person:person, 
-                 notEditable:true
+                 notEditable:true,
+                 showVehicle:false,
                 })
         
     }
     
+    onToggle = (element:string) => {
+        switch (element)
+        {
+            case "vehicle":
+                const newState:State= {...this.state};
+                newState.showVehicle  = !newState.showVehicle;
+                this.setState(newState);
+            break;
+        }
+    }
      
     render(){
         
         return (
-            <PersonComponent person={this.state.person} notEditable={this.state.notEditable}/>
+            <PersonComponent onToggle={this.onToggle} person={this.state.person} notEditable={this.state.notEditable} showVehicle={this.state.showVehicle}/>
         );
     }
 }
