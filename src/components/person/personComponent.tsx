@@ -14,13 +14,13 @@ import {CompanyComponent} from '../company';
 
 interface Props {
     person: PeopleEntity;
-    editable:boolean
+    notEditable:boolean
 }
 
 export const PersonComponent: React.StatelessComponent<Props> = (props:Props) => {
     return(
         <form>
-            <fieldset disabled={props.editable}>
+            <fieldset disabled={props.notEditable}>
                 <div id="name" className='form-group'>
                     <label  className="col-2" htmlFor="name">Nombre</label>
                     <input type="text" className="form-control" id="name" placeholder={props.person.name}/>

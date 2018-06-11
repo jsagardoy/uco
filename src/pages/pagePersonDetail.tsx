@@ -10,7 +10,7 @@ import {operationAPI} from '../api/operationAPI';
 
 interface State{
     person: PeopleEntity;
-    editable:boolean;
+    notEditable:boolean;
 }
 
 export class DetailPersonPage extends React.Component< RouteComponentProps<any>,State> {
@@ -30,12 +30,12 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         !!this.props.history.location.state?
             this.state = {         
                 person:this.props.history.location.state.person, 
-                editable: this.props.history.location.state.editable
+                notEditable: this.props.history.location.state.notEditable
             } 
         :
              this.state= ({
                  person:person, 
-                 editable:false
+                 notEditable:true
                 })
         
     }
@@ -44,7 +44,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     render(){
         
         return (
-            <PersonComponent person={this.state.person} editable={this.state.editable}/>
+            <PersonComponent person={this.state.person} notEditable={this.state.notEditable}/>
         );
     }
 }

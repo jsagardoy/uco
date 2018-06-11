@@ -26,7 +26,7 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         this.props.history.push({
             pathname:`${idOperation}/personDetail/${idPerson}`,
             state:{person: person,
-                    editable: true    
+                    notEditable: true    
             }
         })
     }
