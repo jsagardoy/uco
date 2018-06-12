@@ -3,9 +3,12 @@ import {PeopleEntity, CompanyEntity} from '../../model';
 import { LocationOn, FileUpload, ExpandMore, ExpandLess } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import { GalleryComponent } from '../helperComponent';
+
 import {VehicleComponent} from '../vehicles';
 import {FamiliarComponent} from '../familiar';
 import {CompanyComponent} from '../company';
+
+import "../../content/site.css";
 
 
 interface Props {
@@ -20,43 +23,60 @@ interface Props {
 
 export const PersonComponent: React.StatelessComponent<Props> = (props:Props) => {
     return(
-        <form className="d-flex justify-content-center align-items-center container">
+        
+        <form className="d-flex justify-content-center align-items-center flex-column">
             <fieldset className="col-10" disabled={props.notEditable}>
-                <div className="form-group">
-                    <div id="name" className='form-group'>
-                        <label  className="col-2" htmlFor="name">Nombre</label>
-                        <input type="text" className="form-control" id="name" placeholder={props.person.name}/>
-                    </div>
-                    <div id="alias" className='form-group'>
-                        <label className="col-10" htmlFor="aka">Alias</label>
-                        <input type="text" className="form-control" id="aka" placeholder={props.person.aka}/>
-                    </div>
-                <div id="uploadPic"className='col-12'>
-                        <Button variant="contained" size="small" color="primary"> 
-                            <FileUpload />
-                            Añadir Imagen 
-                        </Button>
-                    </div>
-                <div id="personGallery" className='form-group'>
-                        <GalleryComponent imagesList={props.person.picsLinks} />
-                    </div> 
+            <div className="d-flex d-inline-flex">
+                <img className="avatar" src={props.person.picsLinks[0]} width="200px" height="200px" />
+                {
+                    props.person.aka?
+                    <h1 className="col-8">{`${props.person.name} - ${props.person.aka}`}</h1>
+                    :
+                    <h1>{`${props.person.name} - ${props.person.aka}`}</h1>
+                }
+            </div>
+
+            <div className="d-flex flex-column">
+                <div id="name" className='form-group'>
+                    <label  className="col-2" htmlFor="name">Nombre</label>
+                    <input type="text" className="form-control" id="name" placeholder={props.person.name}/>
                 </div>
+
+                <div id="alias" className='form-group'>
+                    <label className="col-10" htmlFor="aka">Alias</label>
+                    <input type="text" className="form-control" id="aka" placeholder={props.person.aka}/>
+                </div>
+
+                <div id="uploadPic"className='col-12'>
+                    <Button variant="contained" size="small" color="primary"> 
+                        <FileUpload />
+                        Añadir Imagen 
+                    </Button>
+                </div>
+
+                <div id="personGallery" className='gallery'>
+                    <GalleryComponent imagesList={props.person.picsLinks} />
+                </div> 
+            
+
                 <div id="address" className='form-group'> 
                     <label className="col-10" htmlFor="address">Dirección</label>
                     <input type="text" className="form-control" id="address" placeholder={props.person.address}/>
                     <a target="_blank" href={props.person.addressLink}><LocationOn/> Ubicación</a> 
                 </div>
-                <div id="addressGallery" className='component col-12'>
+
+                <div id="addressGallery" className='gallery'>
                     <GalleryComponent imagesList={props.person.addressPic} />
                 </div>
-                <div className="vehicle">
-                    <Button onClick={(event)=>props.onToggle("vehicle")}>
-                    <span>Vehículos</span>
+
+                <div className='vehicle col-12'>
+                    <button type="button" className="buttonVehicle" onClick={(event)=>props.onToggle("vehicle")}>
                         {props.showVehicle? 
                             <ExpandLess/>:
                             <ExpandMore/>
                         }
-                    </Button>
+                        <span>Vehículos</span>
+                    </button>
                     {
                         props.showVehicle ? 
                             <div id="vehicles" className='vehicleList'>
@@ -76,6 +96,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     }
             
                 </div>
+
                 <div className="companies-component">
                     <Button onClick={(event)=>props.onToggle("company")}>
                         <span>Empresas</span>
@@ -98,6 +119,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         </>
                     }
                 </div>
+
                 <div id="rutines" className='form-group'>
                     <label className="col-10" htmlFor="rutines">Rutinas</label>
                     <ul className="rutineList">
@@ -107,12 +129,13 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                 <li key={rut}>{rut}</li>
                                 )
                             }
-                       
+                    
                     </ul>
                     {
                         //AÑADIR AQUÍ LOS BOTONES DE AÑADIR Y ELIMINAR TAREA
                     }
                 </div>
+
                 <div id="links" className='form-group'>
                     <label className="col-10" htmlFor="links">Relaciones</label>
                     <ul className="linksList">
@@ -122,6 +145,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                 </li>)}
                     </ul>
                 </div>
+
                 <div className='form-group'>
 
                     <Button onClick={(event)=>props.onToggle("familiar")}>
@@ -147,7 +171,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         </>
                     } 
                 </div>
-                
+            </div>
             </fieldset>
         </form>
 
