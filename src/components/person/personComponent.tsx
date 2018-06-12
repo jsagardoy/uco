@@ -4,6 +4,7 @@ import { LocationOn, FileUpload, ExpandMore, ExpandLess } from '@material-ui/ico
 import Button from '@material-ui/core/Button';
 import { GalleryComponent } from '../helperComponent';
 import {VehicleComponent} from '../vehicles';
+import {FamiliarComponent} from '../familiar';
 import {CompanyComponent} from '../company';
 
 
@@ -11,6 +12,8 @@ interface Props {
     person: PeopleEntity;
     notEditable:boolean;
     showVehicle:boolean;
+    showCompany:boolean;
+    showFamiliar:boolean;
     onToggle:(string)=>void;
     
 }
@@ -68,32 +71,83 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                 </ul>
                             </div>
                     :
-                    <div>
-                    </div>
-                    
+                    <>
+                    </>
                     }
             
                 </div>
-
-                <div id="companies" className='form-group'>
+                <div className="companies-component">
+                    <Button onClick={(event)=>props.onToggle("company")}>
+                        <span>Empresas</span>
+                            {props.showCompany? 
+                                <ExpandLess/>:
+                                <ExpandMore/>
+                            }
+                    </Button>
                     {
-                        props.person.companies.map((company:CompanyEntity)=>
-                        <CompanyComponent key={company.id} company={company}/>
-                    )
+                    props.showCompany?
+                        <div id="companies" className='form-group'>
+                            {
+                                props.person.companies.map((company:CompanyEntity)=>
+                                <CompanyComponent key={company.id} company={company}/>
+                            )
+                            }
+                        </div>
+                    :
+                        <>
+                        </>
                     }
                 </div>
                 <div id="rutines" className='form-group'>
                     <label className="col-10" htmlFor="rutines">Rutinas</label>
-                    <input type="text" className="form-control" id="rutines" placeholder={props.person.aka}/>
+                    <ul className="rutineList">
+                        
+                            {
+                                props.person.rutine.map((rut)=> 
+                                <li key={rut}>{rut}</li>
+                                )
+                            }
+                       
+                    </ul>
+                    {
+                        //AÑADIR AQUÍ LOS BOTONES DE AÑADIR Y ELIMINAR TAREA
+                    }
                 </div>
                 <div id="links" className='form-group'>
                     <label className="col-10" htmlFor="links">Relaciones</label>
-                    <input type="text" className="form-control" id="links" placeholder={props.person.aka}/>
+                    <ul className="linksList">
+                            {props.person.links.map((link)=> 
+                                <li key={link}>
+                                    {link}
+                                </li>)}
+                    </ul>
                 </div>
-                <div id="family" className='form-group'>
-                    <label className="col-10" htmlFor="family">Familiares</label>
-                    <input type="text" className="form-control" id="family" placeholder={props.person.aka}/>
+                <div className='form-group'>
+
+                    <Button onClick={(event)=>props.onToggle("familiar")}>
+                        <span>Familiares</span>
+                            {props.showFamiliar? 
+                                <ExpandLess/>:
+                                <ExpandMore/>
+                            }
+                    </Button>
+                    {
+                        props.showFamiliar?
+                        <ul className="familiarList">
+                        {
+                            props.person.familiars.map((familiar)=>
+                            <li key={familiar.id}>
+                                <FamiliarComponent familiar={familiar}/>
+                            </li>
+                        )
+                        }
+                        </ul>
+                        :
+                        <>
+                        </>
+                    } 
                 </div>
+                
             </fieldset>
         </form>
 

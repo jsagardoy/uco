@@ -12,6 +12,8 @@ interface State{
     person: PeopleEntity;
     notEditable:boolean;
     showVehicle:boolean;
+    showCompany:boolean;
+    showFamiliar:boolean;
 }
 
 export class DetailPersonPage extends React.Component< RouteComponentProps<any>,State> {
@@ -33,22 +35,37 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 person:this.props.history.location.state.person, 
                 notEditable: this.props.history.location.state.notEditable,
                 showVehicle:false,
+                showCompany:false,
+                showFamiliar:false,
             } 
         :
              this.state= ({
                  person:person, 
                  notEditable:true,
                  showVehicle:false,
+                 showCompany:false,
+                 showFamiliar:false,
                 })
         
     }
     
     onToggle = (element:string) => {
+        let newState:State = null;
         switch (element)
         {
             case "vehicle":
-                const newState:State= {...this.state};
-                newState.showVehicle  = !newState.showVehicle;
+                newState= {...this.state};
+                newState.showVehicle = !newState.showVehicle;
+                this.setState(newState);
+            break;
+            case "company":
+                newState= {...this.state};
+                newState.showCompany = !newState.showCompany;
+                this.setState(newState);
+            break;
+            case "familiar":
+                newState= {...this.state};
+                newState.showFamiliar = !newState.showFamiliar;
                 this.setState(newState);
             break;
         }
@@ -57,7 +74,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     render(){
         
         return (
-            <PersonComponent onToggle={this.onToggle} person={this.state.person} notEditable={this.state.notEditable} showVehicle={this.state.showVehicle}/>
+            <PersonComponent onToggle={this.onToggle} person={this.state.person} notEditable={this.state.notEditable} showVehicle={this.state.showVehicle} showCompany={this.state.showCompany} showFamiliar={this.state.showFamiliar}/>
         );
     }
 }

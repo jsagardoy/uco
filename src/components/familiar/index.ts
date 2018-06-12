@@ -1,0 +1,1 @@
+export {FamiliarComponent} from './familiarComponent'

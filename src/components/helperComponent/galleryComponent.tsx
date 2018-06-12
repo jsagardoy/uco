@@ -21,6 +21,6 @@ export const GalleryComponent:React.StatelessComponent<Props> = (props) =>{
     )
     )
     return(
-        <Gallery images={resultList}/>
+        <Gallery className="col-12" images={resultList}/>
     )
 }
