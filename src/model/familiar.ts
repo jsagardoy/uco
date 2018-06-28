@@ -1,6 +1,6 @@
 export interface FamiliarEntity{
-    id: number;
-    name: string;
+    idFamiliar: number;
+    nameFamiliar: string;
     familiarPics?: string[];
     familiarAddress?: string;
     addressLink?:string;

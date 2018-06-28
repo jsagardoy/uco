@@ -12,7 +12,7 @@ export const CompanyComponent: React.StatelessComponent<Props> = (props:Props) =
     <div className="card">
         <div className="card-header">
             <label className="col-10 card-title" htmlFor="name">Nombre</label>
-            <input type="text" id="name" className="form-control" placeholder={props.company.name}/>
+            <input type="text" id="name" className="form-control" placeholder={props.company.nameCompany}/>
         </div>
         <div className="card-body">
             <label className="col-10" htmlFor="cif">CIF</label>

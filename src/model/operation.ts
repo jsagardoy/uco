@@ -1,17 +1,17 @@
 import { PeopleEntity } from './people';
 export interface OperationEntity{
-    name: string,
-    id: number,
+    nameOperation: string,
+    idOperation: number,
     state: boolean,
-    type: string,
+    operationType: string,
     people? : PeopleEntity[],
 }
 
-export const createEmptyOperation = ():OperationEntity =>({
-    name:"",
+/*export const createEmptyOperation = ():OperationEntity =>({
+    nameOperation:"",
     id: -1,
     state:true,
     type:"",
     people: []
-})
+})*/
 

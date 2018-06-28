@@ -12,8 +12,8 @@ interface Props {
 export const ShowOperation:React.StatelessComponent<Props> = (props:Props)=>(
 
     <div className="operation">
-        <h1 className="operationTitle">Operación {props.operation.name}</h1>
-        <h2> ({props.operation.type})</h2>
+        <h1 className="operationTitle">Operación {props.operation.nameOperation}</h1>
+        <h2> ({props.operation.operationType})</h2>
         <table className= "table table-striped col-8">
         <TableHeaderOperationDetailComponent />
         <TableBodyComponent people={props.operation.people} 

@@ -30,16 +30,16 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 <img className="avatar" src={props.person.picsLinks[0]} width="200px" height="200px" />
                 {
                     props.person.aka?
-                    <h1 className="col-8">{`${props.person.name} - ${props.person.aka}`}</h1>
+                    <h1 className="col-8">{`${props.person.namePerson} - ${props.person.aka}`}</h1>
                     :
-                    <h1>{`${props.person.name} - ${props.person.aka}`}</h1>
+                    <h1>{`${props.person.namePerson} - ${props.person.aka}`}</h1>
                 }
             </div>
 
             <div className="d-flex flex-column">
                 <div id="name" className='form-group'>
                     <label  className="col-2" htmlFor="name">Nombre</label>
-                    <input type="text" className="form-control" id="name" placeholder={props.person.name}/>
+                    <input type="text" className="form-control" id="name" placeholder={props.person.namePerson}/>
                 </div>
 
                 <div id="alias" className='form-group'>
@@ -84,7 +84,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                     <li className="list-group-item">
                                     {
                                         props.person.vehicles.map((vehicle)=>
-                                            <VehicleComponent key={vehicle.id} vehicle={vehicle}/>
+                                            <VehicleComponent key={vehicle.idVehicle} vehicle={vehicle}/>
                                         )
                                     }
                                     </li>
@@ -110,7 +110,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         <div id="companies" className='form-group'>
                             {
                                 props.person.companies.map((company:CompanyEntity)=>
-                                <CompanyComponent key={company.id} company={company}/>
+                                <CompanyComponent key={company.idCompany} company={company}/>
                             )
                             }
                         </div>
@@ -160,7 +160,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         <ul className="familiarList">
                         {
                             props.person.familiars.map((familiar)=>
-                            <li key={familiar.id}>
+                            <li key={familiar.idFamiliar}>
                                 <FamiliarComponent familiar={familiar}/>
                             </li>
                         )

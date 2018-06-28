@@ -10,12 +10,12 @@ interface Props{
 export const FamiliarComponent: React.StatelessComponent<Props> = (props:Props) =>(
         <div className = "card">
             <div className="card-header">
-                <h3> {props.familiar.name}</h3>
+                <h3> {props.familiar.nameFamiliar}</h3>
                 <img src={props.familiar.familiarPics[0]} height="200px" width="200px" />
             </div>
             <div className="card-body">
                 <label className="col-10" htmlFor="familiarName">Nombre</label>
-                <input type="text" id="name" className="form-control" placeholder={props.familiar.name}/>
+                <input type="text" id="name" className="form-control" placeholder={props.familiar.nameFamiliar}/>
 
                 <label className="col-10" htmlFor="familiarAddress">Dirección</label>
                 <input type="text" id="familiarAddress" className="form-control" placeholder={props.familiar.familiarAddress}/>

@@ -3,8 +3,8 @@ import { VehicleEntity } from './vehicle';
 import {FamiliarEntity} from './familiar';
 
 export interface PeopleEntity {
-    id: number;
-    name: string;
+    idPerson: number;
+    namePerson: string;
     aka?: string;
     picsLinks?: string[];
     address?: string;

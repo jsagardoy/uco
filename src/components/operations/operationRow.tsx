@@ -16,8 +16,8 @@ export const RowComponent: React.StatelessComponent<Props> = (props) => {
 
     return (
         <tr>
-            <td onClick={()=> props.onClickRow(props.operation.id)}>{props.operation.name}</td>
-            <td onClick={()=> props.onClickRow(props.operation.id)}>{props.operation.type}</td>
+            <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.nameOperation}</td>
+            <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.operationType}</td>
             <td><Toggle onToggle={()=>props.onToogle(props.operation)}
                 defaultToggled={props.operation.state}
                 />

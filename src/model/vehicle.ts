@@ -1,8 +1,8 @@
 export interface VehicleEntity {
-    id: number;
+    idVehicle: number;
     brand?: string;//marca
     model?: string;
-    type: string;
+    vehicleType: string;
     plate?: string;
     frame?: string;
     pic?: string[];

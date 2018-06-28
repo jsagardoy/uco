@@ -1,26 +1,27 @@
 import * as React from 'react';
 import { ShowOperation } from '../components/operationDetails';
 import { OperationEntity, PeopleEntity } from '../model';
-import { operationAPI } from '../api/operationAPI';
+//import { operationAPI } from '../api/operationAPI';
 import {RouteComponentProps} from 'react-router'
 
 interface State {
     operationList:Array<OperationEntity>
 }
-
+// aquí tengo que cambiar esto y almacenarlo en el browser
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,State> {
     constructor(props){
         super(props);
         !!this.props.history.location.state?
         this.state={operationList:this.props.history.location.state.operationList}:
-        this.state={operationList:operationAPI.getAllOperations()};
+        this.state={operationList:[]/*getAllOperations*/};
+        
     }
 
     onClickRow = (idPerson:number) =>{
         const idOperation:number =  +this.props.match.params.idOperation;
-        const operation = this.state.operationList.find(((operation)=>operation.id===idOperation));
+        const operation = this.state.operationList.find(((operation)=>operation.idOperation===idOperation));
         const peopleList = operation.people;
-        const person = peopleList.find((p)=>p.id===idPerson);
+        const person = peopleList.find((p)=>p.idPerson===idPerson);
         const operationId = this.props.match.params.idOperation;
 
         this.props.history.push({
@@ -35,9 +36,9 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         <div className="Operation">
             {
                 this.state.operationList
-                    .filter((operation)=>+operation.id===+id)
+                    .filter((operation)=>+operation.idOperation===+id)
                     .map((operation) => (
-                    <ShowOperation key={operation.id} 
+                    <ShowOperation key={operation.idOperation} 
                                 operation={operation} 
                                 onClickRow={this.onClickRow}
                     />

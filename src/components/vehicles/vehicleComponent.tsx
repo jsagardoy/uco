@@ -25,7 +25,7 @@ VehicleComponent: React.StatelessComponent<Props> = (props:Props) => {
                 <input type="text" id="model" className="form-control" placeholder={props.vehicle.model}/>
                 
                 <label className="col-10" htmlFor="type">Tipo de Vehículo</label>
-                <input type="text" id="type" className="form-control" placeholder={props.vehicle.type}/>
+                <input type="text" id="type" className="form-control" placeholder={props.vehicle.vehicleType}/>
 
                 <label className="col-10" htmlFor="plate">Matrícula</label>
                 <input type="text" id="plate" className="form-control" placeholder={props.vehicle.plate}/>

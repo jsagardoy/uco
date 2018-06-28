@@ -1,6 +1,6 @@
 export interface CompanyEntity {
-    id: number;
-    name: string;
+    idCompany: number;
+    nameCompany: string;
     cif: string;
     address: string;
     map: string;

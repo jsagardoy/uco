@@ -7,12 +7,12 @@ interface Props {
 }
 
 export const PersonRow : React.StatelessComponent <Props> = (props:Props) => (
-<tr onClick={()=> props.onClickRow (props.person.id)}>
+<tr onClick={()=> props.onClickRow (props.person.idPerson)}>
     <td >
         <img src={props.person.picsLinks[0]} alt="person portrait" style={{ maxWidth: '10rem', maxHeight: '10rem'}}/>
     </td>
     <td>
-        {props.person.name}
+        {props.person.namePerson}
     </td>
     <td>
         {props.person.aka}

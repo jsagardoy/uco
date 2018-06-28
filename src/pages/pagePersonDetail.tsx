@@ -4,7 +4,7 @@ import {RouteComponentProps} from 'react-router';
 import {PeopleEntity} from '../model/people';
 import { PersonComponent } from '../components/person';
 
-import {operationAPI} from '../api/operationAPI';
+import axios from 'axios';
 
 
 
@@ -21,11 +21,11 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     constructor (props){
         super(props);
 
-        const operationList = operationAPI.getAllOperations();
+        const operationList = [];//esto debería tener allOperations, habría que mirar si ahora rula
         const idOperation=this.props.match.params.idOperation;
         const idPerson = this.props.match.params.idPerson 
 
-        const operation = operationList.find(((operation)=>+operation.id===+idOperation));
+        const operation = operationList.find(((operation)=>+operation.idOperation===+idOperation));
         const peopleList = operation.people;
         const person = peopleList.find((p)=>+p.id===+idPerson);
 
@@ -48,7 +48,15 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 })
         
     }
-    
+    axiosGet = () =>{
+        const url = 'http://localhost:4000/api/operations';
+        axios.get(url)
+        .then(res=>{
+            const operations = res.data;
+            this.setState(operations);
+        })
+        .catch((error)=>console.log(error));
+    }
     onToggle = (element:string) => {
         let newState:State = null;
         switch (element)

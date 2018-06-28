@@ -3,9 +3,10 @@ import {OperationTableComponent} from '../components/operations';
 import { OperationEntity } from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';
-import { operationAPI } from '../api/operationAPI';
+//import { operationAPI } from '../api/operationAPI';
+//import {getOperations} from '../api/operationAPIConnection';
 import {updateElementFromArray} from '../model/';
-
+import axios from 'axios';
 
 interface State {
     operationList: Array<OperationEntity>
@@ -15,15 +16,28 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
 
     constructor(props){
         super(props);
-
-        this.state={
-            operationList:operationAPI.getAllOperations()
-        }
+        this.state= ({operationList:[]});  
     }
-    componentDidMount () {
-        this.setState({operationList: operationAPI.getAllOperations()});
-    } 
 
+    parseOperation = (data):Array<OperationEntity> =>{
+        const opList:Array<OperationEntity> = [];
+        
+        data.forEach(item => {
+                opList.push(item);
+        })
+          return (opList);
+    } 
+    componentWillMount () {
+        const url = 'http://localhost:4000/api/operations';
+        axios.get(url)
+        .then(res=>{
+            const operations = res.data;
+            this.setState({operationList:operations});
+        })
+        .catch((error)=>console.log(error));
+        //this.setState({operationList: operationAPI.getAllOperations()});
+        //this.setState({operationList: getOperations});
+    } 
     
     onClickRow = (id:number) => {
         this.props.history.push({
@@ -34,7 +48,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     onToggle = (newOperation:OperationEntity):void => {
         const newOp:OperationEntity = {...newOperation};
         newOp.state=!newOperation.state
-        const updatedList = updateElementFromArray(this.state.operationList,newOp,(item)=>item.id===newOp.id)
+        const updatedList = updateElementFromArray(this.state.operationList,newOp,(item)=>item.id===newOp.idOperation)
         this.setState({operationList:updatedList})
     }
 

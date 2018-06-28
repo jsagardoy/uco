@@ -19,7 +19,7 @@ export const TableBodyComponent: React.StatelessComponent<Props> =  (props:Props
                 .filter(operation=>operation.state===props.type)
                 .map((operation : OperationEntity) => (
                                            
-                 <RowComponent  key={operation.id}
+                 <RowComponent  key={operation.idOperation}
                                 operation={operation}
                                 onClickRow={props.onClickRow}
                                 onToogle={props.onToggle}
