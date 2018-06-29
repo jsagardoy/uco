@@ -16,18 +16,10 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
 
     constructor(props){
         super(props);
-        this.state= ({operationList:[]});  
+        this.state = {operationList:[]}
     }
 
-    parseOperation = (data):Array<OperationEntity> =>{
-        const opList:Array<OperationEntity> = [];
-        
-        data.forEach(item => {
-                opList.push(item);
-        })
-          return (opList);
-    } 
-    componentWillMount () {
+     componentWillMount () {
         const url = 'http://localhost:4000/api/operations';
         axios.get(url)
         .then(res=>{
@@ -35,9 +27,8 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
             this.setState({operationList:operations});
         })
         .catch((error)=>console.log(error));
-        //this.setState({operationList: operationAPI.getAllOperations()});
-        //this.setState({operationList: getOperations});
-    } 
+    }
+     
     
     onClickRow = (id:number) => {
         this.props.history.push({

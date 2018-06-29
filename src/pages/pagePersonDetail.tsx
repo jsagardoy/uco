@@ -5,6 +5,7 @@ import {PeopleEntity} from '../model/people';
 import { PersonComponent } from '../components/person';
 
 import axios from 'axios';
+import { OperationEntity } from '../model';
 
 
 
@@ -20,15 +21,16 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
 
     constructor (props){
         super(props);
+        const opList = "operationList";
 
-        const operationList = [];//esto debería tener allOperations, habría que mirar si ahora rula
-        const idOperation=this.props.match.params.idOperation;
-        const idPerson = this.props.match.params.idPerson 
-
-        const operation = operationList.find(((operation)=>+operation.idOperation===+idOperation));
-        const peopleList = operation.people;
-        const person = peopleList.find((p)=>+p.id===+idPerson);
-
+        let person;
+        this.props.history.location.state?
+        person = this.props.history.location.state.person    
+        :     
+        person=JSON.parse(localStorage.getItem(opList));
+        
+        localStorage.setItem(opList,JSON.stringify(person));
+              
 
         !!this.props.history.location.state?
             this.state = {         
@@ -48,15 +50,17 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 })
         
     }
-    axiosGet = () =>{
-        const url = 'http://localhost:4000/api/operations';
-        axios.get(url)
-        .then(res=>{
-            const operations = res.data;
-            this.setState(operations);
+
+    
+    parseOperation = (data):Array<OperationEntity> =>{
+        const opList:Array<OperationEntity> = [];
+        
+        data.forEach(item => {
+                opList.push(item);
         })
-        .catch((error)=>console.log(error));
-    }
+          return (opList);
+    } 
+
     onToggle = (element:string) => {
         let newState:State = null;
         switch (element)

@@ -7,14 +7,18 @@ import {RouteComponentProps} from 'react-router'
 interface State {
     operationList:Array<OperationEntity>
 }
-// aquí tengo que cambiar esto y almacenarlo en el browser
+
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,State> {
     constructor(props){
+        
         super(props);
+        const opList = "operationList";
+        
         !!this.props.history.location.state?
         this.state={operationList:this.props.history.location.state.operationList}:
-        this.state={operationList:[]/*getAllOperations*/};
+        this.state={operationList:JSON.parse(localStorage.getItem(opList))};
         
+        localStorage.setItem(opList,JSON.stringify(this.state.operationList));
     }
 
     onClickRow = (idPerson:number) =>{
