@@ -3,8 +3,6 @@ import {OperationTableComponent} from '../components/operations';
 import { OperationEntity } from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';
-//import { operationAPI } from '../api/operationAPI';
-//import {getOperations} from '../api/operationAPIConnection';
 import {updateElementFromArray} from '../model/';
 import axios from 'axios';
 
@@ -36,11 +34,24 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
             state:{operationList:this.state.operationList}
         })
     }
+
+    patchStateOperation = (operation:OperationEntity) =>{
+        const url = `http://localhost:4000/api/operations/${operation.idOperation}`;
+
+        axios.patch(url,
+            {"state":operation.state}
+        )
+        .then(res=>{
+            console.log('Operation updated');
+        })
+        .catch((error)=>console.log(error));
+    }    
     onToggle = (newOperation:OperationEntity):void => {
         const newOp:OperationEntity = {...newOperation};
         newOp.state=!newOperation.state
-        const updatedList = updateElementFromArray(this.state.operationList,newOp,(item)=>item.id===newOp.idOperation)
-        this.setState({operationList:updatedList})
+        const updatedList = updateElementFromArray(this.state.operationList,newOp,(item)=>item.idOperation===newOp.idOperation)
+        this.setState({operationList:updatedList});
+        this.patchStateOperation(newOp);
     }
 
 render(){
