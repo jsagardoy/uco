@@ -1,5 +1,11 @@
 import * as React from 'react';
+<<<<<<< HEAD
 import { FamiliarEntity } from '../../model';
+=======
+import { FamiliarEntity } from '../../model/familiar';
+import { GalleryComponent } from '../helperComponent';
+import { LocationOn } from '@material-ui/icons';
+>>>>>>> no message
 
 
 import {dataType, fileSelectedHandler, handleChange} from '../../common';
@@ -19,6 +25,7 @@ interface Props{
 }
 
 
+<<<<<<< HEAD
 export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
     constructor(props:Props){
         super(props);
@@ -35,6 +42,12 @@ export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
         })
     }
     
+=======
+                <GalleryComponent imagesList={props.familiar.familiarPics}/>
+            </div> 
+        </div>
+)
+>>>>>>> no message
 
     handleChange = (fieldName:string, value:any, group:string) =>{
         this.setState(handleChange(fieldName,value,group,this.state));

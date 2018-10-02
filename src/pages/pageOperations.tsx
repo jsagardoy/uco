@@ -4,7 +4,6 @@ import { OperationEntity } from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';
 import {updateElementFromArray} from '../model/';
-import {machines} from '../common';
 import axios from 'axios';
 import {getOperations} from '../api/operationAPIConnection';
 
@@ -20,7 +19,17 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
      componentWillMount () {
+<<<<<<< HEAD
         getOperations().then((res)=>this.setState({operationList:res}));
+=======
+        const url = 'http://localhost:4000/api/operations';
+        axios.get(url)
+        .then(res=>{
+            const operations = res.data;
+            this.setState({operationList:operations});
+        })
+        .catch((error)=>console.log(error));
+>>>>>>> no message
     }
      
     
@@ -32,7 +41,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
     patchStateOperation = (operation:OperationEntity) =>{
-        const url = `${machines.DEV}/${operation.idOperation}`;
+        const url = `http://localhost:4000/api/operations/${operation.idOperation}`;
 
         axios.patch(url,
             {"state":operation.state}
