@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FamiliarEntity } from '../../model/familiar';
 import { GalleryComponent } from '../helperComponent';
 import { LocationOn } from '@material-ui/icons';
+import { Carousel } from 'react-responsive-carousel';
 
 interface Props{
     familiar:FamiliarEntity;
@@ -25,7 +26,16 @@ export const FamiliarComponent: React.StatelessComponent<Props> = (props:Props) 
                 <label className="col-10" htmlFor="related">Tipo de relación</label>
                 <input type="text" id="related" className="form-control" placeholder={props.familiar.related}/>
 
-                <GalleryComponent imagesList={props.familiar.familiarPics}/>
+                <Carousel autoPlay>
+                {
+                    props.familiar.familiarPics.map((pic) => {
+                        <div className="FamiliarPic">
+                            <img src={pic}/>
+                        </div>
+                    })
+                }
+                </Carousel>
+               {/*  <GalleryComponent imagesList={props.familiar.familiarPics}/> */}
             </div> 
         </div>
 )
