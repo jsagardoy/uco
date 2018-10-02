@@ -4,7 +4,6 @@ import { OperationEntity } from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';
 import {updateElementFromArray} from '../model/';
-import {machines} from '../common';
 import axios from 'axios';
 
 interface State {
@@ -19,7 +18,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
      componentWillMount () {
-        const url = machines.DEV;
+        const url = 'http://localhost:4000/api/operations';
         axios.get(url)
         .then(res=>{
             const operations = res.data;
@@ -37,7 +36,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
     patchStateOperation = (operation:OperationEntity) =>{
-        const url = `${machines.DEV}/${operation.idOperation}`;
+        const url = `http://localhost:4000/api/operations/${operation.idOperation}`;
 
         axios.patch(url,
             {"state":operation.state}

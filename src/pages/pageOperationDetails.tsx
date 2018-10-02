@@ -30,17 +30,19 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
 
         this.props.history.push({
             pathname:`${idOperation}/personDetail/${idPerson}`,
-            state:{person: person,
-                    notEditable: true    
+            state:{
+                operation:operation,
+                person: person,
+                notEditable: true    
             }
         })
     }
 
-    showOperationDetail = (id:number)=>(
+    showOperationDetail = (idOperation:number)=>(
         <div className="Operation">
             {
                 this.state.operationList
-                    .filter((operation)=>+operation.idOperation===+id)
+                    .filter((operation)=>+operation.idOperation===+idOperation)
                     .map((operation) => (
                     <ShowOperation key={operation.idOperation} 
                                 operation={operation} 
