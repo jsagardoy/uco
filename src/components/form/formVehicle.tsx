@@ -2,7 +2,8 @@ import * as React from 'react';
 import { PeopleEntity} from '../../model';
 import {ExpandMore, ExpandLess } from '@material-ui/icons';
 import { VehicleComponent } from '../vehicles';
-import {dataType} from '../../common'
+import {dataType} from '../../common';
+import Button from '@material-ui/core/Button';
 
 interface Props {
     person: PeopleEntity;
@@ -12,15 +13,15 @@ interface Props {
 
 export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Props) =>{
     return(
-        <div className='vehicle-component'>
-            <button type="button" className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+        <div className='container vehicle-component'>
+            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+            <span>Vehículos</span>
                 {props.showVehicle ?
                     <ExpandLess /> :
                     <ExpandMore />
                 }
-                <span>Vehículos</span>
-            </button>
-            props.showVehicle ? 
+            </Button>
+            {props.showVehicle? 
                 <div id="vehicles" className='vehicleList'>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">
@@ -35,6 +36,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 :
                 <>
                 </>
+            }
         </div>
     )
 }

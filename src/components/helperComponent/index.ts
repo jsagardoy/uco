@@ -1,2 +1,0 @@
-export {GalleryComponent} from './galleryComponent';
-

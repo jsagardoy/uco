@@ -8,12 +8,10 @@ let basePath = __dirname;
 module.exports = {
     context: path.join(basePath, "src"),
     resolve: {
-        extensions: ['.js', '.ts', '.tsx']
+        extensions: ['.js', '.ts', '.tsx','.jsx']
     },
     entry: [
-        './main.tsx',
-        '../node_modules/bootstrap/dist/css/bootstrap.css',
-     
+        './main.tsx'     
     ],
     output: {
         path: path.join(basePath, 'dist'),
