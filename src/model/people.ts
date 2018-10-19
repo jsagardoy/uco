@@ -6,10 +6,10 @@ export interface PeopleEntity {
     idPerson: number;
     namePerson: string;
     aka?: string;
-    picsLinks?: string[];
+    picsLinks?: [{img:{data:string,contentType:string}}];
     address?: string;
     addressLink?: string;
-    addressPic?: string[];
+    addressPic?: [{img:{data:string,contentType:string}}];
     vehicles?: VehicleEntity [];
     companies?: CompanyEntity [];
     rutine?: string [];

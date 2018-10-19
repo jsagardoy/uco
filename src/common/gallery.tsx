@@ -15,14 +15,12 @@ export class GalleryComponent extends React.Component<Props,State> {
   constructor(props:Props) {
     super(props);
     this.state =({ currentImage: 0,lightboxIsOpen:false, photos : this.transformArray()});
-    
-    
   }
   transformArray = ():Array<any> => {
     var imagesArray:Array<any>=[]; 
     this.props.list.map((item)=>{
         let element={
-            src: item,
+            src: item.img.data,
             width: 1,
             height: 1,
         }

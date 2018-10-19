@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {PeopleEntity} from '../../model';
-/* import {ExpandMore, ExpandLess } from '@material-ui/icons';
+import {Edit,Save,Cancel} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
-import {FamiliarComponent} from '../familiar'; */
 
 import {
         PersonFormComponent,
@@ -22,15 +21,39 @@ interface Props {
     showCompany:boolean;
     showFamiliar:boolean;
     onToggle:(string)=>void;
-    
+    onEdit:()=>void;
+    handleChange: (fieldName:string, value:any, group:string) => void;
+    fileSelectedHandler:(fieldName:string, value:any, group:string,fileName:string) => void;
+    onSave:(person) =>void;
+    onCancel:(person)=>void;
 }
 
 export const PersonComponent: React.StatelessComponent<Props> = (props:Props) => {
+    var oldPerson:PeopleEntity = {...props.person};
     return(
         
-        <form className="formPerson">
+        <form className="formPerson" encType="multipart/form-data">
             <fieldset disabled={props.notEditable}>
-                <PersonFormComponent person={props.person} 
+                {
+                    props.notEditable?
+                <Button onClick={props.onEdit}>
+                    <Edit />
+                </Button>
+                :
+                <>
+                    <Button onClick={()=>props.onSave(oldPerson)}>
+                        <Save />
+                    </Button>
+                    <Button onClick={()=>props.onCancel(oldPerson)}>
+                        {console.log(oldPerson.namePerson)}
+                        <Cancel />
+                    </Button>  
+                </>
+                }
+                <PersonFormComponent person={props.person}
+                                     notEditable={props.notEditable}
+                                     handleChange={props.handleChange} 
+                                     handlefileSelectorChange={props.fileSelectedHandler}
                 />
                 
                 <VehicleFormComponent person={props.person} 
@@ -53,7 +76,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                        showFamiliar={props.showFamiliar}
                                        onToggle={props.onToggle}
                 />
-                
             </fieldset>
         </form>
 

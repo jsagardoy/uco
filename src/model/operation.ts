@@ -7,11 +7,3 @@ export interface OperationEntity{
     people? : PeopleEntity[],
 }
 
-/*export const createEmptyOperation = ():OperationEntity =>({
-    nameOperation:"",
-    id: -1,
-    state:true,
-    type:"",
-    people: []
-})*/
-

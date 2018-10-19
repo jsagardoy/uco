@@ -6,6 +6,7 @@ import {RouteComponentProps} from 'react-router';
 import {updateElementFromArray} from '../model/';
 import {machines} from '../common';
 import axios from 'axios';
+import {getOperations} from '../api/operationAPIConnection';
 
 interface State {
     operationList: Array<OperationEntity>
@@ -19,13 +20,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
      componentWillMount () {
-        const url = machines.DEV;
-        axios.get(url)
-        .then(res=>{
-            const operations = res.data;
-            this.setState({operationList:operations});
-        })
-        .catch((error)=>console.log(error));
+        getOperations().then((res)=>this.setState({operationList:res}));
     }
      
     
@@ -58,7 +53,10 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
 render(){
         return(
             <MuiThemeProvider>
-                <OperationTableComponent operationList={this.state.operationList} onClickRow={this.onClickRow} onToggle={this.onToggle}/>
+                <OperationTableComponent operationList={this.state.operationList} 
+                                         onClickRow={this.onClickRow} 
+                                         onToggle={this.onToggle}
+                />
             </MuiThemeProvider>
         );
     }   

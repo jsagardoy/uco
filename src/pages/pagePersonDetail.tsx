@@ -6,7 +6,7 @@ import { PersonComponent } from '../components/person';
 
 import axios from 'axios';
 import { OperationEntity } from '../model';
-
+import {getBase64} from '../common/file64';
 
 
 interface State{
@@ -31,7 +31,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
         localStorage.setItem(opList,JSON.stringify(person));
               
-
         !!this.props.history.location.state?
             this.state = {         
                 person:this.props.history.location.state.person, 
@@ -83,10 +82,80 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         }
     }
      
+    onEdit=()=>{
+        this.setState({notEditable:!this.state.notEditable})
+    }
+    onSave = (newPerson:PeopleEntity) => {
+        //guardar datos
+        console.log('datos guardados');
+    }
+    onCancel = (oldPerson:PeopleEntity) =>{
+        //cancelar cambios
+        this.onEdit();
+    }
+    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
+        console.log('antes***** ');
+        console.log(this.state.person.picsLinks);
+        let newArray:Array<any>=[];
+        newArray = [...this.state[group][fieldName]];
+        //get fileExtension
+        const fileExtension = 'img/'+fileName.substring(fileName.lastIndexOf('.')+1);
+        //transformation to base64
+        let data='';
+        //getBase64(value);
+        var reader = new FileReader();
+        reader.onloadend = (event) => {
+            data = btoa(encodeURIComponent(reader.result.toString()));
+        }
+        reader.readAsDataURL (value);
+        
+        //construct the array the array
+        let newElement = {img:{data:data,contentType:fileExtension}}
+        newArray.push(newElement);
+
+        let newState:State = {
+            ...this.state,
+            [group]:{
+                ...this.state[group],
+                [fieldName]:newArray,
+            }
+        };
+        this.setState(newState,function(){
+            console.log('despues****');
+            console.log(this.state.person.picsLinks);
+        });
+        
+        
+        
+    }
+    handleChange = (fieldName:string, value:any, group:string) =>{
+        const newState:State = {
+            ...this.state,
+            [group]:{
+                ...this.state[group],
+                [fieldName]:value
+            }
+        };
+        this.setState(newState);
+
+    }
+
     render(){
         
         return (
-            <PersonComponent onToggle={this.onToggle} person={this.state.person} notEditable={this.state.notEditable} showVehicle={this.state.showVehicle} showCompany={this.state.showCompany} showFamiliar={this.state.showFamiliar}/>
+
+            <PersonComponent onToggle={this.onToggle} 
+                             onSave={this.onSave} 
+                             onCancel={this.onCancel} 
+                             onEdit={this.onEdit} 
+                             person={this.state.person} 
+                             notEditable={this.state.notEditable} 
+                             showVehicle={this.state.showVehicle} 
+                             showCompany={this.state.showCompany} 
+                             showFamiliar={this.state.showFamiliar}
+                             handleChange={this.handleChange}
+                             fileSelectedHandler={this.fileSelectedHandler}
+            />
         );
     }
 }
