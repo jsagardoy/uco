@@ -6,8 +6,8 @@ import { PersonComponent } from '../components/person';
 
 import axios from 'axios';
 import { OperationEntity } from '../model';
-import {base64ToString, stringToBase64} from '../common'
-
+import { stringToBase64} from '../common'
+import {readFile} from '../common/readFile';
 
 interface State{
     person: PeopleEntity;
@@ -93,7 +93,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         //cancelar cambios
         this.onEdit();
     }
-      
     fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
         let newArray:Array<any>=[];
         newArray = [...this.state[group][fieldName]];
@@ -101,12 +100,11 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         const fileExtension = 'image/'+fileName.substring(fileName.lastIndexOf('.')+1);
         
         //getBase64(value);
-        let reader = new FileReader();
-        reader.onloadend = (event) => {
-            let data = stringToBase64(reader.result.toString())
-            
-            //construct the array the array
-            let newElement = {img:{data:data,contentType:fileExtension}}
+        //let reader = new FileReader();
+    
+        readFile(value,(data)=>{
+        console.log(data);
+        let newElement = {img:{data:data,contentType:fileExtension}}
             newArray.push(newElement);
 
             let newState:State = {
@@ -116,10 +114,8 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                     [fieldName]:newArray,
                 }
             };
-            this.setState(newState);
-        }
-        reader.readAsDataURL(value); 
-        this.setState(newState);
+            this.setState(newState); 
+        } );           
     }
     handleChange = (fieldName:string, value:any, group:string) =>{
         const newState:State = {
