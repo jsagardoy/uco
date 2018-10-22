@@ -2,6 +2,7 @@ import * as React from 'react';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 
+
 interface Props{
     list:Array<any>
   }
@@ -16,6 +17,11 @@ export class GalleryComponent extends React.Component<Props,State> {
     super(props);
     this.state =({ currentImage: 0,lightboxIsOpen:false, photos : this.transformArray()});
   }
+  componentWillReceiveProps (){
+    this.setState({
+            photos:this.transformArray()
+          })
+  }
   transformArray = ():Array<any> => {
     var imagesArray:Array<any>=[]; 
     this.props.list.map((item)=>{
@@ -26,6 +32,8 @@ export class GalleryComponent extends React.Component<Props,State> {
         }
         imagesArray.push(element);
     });
+    if (this.props.list.length==7){console.log(this.props.list[6].img.data);}
+    
     return imagesArray;
   }
   calculateSize = ():number =>{

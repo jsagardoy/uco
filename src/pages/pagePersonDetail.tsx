@@ -6,7 +6,7 @@ import { PersonComponent } from '../components/person';
 
 import axios from 'axios';
 import { OperationEntity } from '../model';
-import {getBase64} from '../common/file64';
+import {base64ToString, stringToBase64} from '../common'
 
 
 interface State{
@@ -93,40 +93,33 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         //cancelar cambios
         this.onEdit();
     }
+      
     fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
-        console.log('antes***** ');
-        console.log(this.state.person.picsLinks);
         let newArray:Array<any>=[];
         newArray = [...this.state[group][fieldName]];
         //get fileExtension
-        const fileExtension = 'img/'+fileName.substring(fileName.lastIndexOf('.')+1);
-        //transformation to base64
-        let data='';
+        const fileExtension = 'image/'+fileName.substring(fileName.lastIndexOf('.')+1);
+        
         //getBase64(value);
-        var reader = new FileReader();
+        let reader = new FileReader();
         reader.onloadend = (event) => {
-            data = btoa(encodeURIComponent(reader.result.toString()));
-        }
-        reader.readAsDataURL (value);
-        
-        //construct the array the array
-        let newElement = {img:{data:data,contentType:fileExtension}}
-        newArray.push(newElement);
+            let data = stringToBase64(reader.result.toString())
+            
+            //construct the array the array
+            let newElement = {img:{data:data,contentType:fileExtension}}
+            newArray.push(newElement);
 
-        let newState:State = {
-            ...this.state,
-            [group]:{
-                ...this.state[group],
-                [fieldName]:newArray,
-            }
-        };
-        this.setState(newState,function(){
-            console.log('despues****');
-            console.log(this.state.person.picsLinks);
-        });
-        
-        
-        
+            let newState:State = {
+                ...this.state,
+                [group]:{
+                    ...this.state[group],
+                    [fieldName]:newArray,
+                }
+            };
+            this.setState(newState);
+        }
+        reader.readAsDataURL(value); 
+        this.setState(newState);
     }
     handleChange = (fieldName:string, value:any, group:string) =>{
         const newState:State = {
@@ -137,7 +130,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
             }
         };
         this.setState(newState);
-
     }
 
     render(){
