@@ -3,28 +3,36 @@ import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 
 
-interface Props{
+  interface Props{
     list:Array<any>
   }
-interface State{
+  interface State{
     currentImage: number;
     lightboxIsOpen: boolean;
     photos:Array<any>
 }
 
-export class GalleryComponent extends React.Component<Props,State> {
-  constructor(props:Props) {
+  export class GalleryComponent extends React.Component<Props,State> {
+    constructor(props:Props) {
     super(props);
-    this.state =({ currentImage: 0,lightboxIsOpen:false, photos : this.transformArray()});
+    const newArray:Array<any> = this.initialTransformArray(this.props.list);
+    this.state ={ currentImage: 0,lightboxIsOpen:false, photos : newArray};
   }
-  componentWillReceiveProps (){
-    this.setState({
-            photos:this.transformArray()
-          })
-  }
-  transformArray = ():Array<any> => {
-    var imagesArray:Array<any>=[]; 
-    this.props.list.map((item)=>{
+
+    componentDidUpdate(prevProps){
+    if (prevProps!==this.props){
+      const newArray:Array<any> = this.initialTransformArray(this.props.list);
+      let newState = {
+        ...this.state,
+        photos:newArray
+      };
+      this.setState(newState);
+    }
+   } 
+   
+  initialTransformArray = (list:Array<any>) => {
+    let imagesArray:Array<any>=[]; 
+    list.map((item)=>{
         let element={
             src: item.img.data,
             width: 1,
@@ -32,10 +40,9 @@ export class GalleryComponent extends React.Component<Props,State> {
         }
         imagesArray.push(element);
     });
-    if (this.props.list.length==7){console.log(this.props.list[6].img.data);}
-    
     return imagesArray;
   }
+
   calculateSize = ():number =>{
       return Math.floor(Math.random()*4) +1;
   }
