@@ -63,7 +63,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                     props.notEditable?
                     null:
                     <InputFile group='vehicle'
-                            name='pics'
+                            name='pic'
                             onChange={props.handlefileSelectorChange}     
                     />   
                 }

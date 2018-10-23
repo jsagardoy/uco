@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {PeopleEntity} from '../../model';
-import {Edit,Save,Cancel} from '@material-ui/icons';
+import {Edit,Save,Cancel,ExpandMore, ExpandLess} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 
 import {
@@ -14,6 +14,7 @@ import {
 import {VehicleComponent} from '../vehicles';
 
 import "../../content/site.css";
+import { dataType } from '../../common';
 
 interface Props {
     person: PeopleEntity;
@@ -56,20 +57,32 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                      handleChange={props.handleChange} 
                                      handlefileSelectorChange={props.fileSelectedHandler}
                 />
+               
+                    
+{
+                <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+                <span>Vehículos</span>
+                    {props.showVehicle ?
+                        <ExpandLess /> :
+                        <ExpandMore />
+                    }
+                </Button> 
+}
+                <ul>
                 {
+                
                 props.person.vehicles.map((vehicle)=>(
+                    
                     <VehicleComponent key={vehicle.idVehicle}
                                       vehicle={vehicle} 
                                       showVehicle={props.showVehicle}
                                       notEditable={props.notEditable}
                                       onToggle={props.onToggle}
-                                      handleChange={props.handleChange}
-                                      handlefileSelectorChange={props.fileSelectedHandler}
 
                     />
                 ))
-                
-                }
+        
+                } </ul>
                 <CompanyFormComponent person={props.person}
                                       showCompany={props.showCompany}
                                       onToggle={props.onToggle}

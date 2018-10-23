@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { PeopleEntity, VehicleEntity} from '../../model';
-import {ExpandMore, ExpandLess } from '@material-ui/icons';
+
 import {VehicleFormComponent} from '../form/formVehicle';
-import {dataType} from '../../common';
+import {dataType, readFile} from '../../common';
 import Button from '@material-ui/core/Button';
 
 interface Props {
@@ -10,34 +10,69 @@ interface Props {
     showVehicle: boolean;
     notEditable:boolean;
     onToggle: (string) => void;
-    handleChange:(fieldName:string,value:any,group:string)=>void;
-    handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
 
-export const VehicleComponent: React.StatelessComponent<Props> = (props:Props) =>{
-    return(
-        <div className='container vehicle-component'>
-            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
-            <span>Vehículos</span>
-                {props.showVehicle ?
-                    <ExpandLess /> :
-                    <ExpandMore />
+interface State {
+    vehicle:VehicleEntity;
+}
+
+export class VehicleComponent extends React.Component<Props,State> {
+
+    constructor(props:Props) {
+        super(props);
+        this.state={vehicle:this.props.vehicle}
+    }
+    
+
+    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
+        let newArray:Array<any>=[];
+        newArray = [...this.state[group][fieldName]];
+        //get fileExtension
+        const fileExtension = 'image/'+fileName.substring(fileName.lastIndexOf('.')+1);
+        
+        //getBase64(value);
+        //let reader = new FileReader();
+    
+        readFile(value,(data)=>{
+        console.log(data);
+        let newElement = {img:{data:data,contentType:fileExtension}}
+            newArray.push(newElement);
+    
+            let newState:State = {
+                ...this.state,
+                [group]:{
+                    ...this.state[group],
+                    [fieldName]:newArray,
                 }
-            </Button>
-            {
-                props.showVehicle? 
-                <li className="list-group-item">
-                    <VehicleFormComponent   vehicle={props.vehicle}
-                                            notEditable={props.notEditable}
-                                            handleChange={props.handleChange}
-                                            handlefileSelectorChange={props.handlefileSelectorChange}
-                    />
-                </li>
-                :
-                <>
-                </>
+            };
+            this.setState(newState); 
+        } );           
+    }
+    handleChange = (fieldName:string, value:any, group:string) =>{
+        const newState:State = {
+            ...this.state,
+            [group]:{
+                ...this.state[group],
+                [fieldName]:value
             }
-        </div>
-    )
+        };
+        this.setState(newState);
+    }
+    render(){
+        return(
+
+                    this.props.showVehicle? 
+                    <li className="list-group-item">
+                        <VehicleFormComponent   vehicle={this.state.vehicle}
+                                                notEditable={this.props.notEditable}
+                                                handleChange={this.handleChange}
+                                                handlefileSelectorChange={this.fileSelectedHandler}
+                        />
+                    </li>
+                    :
+                    <>
+                    </>
+        )
+    }
 }
 
