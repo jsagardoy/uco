@@ -1,43 +1,74 @@
 import * as React from 'react';
-import { PeopleEntity} from '../../model';
-import {ExpandMore, ExpandLess } from '@material-ui/icons';
-import { VehicleComponent } from '../vehicles';
-import {dataType} from '../../common';
-import Button from '@material-ui/core/Button';
+import {VehicleEntity} from '../../model/vehicle';
+import { GalleryComponent } from '../../common';
+import {Input,InputFile} from '../form//common';
 
-interface Props {
-    person: PeopleEntity;
-    onToggle: (string) => void;
-    showVehicle: boolean;
+interface Props{
+    vehicle:  VehicleEntity;
+    notEditable:boolean;
+    handleChange:(fieldName:string,value:any,group:string)=>void;
+    handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
 
-export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Props) =>{
-    return(
-        <div className='container vehicle-component'>
-            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
-            <span>Vehículos</span>
-                {props.showVehicle ?
-                    <ExpandLess /> :
-                    <ExpandMore />
+export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Props) => {
+     return(
+         
+         <div className="card">
+            <div className="card-header" >
+                <h3>{`${props.vehicle.brand} - ${props.vehicle.model}`}</h3>
+                <h4>{`${props.vehicle.plate}`}</h4>
+            </div>
+            <div className="card-body">
+                <Input  name='brand'
+                        value={props.vehicle.brand}
+                        placeholder={props.vehicle.brand} 
+                        label='Marca'
+                        group='vehicle'
+                        onChange={props.handleChange}
+                />
+ 
+                <Input  name='model'
+                        value={props.vehicle.model}
+                        placeholder={props.vehicle.model} 
+                        label='Modelo'
+                        group='vehicle'
+                        onChange={props.handleChange}
+                />
+                <Input  name='type'
+                        value={props.vehicle.vehicleType}
+                        placeholder={props.vehicle.vehicleType} 
+                        label='Tipo de vehículo'
+                        group='vehicle'
+                        onChange={props.handleChange}
+                />
+                
+                <Input  name='plate'
+                        value={props.vehicle.plate}
+                        placeholder={props.vehicle.plate} 
+                        label='Matrícula'
+                        group='vehicle'
+                        onChange={props.handleChange}
+                />
+
+                <Input  name='frame'
+                        value={props.vehicle.frame}
+                        placeholder={props.vehicle.frame} 
+                        label='Bastidor'
+                        group='vehicle'
+                        onChange={props.handleChange}
+                />
+
+                <GalleryComponent list={props.vehicle.pic}/>
+                {
+                    props.notEditable?
+                    null:
+                    <InputFile group='vehicle'
+                            name='pics'
+                            onChange={props.handlefileSelectorChange}     
+                    />   
                 }
-            </Button>
-            {props.showVehicle? 
-                <div id="vehicles" className='vehicleList'>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                        {
-                            props.person.vehicles.map((vehicle)=>
-                                <VehicleComponent key={vehicle.idVehicle} vehicle={vehicle}/>
-                            )
-                        }
-                        </li>
-                    </ul>
-                </div>
-                :
-                <>
-                </>
-            }
-        </div>
-    )
+            </div>
+         </div>
+     
+     );
 }
-

@@ -1,41 +1,43 @@
 import * as React from 'react';
-import {VehicleEntity} from '../../model/vehicle';
-import { GalleryComponent } from '../../common';
+import { PeopleEntity, VehicleEntity} from '../../model';
+import {ExpandMore, ExpandLess } from '@material-ui/icons';
+import {VehicleFormComponent} from '../form/formVehicle';
+import {dataType} from '../../common';
+import Button from '@material-ui/core/Button';
 
-
-interface Props{
-    vehicle:  VehicleEntity;
+interface Props {
+    vehicle: VehicleEntity; 
+    showVehicle: boolean;
+    notEditable:boolean;
+    onToggle: (string) => void;
+    handleChange:(fieldName:string,value:any,group:string)=>void;
+    handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
 
-export const 
-VehicleComponent: React.StatelessComponent<Props> = (props:Props) => {
-     return(
-         
-         <div className="card">
-            <div className="card-header" >
-                <h3>{`${props.vehicle.brand} - ${props.vehicle.model}`}</h3>
-                <h4>{`${props.vehicle.plate}`}</h4>
-            </div>
-            <div className="card-body">
-                <label className="col-10" htmlFor="brand">Marca</label>
-                <input type="text" id="brand" className="form-control" placeholder={props.vehicle.brand}/>
-                
-                <label className="col-10" htmlFor="model">Modelo</label>
-                <input type="text" id="model" className="form-control" placeholder={props.vehicle.model}/>
-                
-                <label className="col-10" htmlFor="type">Tipo de Vehículo</label>
-                <input type="text" id="type" className="form-control" placeholder={props.vehicle.vehicleType}/>
-
-                <label className="col-10" htmlFor="plate">Matrícula</label>
-                <input type="text" id="plate" className="form-control" placeholder={props.vehicle.plate}/>
-
-                <label className="col-10" htmlFor="frame">Bastidor</label>
-                <input type="text" id="frame" className="form-control" placeholder={props.vehicle.frame}/>
-                <div className="container">
-                    <GalleryComponent list={props.vehicle.pic}/>
-                </div>
-            </div>
-         </div>
-     
-     );
+export const VehicleComponent: React.StatelessComponent<Props> = (props:Props) =>{
+    return(
+        <div className='container vehicle-component'>
+            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+            <span>Vehículos</span>
+                {props.showVehicle ?
+                    <ExpandLess /> :
+                    <ExpandMore />
+                }
+            </Button>
+            {
+                props.showVehicle? 
+                <li className="list-group-item">
+                    <VehicleFormComponent   vehicle={props.vehicle}
+                                            notEditable={props.notEditable}
+                                            handleChange={props.handleChange}
+                                            handlefileSelectorChange={props.handlefileSelectorChange}
+                    />
+                </li>
+                :
+                <>
+                </>
+            }
+        </div>
+    )
 }
+

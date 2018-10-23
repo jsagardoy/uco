@@ -5,12 +5,13 @@ import Button from '@material-ui/core/Button';
 
 import {
         PersonFormComponent,
-        VehicleFormComponent,
         CompanyFormComponent,
         RutinesFormComponent,
         LinksFormComponent,
         FamiliarFormComponent
         } from '../form';
+
+import {VehicleComponent} from '../vehicles';
 
 import "../../content/site.css";
 
@@ -55,12 +56,20 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                      handleChange={props.handleChange} 
                                      handlefileSelectorChange={props.fileSelectedHandler}
                 />
-                
-                <VehicleFormComponent person={props.person} 
+                {
+                props.person.vehicles.map((vehicle)=>(
+                    <VehicleComponent key={vehicle.idVehicle}
+                                      vehicle={vehicle} 
                                       showVehicle={props.showVehicle}
+                                      notEditable={props.notEditable}
                                       onToggle={props.onToggle}
-                />
+                                      handleChange={props.handleChange}
+                                      handlefileSelectorChange={props.fileSelectedHandler}
+
+                    />
+                ))
                 
+                }
                 <CompanyFormComponent person={props.person}
                                       showCompany={props.showCompany}
                                       onToggle={props.onToggle}

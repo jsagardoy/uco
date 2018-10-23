@@ -4,9 +4,8 @@ import {RouteComponentProps} from 'react-router';
 import {PeopleEntity} from '../model/people';
 import { PersonComponent } from '../components/person';
 
-import axios from 'axios';
 import { OperationEntity } from '../model';
-import { stringToBase64} from '../common'
+
 import {readFile} from '../common/readFile';
 
 interface State{
@@ -131,7 +130,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     render(){
         
         return (
-
+            <>
             <PersonComponent onToggle={this.onToggle} 
                              onSave={this.onSave} 
                              onCancel={this.onCancel} 
@@ -144,6 +143,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              handleChange={this.handleChange}
                              fileSelectedHandler={this.fileSelectedHandler}
             />
+            </>
         );
     }
 }
