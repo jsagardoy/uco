@@ -44,14 +44,19 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props:Props
                     onChange={props.handleChange}
             />
             <GalleryComponent list={props.person.picsLinks}/>
+            {//show button only if in edditing mode
+            }
+            {
+            props.notEditable?
+            null:
             <InputFile group='person'
                        name='picsLinks'
                        onChange={props.handlefileSelectorChange}     
             />   
+            }
         </div>
         <div className='block' >
             <h5 className='imageAddressTitle'>Domicilio</h5>
-
             <Input  name='address'
                     value={props.person.address}
                     placeholder={props.person.address} 
@@ -69,9 +74,16 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props:Props
                     onChange={props.handleChange}
             />
             } 
-            <div className='container'>
-                <GalleryComponent list = {props.person.addressPic}/> 
-            </div>
+
+            <GalleryComponent list = {props.person.addressPic}/>
+            {
+            props.notEditable?
+            null:
+            <InputFile group='person'
+                       name='addressPic'
+                       onChange={props.handlefileSelectorChange}     
+            />   
+            }
         </div>
     </div>
     )
