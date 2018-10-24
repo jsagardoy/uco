@@ -7,6 +7,7 @@ import { PersonComponent } from '../components/person';
 import { OperationEntity } from '../model';
 
 import {readFile} from '../common/readFile';
+import { fileSelectedHandler, handleChange } from '../common/handlers';
 
 interface State{
     person: PeopleEntity;
@@ -92,39 +93,19 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         //cancelar cambios
         this.onEdit();
     }
-    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
-        let newArray:Array<any>=[];
-        newArray = [...this.state[group][fieldName]];
-        //get fileExtension
-        const fileExtension = 'image/'+fileName.substring(fileName.lastIndexOf('.')+1);
-        
-        //getBase64(value);
-        //let reader = new FileReader();
-    
-        readFile(value,(data)=>{
-        console.log(data);
-        let newElement = {img:{data:data,contentType:fileExtension}}
-            newArray.push(newElement);
-
-            let newState:State = {
+    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string):any => {
+     
+        fileSelectedHandler(fieldName, value, group, fileName,this.state.person,(data)=>{
+            let newState:State={
                 ...this.state,
-                [group]:{
-                    ...this.state[group],
-                    [fieldName]:newArray,
-                }
-            };
-            this.setState(newState); 
-        } );           
+                person:data
+            }
+            this.setState(newState);
+        })
+        
     }
     handleChange = (fieldName:string, value:any, group:string) =>{
-        const newState:State = {
-            ...this.state,
-            [group]:{
-                ...this.state[group],
-                [fieldName]:value
-            }
-        };
-        this.setState(newState);
+        this.setState(handleChange(fieldName,value,group,this.state));
     }
 
     render(){

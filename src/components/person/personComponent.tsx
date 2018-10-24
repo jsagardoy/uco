@@ -78,7 +78,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                       showVehicle={props.showVehicle}
                                       notEditable={props.notEditable}
                                       onToggle={props.onToggle}
-
                     />
                 ))
         

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PeopleEntity, VehicleEntity} from '../../model';
+import { fileSelectedHandler, handleChange } from '../../common/handlers';
 
 import {VehicleFormComponent} from '../form/formVehicle';
 import {dataType, readFile} from '../../common';
@@ -23,40 +24,19 @@ export class VehicleComponent extends React.Component<Props,State> {
         this.state={vehicle:this.props.vehicle}
     }
     
-
-    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => {
-        let newArray:Array<any>=[];
-        newArray = [...this.state[group][fieldName]];
-        //get fileExtension
-        const fileExtension = 'image/'+fileName.substring(fileName.lastIndexOf('.')+1);
+    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => { 
         
-        //getBase64(value);
-        //let reader = new FileReader();
-    
-        readFile(value,(data)=>{
-        console.log(data);
-        let newElement = {img:{data:data,contentType:fileExtension}}
-            newArray.push(newElement);
-    
-            let newState:State = {
+        fileSelectedHandler(fieldName, value, group, fileName,this.state.vehicle,(data)=>{
+            let newState:State={
                 ...this.state,
-                [group]:{
-                    ...this.state[group],
-                    [fieldName]:newArray,
-                }
-            };
-            this.setState(newState); 
-        } );           
-    }
-    handleChange = (fieldName:string, value:any, group:string) =>{
-        const newState:State = {
-            ...this.state,
-            [group]:{
-                ...this.state[group],
-                [fieldName]:value
+                vehicle:data
             }
-        };
-        this.setState(newState);
+            this.setState(newState);
+        })
+    }
+  
+    handleChange = (fieldName:string, value:any, group:string) =>{
+        this.setState(handleChange(fieldName,value,group,this.state));
     }
     render(){
         return(
