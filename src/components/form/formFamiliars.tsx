@@ -1,40 +1,51 @@
 import * as React from 'react';
-import { PeopleEntity } from '../../model';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
-import Button from '@material-ui/core/Button';
-import { FamiliarComponent } from '../familiar';
-import {dataType} from '../../common';
+import { FamiliarEntity } from '../../model/familiar';
+import { LocationOn } from '@material-ui/icons';
+import {GalleryComponent} from '../../common';
+import { Input, InputFile } from './common';
 
 interface Props{
-    person: PeopleEntity;
-    showFamiliar: boolean;
-    onToggle: (string) => void;
+    familiar:FamiliarEntity;
+    notEditable:boolean;
+    handleChange:(fieldName:string,value:any,group:string)=>void;
+    handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
 
-export const FamiliarFormComponent:React.StatelessComponent<Props> = (props:Props) =>(
-    <div id='familiars' className='familiars'>
+export const FamiliarFormComponent: React.StatelessComponent<Props> = (props:Props) =>(
+     <>
+        <h3> {props.familiar.nameFamiliar}</h3>
+ 
+        <Input  name='familiarName'
+                value={props.familiar.nameFamiliar}
+                placeholder={props.familiar.nameFamiliar} 
+                label='Nombre'
+                group='familiars'
+                onChange={props.handleChange}
+        />
+        <Input  name='familiarAddress'
+                value={props.familiar.familiarAddress}
+                placeholder={props.familiar.familiarAddress} 
+                label='Dirección'
+                group='familiars'
+                onChange={props.handleChange}
+        />
+        <a target="_blank" href={props.familiar.addressLink}><LocationOn/> Ubicación</a> 
 
-        <Button onClick={(event) => props.onToggle(dataType.FAMILIAR)}>
-            <span>Familiares</span>
-            {props.showFamiliar ?
-                <ExpandLess /> :
-                <ExpandMore />
-            }
-        </Button>
-        {
-            props.showFamiliar ?
-                <ul className="familiarList">
-                    {
-                        props.person.familiars.map((familiar) =>
-                            <li key={familiar.idFamiliar}>
-                                <FamiliarComponent familiar={familiar} />
-                            </li>
-                        )
-                    }
-                </ul>
-                :
-                <>
-                </>
+        <Input  name='related'
+                value={props.familiar.related}
+                placeholder={props.familiar.related} 
+                label='Tipo de relación'
+                group='familiars'
+                onChange={props.handleChange}
+        />
+            <GalleryComponent list={props.familiar.familiarPics}/> 
+            {
+                props.notEditable?
+                null:
+                <InputFile group='familiars'
+                        name='familiarPics'
+                        onChange={props.handlefileSelectorChange}     
+                />   
         }
-    </div>
+    </>  
 )

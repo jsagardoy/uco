@@ -16,6 +16,7 @@ import {CompanyComponent} from '../company';
 
 import "../../content/site.css";
 import { dataType } from '../../common';
+import { FamiliarComponent } from '../familiar';
 
 interface Props {
     person: PeopleEntity;
@@ -48,7 +49,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         <Save />
                     </Button>
                     <Button onClick={()=>props.onCancel(oldPerson)}>
-                        {console.log(oldPerson.namePerson)}
                         <Cancel />
                     </Button>  
                 </>
@@ -109,11 +109,21 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
 
                 <LinksFormComponent person={props.person}
                 />
+                <Button onClick={(event) => props.onToggle(dataType.FAMILIAR)}>
+                    <span>Familiares</span>
+                    {props.showFamiliar ?
+                    <ExpandLess /> :
+                    <ExpandMore />
+                }
+                </Button>
+                {props.person.familiars.map((familiar)=>(
+                    <FamiliarComponent  key={familiar.idFamiliar}
+                                        notEditable={props.notEditable}
+                                        familiar={familiar}
+                                        showFamiliar={props.showFamiliar}
+                                        onToggle={props.onToggle}
+                />))}
                 
-                <FamiliarFormComponent person={props.person}
-                                       showFamiliar={props.showFamiliar}
-                                       onToggle={props.onToggle}
-                />
             </fieldset>
         </form>
 
