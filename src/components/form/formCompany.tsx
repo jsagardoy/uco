@@ -1,40 +1,39 @@
 import * as React from 'react';
-import { CompanyComponent } from '../company';
-import { CompanyEntity, PeopleEntity } from '../../model';
-import { ExpandMore, ExpandLess } from '@material-ui/icons';
-import Button from '@material-ui/core/Button';
-import {dataType} from '../../common';
+import {CompanyEntity} from '../../model/company';
+import { LocationOn } from '@material-ui/icons';
+import { Input } from './common';
+
+
 
 interface Props {
-    person: PeopleEntity;
-    showCompany: boolean;
-    onToggle: (string) => void;
+    company: CompanyEntity;
+    handleChange:(fieldName:string,value:any,group:string)=>void;
 }
 
-export const CompanyFormComponent:React.StatelessComponent<Props> = (props:Props) =>{
-return(
-    <div className="companies-component">
-        <Button onClick={(event)=>props.onToggle(dataType.COMPANY)}>
-            <span>Empresas</span>
-            {
-                props.showCompany? 
-                <ExpandLess/>:
-                <ExpandMore/>
-            }
-        </Button>
-        {
-        props.showCompany?
-            <div id="companies" className='form-group'>
-                {
-                    props.person.companies.map((company:CompanyEntity)=>
-                    <CompanyComponent key={company.idCompany} company={company}/>
-                )
-                }
-            </div>
-        :
-            <>
-            </>
-        }
+export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Props) => (
+    <div className="card-body">
+        <Input  name='nameCompany'
+                value={props.company.nameCompany}
+                placeholder={props.company.nameCompany} 
+                label='Nombre'
+                group='company'
+                onChange={props.handleChange}
+        />
+        <Input  name='cif'
+                value={props.company.cif}
+                placeholder={props.company.cif} 
+                label='CIF'
+                group='company'
+                onChange={props.handleChange}
+        />
+        <Input  name='address'
+                value={props.company.address}
+                placeholder={props.company.address} 
+                label='address'
+                group='company'
+                onChange={props.handleChange}
+        />
+        <a target="_blank" href={props.company.map}> <LocationOn/>Ubicación </a>
     </div>
+
 )
-}

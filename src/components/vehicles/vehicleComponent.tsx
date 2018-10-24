@@ -42,7 +42,7 @@ export class VehicleComponent extends React.Component<Props,State> {
         return(
 
                     this.props.showVehicle? 
-                    <li className="list-group-item">
+                    <li >
                         <VehicleFormComponent   vehicle={this.state.vehicle}
                                                 notEditable={this.props.notEditable}
                                                 handleChange={this.handleChange}

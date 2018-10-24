@@ -12,6 +12,7 @@ import {
         } from '../form';
 
 import {VehicleComponent} from '../vehicles';
+import {CompanyComponent} from '../company';
 
 import "../../content/site.css";
 import { dataType } from '../../common';
@@ -58,8 +59,8 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                      handlefileSelectorChange={props.fileSelectedHandler}
                 />
                
-                    
-{
+ 
+                {
                 <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
                 <span>Vehículos</span>
                     {props.showVehicle ?
@@ -67,12 +68,11 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         <ExpandMore />
                     }
                 </Button> 
-}
+                }
                 <ul>
                 {
                 
                 props.person.vehicles.map((vehicle)=>(
-                    
                     <VehicleComponent key={vehicle.idVehicle}
                                       vehicle={vehicle} 
                                       showVehicle={props.showVehicle}
@@ -81,12 +81,29 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     />
                 ))
         
-                } </ul>
-                <CompanyFormComponent person={props.person}
-                                      showCompany={props.showCompany}
-                                      onToggle={props.onToggle}
-                />
+                }
+                </ul>
 
+                <Button onClick={(event)=>props.onToggle(dataType.COMPANY)}>
+                    <span>Empresas</span>
+                    {
+                        props.showCompany? 
+                        <ExpandLess/>:
+                        <ExpandMore/>
+                    }
+                </Button>
+                <ul>
+                {
+                props.person.companies.map((company)=>(
+                    <CompanyComponent   key={company.idCompany}
+                                        company={company}
+                                        showCompany={props.showCompany}
+                                        onToggle={props.onToggle}
+                />
+                ))
+                }
+                </ul>
+                
                 <RutinesFormComponent person={props.person} 
                 />
 
