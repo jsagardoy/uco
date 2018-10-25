@@ -15,37 +15,37 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props:Pro
      <>
         <h3> {props.familiar.nameFamiliar}</h3>
  
-        <Input  name='familiarName'
+        <Input  name='nameFamiliar'
                 value={props.familiar.nameFamiliar}
                 placeholder={props.familiar.nameFamiliar} 
                 label='Nombre'
-                group='familiars'
+                group='familiar'
                 onChange={props.handleChange}
         />
         <Input  name='familiarAddress'
                 value={props.familiar.familiarAddress}
                 placeholder={props.familiar.familiarAddress} 
                 label='Dirección'
-                group='familiars'
+                group='familiar'
                 onChange={props.handleChange}
         />
-        <a target="_blank" href={props.familiar.addressLink}><LocationOn/> Ubicación</a> 
+        <a target="_blank" href={props.familiar.addressLink}><LocationOn/> Ubicación del Domicilio</a> 
 
         <Input  name='related'
                 value={props.familiar.related}
                 placeholder={props.familiar.related} 
                 label='Tipo de relación'
-                group='familiars'
+                group='familiar'
                 onChange={props.handleChange}
         />
-            <GalleryComponent list={props.familiar.familiarPics}/> 
-            {
-                props.notEditable?
-                null:
-                <InputFile group='familiars'
-                        name='familiarPics'
-                        onChange={props.handlefileSelectorChange}     
-                />   
+        <GalleryComponent list={props.familiar.familiarPics}/> 
+        {
+        props.notEditable?
+        null:
+        <InputFile group='familiars'
+                name='familiarPics'
+                onChange={props.handlefileSelectorChange}     
+        />   
         }
     </>  
 )
