@@ -9,7 +9,7 @@ interface Props {
 interface State {
     rutine:string;
     rutines: Array<string>;
-    showComponent:boolean
+    showComponent:boolean;
 }
 
 export class RutinesComponent extends React.Component<Props,State> {
@@ -18,7 +18,7 @@ export class RutinesComponent extends React.Component<Props,State> {
         this.state={
                 rutines:this.props.rutines, 
                 rutine:'',
-                showComponent:true,
+                showComponent:false,
         };
     }
 
@@ -65,10 +65,14 @@ export class RutinesComponent extends React.Component<Props,State> {
                 }
             </ul>
                 <Button onClick={(e)=>this.addNewRutine()}>+</Button>
+                {this.state.showComponent?
                 <RutineFormComponent    rutine={this.state.rutine} 
                                         handleChange={this.handleChange}
                                         handleSubmit={this.handleSubmit}
                 />
+                :
+                null
+                }
             </>
         )
     }
