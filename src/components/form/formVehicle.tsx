@@ -31,7 +31,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 group='vehicle'
                 onChange={props.handleChange}
         />
-        <Input  name='type'
+        <Input  name='vehicleType'
                 value={props.vehicle.vehicleType}
                 placeholder={props.vehicle.vehicleType} 
                 label='Tipo de vehículo'

@@ -5,14 +5,12 @@ import Button from '@material-ui/core/Button';
 
 import {
         PersonFormComponent,
-        CompanyFormComponent,
-        RutinesFormComponent,
         LinksFormComponent,
-        FamiliarFormComponent
         } from '../form';
 
 import {VehicleComponent} from '../vehicles';
 import {CompanyComponent} from '../company';
+import {RutinesComponent} from '../rutines';
 
 import "../../content/site.css";
 import { dataType } from '../../common';
@@ -53,10 +51,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     </Button>  
                 </>
                 }
-                <PersonFormComponent person={props.person}
-                                     notEditable={props.notEditable}
-                                     handleChange={props.handleChange} 
-                                     handlefileSelectorChange={props.fileSelectedHandler}
+                <PersonFormComponent    person={props.person}
+                                        notEditable={props.notEditable}
+                                        handleChange={props.handleChange} 
+                                        handlefileSelectorChange={props.fileSelectedHandler}
                 />
                
  
@@ -103,8 +101,8 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 ))
                 }
                 </ul>
-                
-                <RutinesFormComponent person={props.person} 
+    
+                <RutinesComponent rutines={props.person.rutines}
                 />
 
                 <LinksFormComponent person={props.person}

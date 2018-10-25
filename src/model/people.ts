@@ -12,7 +12,7 @@ export interface PeopleEntity {
     addressPic?: [{img:{data:string,contentType:string}}];
     vehicles?: VehicleEntity [];
     companies?: CompanyEntity [];
-    rutine?: string [];
+    rutines?: string [];
     links?: string[];
     familiars?: FamiliarEntity[];
 }
