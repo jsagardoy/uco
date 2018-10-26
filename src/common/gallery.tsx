@@ -33,12 +33,14 @@ import Lightbox from 'react-images';
   initialTransformArray = (list:Array<any>) => {
     let imagesArray:Array<any>=[]; 
     list.map((item)=>{
-        let element={
-            src: item.img.data,
-            width: 1,
-            height: 1,
-        }
-        imagesArray.push(element);
+      if(item.img.data!==null){
+          let element={
+              src: item.img.data,
+              width: 1,
+              height: 1,
+          }
+          imagesArray.push(element);
+      }
     });
     return imagesArray;
   }
