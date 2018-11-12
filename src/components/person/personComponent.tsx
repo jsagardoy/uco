@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {PeopleEntity} from '../../model';
+import {PeopleEntity, FamiliarEntity} from '../../model';
 import {Edit,Save,Cancel,ExpandMore, ExpandLess} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 
 import {
-        PersonFormComponent,
+        PersonFormComponent, FamiliarFormComponent,
         } from '../form';
 
 import {VehicleComponent} from '../vehicles';
@@ -16,22 +16,38 @@ import "../../content/site.css";
 import { dataType } from '../../common';
 import { FamiliarComponent } from '../familiar';
 
+
 interface Props {
     person: PeopleEntity;
     notEditable:boolean;
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
+    addNew:boolean;
     onToggle:(string)=>void;
     onEdit:()=>void;
     handleChange: (fieldName:string, value:any, group:string) => void;
     fileSelectedHandler:(fieldName:string, value:any, group:string,fileName:string) => void;
     onSave:(person) =>void;
     onCancel:(person)=>void;
+    savingNew:(family:FamiliarEntity)=>void;
+    addingNew:()=>void;
+  
 }
+const createNewFamiliar = ():FamiliarEntity =>(
+    {
+        idFamiliar: Math.pow(Math.round(Math.random()*100),2) ,
+        nameFamiliar: '',
+        familiarPics: [{img:{data:null,contentType:null}}],
+        familiarAddress: '',
+        addressLink:'',
+        related: ''
+    }
+)
 
 export const PersonComponent: React.StatelessComponent<Props> = (props:Props) => {
     var oldPerson:PeopleEntity = {...props.person};
+    const newFamiliar =  createNewFamiliar();
     return(
         
         <form className="formPerson" encType="multipart/form-data">
@@ -51,12 +67,11 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     </Button>  
                 </>
                 }
-                <PersonFormComponent    person={props.person}
+                 <PersonFormComponent   person={props.person}
                                         notEditable={props.notEditable}
                                         handleChange={props.handleChange} 
                                         handlefileSelectorChange={props.fileSelectedHandler}
-                />
-               
+                /> 
  
                 {
                 <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
@@ -114,14 +129,36 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     <ExpandMore />
                 }
                 </Button>
-                {props.person.familiars.map((familiar)=>(
-                    <FamiliarComponent  key={familiar.idFamiliar}
-                                        notEditable={props.notEditable}
-                                        familiar={familiar}
+                {
+                    props.addNew?
+                    <FamiliarComponent  notEditable={props.notEditable}
+                                        familiar={newFamiliar}
                                         showFamiliar={props.showFamiliar}
                                         onToggle={props.onToggle}
-                />))}
-                
+                                        savingNew={props.savingNew}
+                                        addNew={props.addNew}
+                    />
+                    :
+                    <>
+                    {   
+                        props.person.familiars.map((familiar)=>(
+                        <FamiliarComponent  key={familiar.idFamiliar}
+                                            notEditable={props.notEditable}
+                                            familiar={familiar}
+                                            showFamiliar={props.showFamiliar}
+                                            onToggle={props.onToggle}
+                                            savingNew={props.savingNew}
+                                            addNew={props.addNew}
+                        />))
+                    }
+                    {props.showFamiliar?
+                        <Button onClick={props.addingNew}>Añadir nuevo Familiar</Button>
+                        :
+                        <></>
+                    }
+                    
+                    </>
+                } 
             </fieldset>
         </form>
 

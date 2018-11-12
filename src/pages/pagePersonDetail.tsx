@@ -4,7 +4,7 @@ import {RouteComponentProps} from 'react-router';
 import {PeopleEntity} from '../model/people';
 import { PersonComponent } from '../components/person';
 
-import { OperationEntity } from '../model';
+import { OperationEntity, FamiliarEntity, appendElementToArray } from '../model';
 
 import {readFile} from '../common/readFile';
 import { fileSelectedHandler, handleChange } from '../common/handlers';
@@ -15,6 +15,7 @@ interface State{
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
+    addNew:boolean;
 }
 
 export class DetailPersonPage extends React.Component< RouteComponentProps<any>,State> {
@@ -38,6 +39,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 showVehicle:false,
                 showCompany:false,
                 showFamiliar:false,
+                addNew:false,
             } 
         :
              this.state= ({
@@ -46,11 +48,10 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                  showVehicle:false,
                  showCompany:false,
                  showFamiliar:false,
+                 addNew:false,
                 })
         
     }
-
-    
     parseOperation = (data):Array<OperationEntity> =>{
         const opList:Array<OperationEntity> = [];
         
@@ -107,24 +108,50 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     handleChange = (fieldName:string, value:any, group:string) =>{
         this.setState(handleChange(fieldName,value,group,this.state));
     }
+    savingNew = (familiar:FamiliarEntity):void=>{
+        const newArray =  appendElementToArray(this.state.person.familiars,familiar);
+
+        const newState:State =  {
+                            ...this.state,
+                            person:{
+                                ...this.state.person,
+                                familiars:newArray,
+                            },
+                            showFamiliar:true,
+                            addNew:false,
+                            notEditable:false 
+                        }
+        this.setState(newState);
+        console.log('New familiar added');
+    
+    } 
+    
+    addingNew = ():void =>{
+        const newState:State = {
+                                ...this.state,
+                                addNew:!this.state.addNew,
+                                }
+        this.setState(newState);
+    }
 
     render(){
         
         return (
-            <>
             <PersonComponent onToggle={this.onToggle} 
                              onSave={this.onSave} 
                              onCancel={this.onCancel} 
                              onEdit={this.onEdit} 
                              person={this.state.person} 
+                             addNew={this.state.addNew}
                              notEditable={this.state.notEditable} 
                              showVehicle={this.state.showVehicle} 
                              showCompany={this.state.showCompany} 
                              showFamiliar={this.state.showFamiliar}
                              handleChange={this.handleChange}
-                             fileSelectedHandler={this.fileSelectedHandler}
+                             fileSelectedHandler={this.fileSelectedHandler} 
+                             savingNew={this.savingNew}
+                             addingNew={this.addingNew}                          
             />
-            </>
         );
     }
 }

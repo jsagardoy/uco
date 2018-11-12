@@ -9,6 +9,8 @@ interface Props{
     familiar: FamiliarEntity;
     showFamiliar: boolean;
     notEditable:boolean;
+    addNew:boolean;
+    savingNew:(familiar:FamiliarEntity)=>void;
     onToggle: (string) => void;
 }
 interface State {
@@ -30,26 +32,28 @@ export class FamiliarComponent extends React.Component<Props,State> {
             this.setState(newState);
         })
     }
-  
+    
+
     handleChange = (fieldName:string, value:any, group:string) =>{
         this.setState(handleChange(fieldName,value,group,this.state));
     }
     render(){
         return(<div id='familiars' className='familiars'>
-        {
+            {
             this.props.showFamiliar ?
-      
                 <li>
                     <FamiliarFormComponent familiar={this.state.familiar} 
                                             notEditable={this.props.notEditable}
+                                            savingNew={this.props.savingNew}
                                             handleChange={this.handleChange}
                                             handlefileSelectorChange={this.fileSelectedHandler}
+                                            addNew={this.props.addNew}
                     />
                 </li>
                 :
                 <>
                 </>
-        }
+             }
     </div>
     );
     }
