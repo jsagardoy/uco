@@ -9,7 +9,9 @@ import { handleChange } from '../../common/handlers';
 interface Props {
     company: CompanyEntity;
     showCompany: boolean;
+    addNewCompany:boolean;
     onToggle: (string) => void;
+    savingNewCompany:(company:CompanyEntity)=>void;
 }
 
 interface State {
@@ -31,8 +33,10 @@ export class CompanyComponent extends React.Component<Props,State>{
             this.props.showCompany?
                 <li>
                     {
-                        <CompanyFormComponent company={this.state.company}
+                        <CompanyFormComponent addNewCompany={this.props.addNewCompany}
+                                              company={this.state.company}
                                               handleChange={this.handleChange}
+                                              savingNewCompany={this.props.savingNewCompany}
 
                         />
                     }

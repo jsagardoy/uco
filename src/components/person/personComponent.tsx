@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {PeopleEntity, FamiliarEntity} from '../../model';
+import {PeopleEntity, FamiliarEntity, CompanyEntity} from '../../model';
 import {Edit,Save,Cancel,ExpandMore, ExpandLess} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 
@@ -23,16 +23,19 @@ interface Props {
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
-    addNew:boolean;
+    addNewFamiliar:boolean;
+    addNewCompany:boolean;
     onToggle:(string)=>void;
     onEdit:()=>void;
     handleChange: (fieldName:string, value:any, group:string) => void;
     fileSelectedHandler:(fieldName:string, value:any, group:string,fileName:string) => void;
     onSave:(person) =>void;
     onCancel:(person)=>void;
-    savingNew:(family:FamiliarEntity)=>void;
-    addingNew:()=>void;
-  
+    savingNewFamiliar:(family:FamiliarEntity)=>void;
+    savingNewCompany:(company:CompanyEntity)=>void;
+    addingNewFamiliar:()=>void;
+    addingNewCompany:()=>void;
+    
 }
 const createNewFamiliar = ():FamiliarEntity =>(
     {
@@ -44,10 +47,20 @@ const createNewFamiliar = ():FamiliarEntity =>(
         related: ''
     }
 )
+const createNewCompany = ():CompanyEntity =>(
+    {   
+        idCompany: Math.pow(Math.round(Math.random()*100),2) ,
+        nameCompany: '',
+        cif: '',
+        address: '',
+        map: '',
+    }
+)
 
 export const PersonComponent: React.StatelessComponent<Props> = (props:Props) => {
     var oldPerson:PeopleEntity = {...props.person};
     const newFamiliar =  createNewFamiliar();
+    const newCompany = createNewCompany();
     return(
         
         <form className="formPerson" encType="multipart/form-data">
@@ -107,15 +120,35 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 </Button>
                 <ul>
                 {
-                props.person.companies.map((company)=>(
-                    <CompanyComponent   key={company.idCompany}
-                                        company={company}
+                    props.addNewCompany?        
+                    <CompanyComponent   addNewCompany={props.addNewCompany}
+                                        company={newCompany}
                                         showCompany={props.showCompany}
+                                        savingNewCompany={props.savingNewCompany}
                                         onToggle={props.onToggle}
-                />
-                ))
+                    />
+                   :
+                    props.person.companies.map((company)=>(
+                        <CompanyComponent   addNewCompany={props.addNewCompany}
+                                            key={company.idCompany}
+                                            company={company}
+                                            showCompany={props.showCompany}
+                                            savingNewCompany={props.savingNewCompany}
+                                            onToggle={props.onToggle}
+                        />
+                    )
+                    )
                 }
+                
                 </ul>
+                {  
+                    props.showCompany?
+                    <Button onClick={props.addingNewCompany}>Añadir nueva Empresa</Button>
+                    :
+                    <></>
+                }
+
+                
     
                 <RutinesComponent rutines={props.person.rutines}
                 />
@@ -130,13 +163,13 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 }
                 </Button>
                 {
-                    props.addNew?
+                    props.addNewFamiliar?
                     <FamiliarComponent  notEditable={props.notEditable}
                                         familiar={newFamiliar}
                                         showFamiliar={props.showFamiliar}
                                         onToggle={props.onToggle}
-                                        savingNew={props.savingNew}
-                                        addNew={props.addNew}
+                                        savingNew={props.savingNewFamiliar}
+                                        addNew={props.addNewFamiliar}
                     />
                     :
                     <>
@@ -147,12 +180,12 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                             familiar={familiar}
                                             showFamiliar={props.showFamiliar}
                                             onToggle={props.onToggle}
-                                            savingNew={props.savingNew}
-                                            addNew={props.addNew}
+                                            savingNew={props.savingNewFamiliar}
+                                            addNew={props.addNewFamiliar}
                         />))
                     }
                     {props.showFamiliar?
-                        <Button onClick={props.addingNew}>Añadir nuevo Familiar</Button>
+                        <Button onClick={props.addingNewFamiliar}>Añadir nuevo Familiar</Button>
                         :
                         <></>
                     }
