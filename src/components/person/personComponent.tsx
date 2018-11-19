@@ -32,7 +32,7 @@ interface Props {
     onSave:(person) =>void;
     onCancel:(person)=>void;
     savingNew: (fieldId: string,element:any)=>void;
-    addingNew: (fieldId:keyof State)=>void;    
+    addingNew: (fieldId: string)=>void;    
 }
 
 
@@ -123,7 +123,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 </ul>
                 {  
                     props.showCompany?
-                    <Button onClick={(e)=>props.addingNew}>Añadir nueva Empresa</Button>
+                    <Button onClick={(e)=>props.addingNew("addNewCompany")}>Añadir nueva Empresa</Button>
                     :
                     <></>
                 }
@@ -165,7 +165,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         />))
                     }
                     {props.showFamiliar?
-                        <Button onClick={(e)=>props.addingNew}>Añadir nuevo Familiar</Button>
+                        <Button onClick={(e)=>props.addingNew('addNewFamiliar')}>Añadir nuevo Familiar</Button>
                         :
                         <></>
                     }
