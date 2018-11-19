@@ -11,7 +11,7 @@ interface Props {
     showCompany: boolean;
     addNewCompany:boolean;
     onToggle: (string) => void;
-    savingNewCompany:(company:CompanyEntity)=>void;
+    savingNew: (fieldId: string,element:any)=>void;
 }
 
 interface State {
@@ -36,7 +36,7 @@ export class CompanyComponent extends React.Component<Props,State>{
                         <CompanyFormComponent addNewCompany={this.props.addNewCompany}
                                               company={this.state.company}
                                               handleChange={this.handleChange}
-                                              savingNewCompany={this.props.savingNewCompany}
+                                              savingNew={this.props.savingNew}
 
                         />
                     }

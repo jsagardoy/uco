@@ -4,12 +4,13 @@ import { LocationOn } from '@material-ui/icons';
 import {GalleryComponent} from '../../common';
 import { Input, InputFile } from './common';
 import Button from '@material-ui/core/Button';
+import { State } from '../../pages';
 
 interface Props{
     familiar:FamiliarEntity;
     notEditable:boolean;
     addNew:boolean;
-    savingNew:(familiar:FamiliarEntity)=>void;
+    savingNew: (fieldId: string,element:any)=>void;
     handleChange:(fieldName:string,value:any,group:string)=>void;
     handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
@@ -57,7 +58,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props:Pro
                  onChange={props.handlefileSelectorChange}     
          />   
          } 
-         <Button onClick={(e)=>props.savingNew(props.familiar)}>Guardar nuevo</Button>
+         <Button onClick={(e)=>props.savingNew('familiars',props.familiar)}>Guardar nuevo</Button>
          </div>:
         <div>
                 <Input  name='nameFamiliar'

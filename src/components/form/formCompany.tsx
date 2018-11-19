@@ -10,7 +10,7 @@ interface Props {
     company: CompanyEntity;
     addNewCompany:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
-    savingNewCompany:(company:CompanyEntity)=>void;
+    savingNew: (fieldId: string,element:any)=>void;
 }
 
 export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Props) => (
@@ -46,7 +46,7 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 group='company'
                 onChange={props.handleChange}
         />
-         <Button onClick={(e)=>props.savingNewCompany(props.company)}>Guardar nuevo</Button>
+         <Button onClick={(e)=>props.savingNew('companies',props.company)}>Guardar nuevo</Button>
     </div>
     :
     <div className="card-body">

@@ -4,20 +4,19 @@ import { FamiliarEntity } from '../../model';
 
 import {dataType, fileSelectedHandler, handleChange} from '../../common';
 import { FamiliarFormComponent } from '../form';
+import { StateFamiliar } from '.';
 
 interface Props{
     familiar: FamiliarEntity;
     showFamiliar: boolean;
     notEditable:boolean;
     addNew:boolean;
-    savingNew:(familiar:FamiliarEntity)=>void;
+    savingNew: (fieldId: string,element:any)=>void;
     onToggle: (string) => void;
 }
-interface State {
-    familiar: FamiliarEntity
-}
 
-export class FamiliarComponent extends React.Component<Props,State> {
+
+export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
     constructor(props:Props){
         super(props);
         this.state={familiar:this.props.familiar}
@@ -25,7 +24,7 @@ export class FamiliarComponent extends React.Component<Props,State> {
     fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => { 
         
         fileSelectedHandler(fieldName, value, group, fileName,this.state.familiar,(data)=>{
-            let newState:State={
+            let newState:StateFamiliar={
                 ...this.state,
                 familiar:data
             }
