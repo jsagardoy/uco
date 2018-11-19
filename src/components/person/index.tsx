@@ -1,2 +1,2 @@
 export {PersonComponent} from './personComponent';
-export { createNewCompany,createNewFamiliar} from './personComponent.business';
+export { createNewCompany,createNewFamiliar,createNewVehicle} from './personComponent.business';

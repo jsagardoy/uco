@@ -8,6 +8,7 @@ export interface State {
     showFamiliar:boolean;
     addNewFamiliar:boolean;
     addNewCompany:boolean;
+    addNewVehicle:boolean;
 }
 
 export const createInitialState = (person:PeopleEntity, notEditable:boolean=true) => (
@@ -19,6 +20,7 @@ export const createInitialState = (person:PeopleEntity, notEditable:boolean=true
         showFamiliar:false,
         addNewFamiliar:false,
         addNewCompany:false,
+        addNewVehicle:false,
     }
 )
 

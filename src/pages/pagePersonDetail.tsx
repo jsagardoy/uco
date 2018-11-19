@@ -58,23 +58,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     handleChange = (fieldName:string, value:any, group:string) =>{
         this.setState(handleChange(fieldName,value,group,this.state));
     }
-    /* savingNewFamiliar = (familiar:FamiliarEntity):void=>{
-        const newArray =  appendElementToArray(this.state.person.familiars,familiar);
-
-        const newState:State =  {
-                            ...this.state,
-                            person:{
-                                ...this.state.person,
-                                familiars:newArray,
-                            },
-                            showFamiliar:true,
-                            addNewFamiliar:false,
-                            notEditable:false 
-                        }
-        this.setState(newState);
-        console.log('New familiar added');
-    
-    }  */
 
     savingNew = (fieldId:keyof State,element:any) =>{
 
@@ -98,29 +81,16 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 newState.addNewFamiliar=false;
                 newState.showFamiliar=true;
             break;
+            case 'vehicles':
+                newState.addNewVehicle=false;
+                newState.showVehicle=true;
+            break;
         }
         this.setState(newState);
         console.log(`New ${field} added`);
         
     }
     
-   /*  savingNewCompany = (company:CompanyEntity):void=>{
-        const newArray =  appendElementToArray(this.state.person.companies,company);
-
-        const newState:State =  {
-                            ...this.state,
-                            person:{
-                                ...this.state.person,
-                                companies:newArray,
-                            },
-                            showCompany:true,
-                            addNewCompany:false,
-                            notEditable:false 
-                        }
-        this.setState(newState);
-        console.log('New company added');
-    
-    }  */
     addingNew = (fieldId:keyof State) :void =>{
         let newState:State = {
             ...this.state,
@@ -129,21 +99,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
         this.setState(newState);
     }
-    /* addingNewFamiliar = ():void =>{
-        const newState:State = {
-                                ...this.state,
-                                addNewFamiliar:!this.state.addNewFamiliar,
-                                }
-        this.setState(newState);
-    }
-
-    addingNewCompany = ():void=>{
-        const newState:State = {
-            ...this.state,
-            addNewCompany:!this.state.addNewCompany,
-            }
-        this.setState(newState);
-    } */
 
     render(){
         
@@ -155,6 +110,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              person={this.state.person} 
                              addNewFamiliar={this.state.addNewFamiliar}
                              addNewCompany={this.state.addNewCompany}
+                             addNewVehicle={this.state.addNewVehicle}
                              notEditable={this.state.notEditable} 
                              showVehicle={this.state.showVehicle} 
                              showCompany={this.state.showCompany} 
@@ -163,6 +119,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              fileSelectedHandler={this.fileSelectedHandler} 
                              savingNew={this.savingNew}
                              addingNew={this.addingNew}
+                             
                
             />
         );

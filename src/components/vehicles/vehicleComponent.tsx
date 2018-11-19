@@ -10,6 +10,8 @@ interface Props {
     vehicle: VehicleEntity; 
     showVehicle: boolean;
     notEditable:boolean;
+    addNew:boolean;
+    savingNew: (fieldId: string,element:any)=>void;
     onToggle: (string) => void;
 }
 
@@ -47,6 +49,8 @@ export class VehicleComponent extends React.Component<Props,State> {
                                                 notEditable={this.props.notEditable}
                                                 handleChange={this.handleChange}
                                                 handlefileSelectorChange={this.fileSelectedHandler}
+                                                addNew={this.props.addNew}
+                                                savingNew={this.props.savingNew}
                         />
                     </li>
                     :

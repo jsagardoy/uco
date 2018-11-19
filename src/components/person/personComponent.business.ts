@@ -1,4 +1,4 @@
-import { FamiliarEntity, CompanyEntity } from "../../model";
+import { FamiliarEntity, CompanyEntity, VehicleEntity } from "../../model";
 
 export const createNewFamiliar = ():FamiliarEntity =>(
     {
@@ -17,5 +17,17 @@ export const createNewCompany = ():CompanyEntity =>(
         cif: '',
         address: '',
         map: '',
+    }
+)
+
+export const createNewVehicle = ():VehicleEntity => (
+    {
+        idVehicle: Math.pow(Math.round(Math.random()*100),2) ,
+        brand: '',
+        model: '',
+        vehicleType: '',
+        plate: '',
+        frame: '',
+        pic: [{img:{data:null,contentType:null}}],
     }
 )

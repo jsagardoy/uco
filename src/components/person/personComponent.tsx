@@ -14,8 +14,7 @@ import "../../content/site.css";
 import { dataType } from '../../common';
 import { FamiliarComponent } from '../familiar';
 
-import {createNewCompany,createNewFamiliar} from '.';
-import {State} from '../../pages';
+import {createNewCompany,createNewFamiliar, createNewVehicle} from '.';
 
 interface Props {
     person: PeopleEntity;
@@ -25,6 +24,7 @@ interface Props {
     showFamiliar:boolean;
     addNewFamiliar:boolean;
     addNewCompany:boolean;
+    addNewVehicle:boolean;
     onToggle:(string)=>void;
     onEdit:()=>void;
     handleChange: (fieldName:string, value:any, group:string) => void;
@@ -41,6 +41,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
     var oldPerson:PeopleEntity = {...props.person};
     const newFamiliar =  createNewFamiliar();
     const newCompany = createNewCompany();
+    const newVehicle = createNewVehicle();
     return(
         
         <form className="formPerson" encType="multipart/form-data">
@@ -75,20 +76,40 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     }
                 </Button> 
                 }
-                <ul>
+
                 {
-                
-                props.person.vehicles.map((vehicle)=>(
-                    <VehicleComponent key={vehicle.idVehicle}
-                                      vehicle={vehicle} 
-                                      showVehicle={props.showVehicle}
-                                      notEditable={props.notEditable}
-                                      onToggle={props.onToggle}
-                    />
-                ))
-        
-                }
+                    props.addNewVehicle? 
+                        <VehicleComponent   key={newVehicle.idVehicle}
+                                            vehicle={newVehicle} 
+                                            showVehicle={props.showVehicle}
+                                            notEditable={props.notEditable}
+                                            onToggle={props.onToggle}
+                                            addNew={props.addNewVehicle}
+                                            savingNew={props.savingNew}
+                        />
+                :
+                <ul>
+                    {
+                    props.person.vehicles.map((vehicle)=>(
+                        <VehicleComponent key={vehicle.idVehicle}
+                                        vehicle={vehicle} 
+                                        showVehicle={props.showVehicle}
+                                        notEditable={props.notEditable}
+                                        onToggle={props.onToggle}
+                                        addNew={props.addNewVehicle}
+                                        savingNew={props.savingNew}
+                        />
+                    ))
+                    }
                 </ul>
+                }
+
+                {
+                    props.showVehicle?
+                    <Button onClick={(e)=>props.addingNew("addNewVehicle")}>Añadir nuevo vehiculo</Button>
+                    :
+                    <></>
+                }
 
                 <Button onClick={(event)=>props.onToggle(dataType.COMPANY)}>
                     <span>Empresas</span>
