@@ -4,7 +4,7 @@ import {RouteComponentProps} from 'react-router';
 import {PeopleEntity} from '../model/people';
 import { PersonComponent } from '../components/person';
 
-import {appendElementToArray } from '../model';
+import {appendElementToArray, removeElementFromArray } from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import {initializeState,getPerson, storePerson} from '../api/person';
@@ -99,6 +99,18 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
         this.setState(newState);
     }
+    removeFromList = (fieldId:keyof State, index:number): void =>{
+        let newArray = removeElementFromArray(this.state.person[fieldId],(item)=>item===this.state.person[fieldId][index]);
+        let newState:State = {
+                ...this.state,
+                person:{
+                    ...this.state.person,
+                    [fieldId]:newArray
+                },
+        }
+        this.setState(newState);
+        console.log('Elemento Eliminado');
+    }
 
     render(){
         
@@ -119,6 +131,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              fileSelectedHandler={this.fileSelectedHandler} 
                              savingNew={this.savingNew}
                              addingNew={this.addingNew}
+                             removeFromList={this.removeFromList}
                              
                
             />

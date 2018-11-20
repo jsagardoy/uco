@@ -32,7 +32,8 @@ interface Props {
     onSave:(person) =>void;
     onCancel:(person)=>void;
     savingNew: (fieldId: string,element:any)=>void;
-    addingNew: (fieldId: string)=>void;    
+    addingNew: (fieldId: string)=>void; 
+    removeFromList: (fieldId:string, index:number) =>void;   
 }
 
 
@@ -171,11 +172,13 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                         onToggle={props.onToggle}
                                         savingNew={props.savingNew}
                                         addNew={props.addNewFamiliar}
+                                        removeFromList={props.removeFromList}
+                                        
                     />
                     :
                     <>
                     {   
-                        props.person.familiars.map((familiar)=>(
+                        props.person.familiars.map((familiar,index)=>(
                         <FamiliarComponent  key={familiar.idFamiliar}
                                             notEditable={props.notEditable}
                                             familiar={familiar}
@@ -183,7 +186,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                             onToggle={props.onToggle}
                                             savingNew={props.savingNew}
                                             addNew={props.addNewFamiliar}
-                        />))
+                                            removeFromList={props.removeFromList}
+                                            index={index}
+                        />
+                        ))
                     }
                     {props.showFamiliar?
                         <Button onClick={(e)=>props.addingNew('addNewFamiliar')}>Añadir nuevo Familiar</Button>

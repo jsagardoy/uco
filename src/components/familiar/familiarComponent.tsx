@@ -5,14 +5,17 @@ import { FamiliarEntity } from '../../model';
 import {dataType, fileSelectedHandler, handleChange} from '../../common';
 import { FamiliarFormComponent } from '../form';
 import { StateFamiliar } from '.';
+import Button from '@material-ui/core/Button';
 
 interface Props{
     familiar: FamiliarEntity;
     showFamiliar: boolean;
     notEditable:boolean;
     addNew:boolean;
+    index?:number;
     savingNew: (fieldId: string,element:any)=>void;
-    onToggle: (string) => void;
+    onToggle: (fieldId:string) => void;
+    removeFromList:(fieldId:string,index:number)=>void;
 }
 
 
@@ -48,6 +51,7 @@ export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
                                             handlefileSelectorChange={this.fileSelectedHandler}
                                             addNew={this.props.addNew}
                     />
+                    <Button onClick={(e)=>this.props.removeFromList('familiars',this.props.index)}>Eliminar familiar</Button>
                 </li>
                 :
                 <>
