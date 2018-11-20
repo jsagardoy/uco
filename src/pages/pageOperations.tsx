@@ -5,6 +5,7 @@ import { MuiThemeProvider } from 'material-ui';
 import {RouteComponentProps} from 'react-router';
 import {updateElementFromArray} from '../model/';
 import axios from 'axios';
+import {getOperations} from '../api/operationAPIConnection';
 
 interface State {
     operationList: Array<OperationEntity>
@@ -18,6 +19,12 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
     }
 
      componentWillMount () {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        getOperations().then((res)=>this.setState({operationList:res}));
+=======
+>>>>>>> master
         const url = 'http://localhost:4000/api/operations';
         axios.get(url)
         .then(res=>{
@@ -25,6 +32,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
             this.setState({operationList:operations});
         })
         .catch((error)=>console.log(error));
+>>>>>>> no message
     }
      
     
@@ -57,7 +65,10 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
 render(){
         return(
             <MuiThemeProvider>
-                <OperationTableComponent operationList={this.state.operationList} onClickRow={this.onClickRow} onToggle={this.onToggle}/>
+                <OperationTableComponent operationList={this.state.operationList} 
+                                         onClickRow={this.onClickRow} 
+                                         onToggle={this.onToggle}
+                />
             </MuiThemeProvider>
         );
     }   

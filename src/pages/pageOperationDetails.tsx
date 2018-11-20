@@ -23,10 +23,10 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
 
     onClickRow = (idPerson:number) =>{
         const idOperation:number =  +this.props.match.params.idOperation;
-        const operation = this.state.operationList.find(((operation)=>operation.idOperation===idOperation));
-        const peopleList = operation.people;
-        const person = peopleList.find((p)=>p.idPerson===idPerson);
-        const operationId = this.props.match.params.idOperation;
+        const operation:OperationEntity = this.state.operationList.find(((operation)=>operation.idOperation===idOperation));
+        const peopleList:PeopleEntity[] = operation.people;
+        const person:PeopleEntity = peopleList.find((p)=>p.idPerson===idPerson);
+        //const operationId = this.props.match.params.idOperation;
 
         this.props.history.push({
             pathname:`${idOperation}/personDetail/${idPerson}`,

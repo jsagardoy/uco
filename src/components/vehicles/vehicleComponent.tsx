@@ -1,42 +1,65 @@
 import * as React from 'react';
-import {VehicleEntity} from '../../model/vehicle';
-import { GalleryComponent } from '../helperComponent';
+import { PeopleEntity, VehicleEntity} from '../../model';
+import { fileSelectedHandler, handleChange } from '../../common/handlers';
 
+import {VehicleFormComponent} from '../form/formVehicle';
+import {dataType, readFile} from '../../common';
+import Button from '@material-ui/core/Button';
 
-interface Props{
-    vehicle:  VehicleEntity;
+interface Props {
+    vehicle: VehicleEntity; 
+    showVehicle: boolean;
+    notEditable:boolean;
+    addNew:boolean;
+    index?:number;
+    savingNew: (fieldId: string,element:any)=>void;
+    onToggle: (string) => void;
+    removeFromList:(fieldId:string,index:number)=>void;
 }
 
-export const 
-VehicleComponent: React.StatelessComponent<Props> = (props:Props) => {
-     return(
-         
-         <div className="card">
-            <div className="card-header" >
-                <h3>{`${props.vehicle.brand} - ${props.vehicle.model}`}</h3>
-                <h4>{`${props.vehicle.plate}`}</h4>
-                <img src={props.vehicle.pic[0]} height="200px" width="200px" />
-            </div>
-            <div className="card-body">
-                <label className="col-10" htmlFor="brand">Marca</label>
-                <input type="text" id="brand" className="form-control" placeholder={props.vehicle.brand}/>
-                
-                <label className="col-10" htmlFor="model">Modelo</label>
-                <input type="text" id="model" className="form-control" placeholder={props.vehicle.model}/>
-                
-                <label className="col-10" htmlFor="type">Tipo de Vehículo</label>
-                <input type="text" id="type" className="form-control" placeholder={props.vehicle.vehicleType}/>
-
-                <label className="col-10" htmlFor="plate">Matrícula</label>
-                <input type="text" id="plate" className="form-control" placeholder={props.vehicle.plate}/>
-
-                <label className="col-10" htmlFor="frame">Bastidor</label>
-                <input type="text" id="frame" className="form-control" placeholder={props.vehicle.frame}/>
-                <div className="container">
-                    <GalleryComponent imagesList={props.vehicle.pic}/>
-                </div>
-            </div>
-         </div>
-     
-     );
+interface State {
+    vehicle:VehicleEntity;
 }
+
+export class VehicleComponent extends React.Component<Props,State> {
+
+    constructor(props:Props) {
+        super(props);
+        this.state={vehicle:this.props.vehicle}
+    }
+    
+    fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string) => { 
+        
+        fileSelectedHandler(fieldName, value, group, fileName,this.state.vehicle,(data)=>{
+            let newState:State={
+                ...this.state,
+                vehicle:data
+            }
+            this.setState(newState);
+        })
+    }
+  
+    handleChange = (fieldName:string, value:any, group:string) =>{
+        this.setState(handleChange(fieldName,value,group,this.state));
+    }
+    render(){
+        return(
+
+                    this.props.showVehicle? 
+                    <li >
+                        <VehicleFormComponent   vehicle={this.state.vehicle}
+                                                notEditable={this.props.notEditable}
+                                                handleChange={this.handleChange}
+                                                handlefileSelectorChange={this.fileSelectedHandler}
+                                                addNew={this.props.addNew}
+                                                savingNew={this.props.savingNew}
+                        />
+                        <Button onClick={(e)=>this.props.removeFromList('vehicles',this.props.index)}>Eliminar vehiculo</Button>
+                    </li>
+                    :
+                    <>
+                    </>
+        )
+    }
+}
+

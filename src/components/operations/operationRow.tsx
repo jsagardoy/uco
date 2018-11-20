@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { Toggle } from 'material-ui';
-import {ChevronRight} from 'material-ui-icons';
 
 import {OperationEntity} from '../../model';
 
@@ -18,7 +17,8 @@ export const RowComponent: React.StatelessComponent<Props> = (props) => {
         <tr>
             <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.nameOperation}</td>
             <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.operationType}</td>
-            <td><Toggle onToggle={()=>props.onToogle(props.operation)}
+            <td>
+                <Toggle onToggle={()=>props.onToogle(props.operation)}
                 defaultToggled={props.operation.state}
                 />
             </td>

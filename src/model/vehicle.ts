@@ -5,5 +5,5 @@ export interface VehicleEntity {
     vehicleType: string;
     plate?: string;
     frame?: string;
-    pic?: string[];
+    pic?: [{img:{data:string,contentType:string}}];
 }
