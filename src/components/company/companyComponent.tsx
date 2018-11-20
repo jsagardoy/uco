@@ -10,8 +10,10 @@ interface Props {
     company: CompanyEntity;
     showCompany: boolean;
     addNewCompany:boolean;
+    index?:number;
     onToggle: (string) => void;
     savingNew: (fieldId: string,element:any)=>void;
+    removeFromList:(fieldId:string,index:number)=>void;
 }
 
 interface State {
@@ -32,14 +34,12 @@ export class CompanyComponent extends React.Component<Props,State>{
         return(
             this.props.showCompany?
                 <li>
-                    {
-                        <CompanyFormComponent addNewCompany={this.props.addNewCompany}
-                                              company={this.state.company}
-                                              handleChange={this.handleChange}
-                                              savingNew={this.props.savingNew}
-
-                        />
-                    }
+                    <CompanyFormComponent addNewCompany={this.props.addNewCompany}
+                                            company={this.state.company}
+                                            handleChange={this.handleChange}
+                                            savingNew={this.props.savingNew}
+                    />
+                    <Button onClick={(e)=>this.props.removeFromList('companies',this.props.index)}>Eliminar Empresa</Button>
                 </li>
             :
                 <>

@@ -87,18 +87,21 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                             onToggle={props.onToggle}
                                             addNew={props.addNewVehicle}
                                             savingNew={props.savingNew}
+                                            removeFromList={props.removeFromList}
                         />
                 :
                 <ul>
                     {
-                    props.person.vehicles.map((vehicle)=>(
+                    props.person.vehicles.map((vehicle, index)=>(
                         <VehicleComponent key={vehicle.idVehicle}
-                                        vehicle={vehicle} 
+                                        vehicle={vehicle}
+                                        index={index} 
                                         showVehicle={props.showVehicle}
                                         notEditable={props.notEditable}
                                         onToggle={props.onToggle}
                                         addNew={props.addNewVehicle}
                                         savingNew={props.savingNew}
+                                        removeFromList={props.removeFromList}
                         />
                     ))
                     }
@@ -128,15 +131,18 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                         showCompany={props.showCompany}
                                         savingNew={props.savingNew}
                                         onToggle={props.onToggle}
+                                        removeFromList={props.removeFromList}
                     />
                    :
-                    props.person.companies.map((company)=>(
+                    props.person.companies.map((company,index)=>(
                     <CompanyComponent   addNewCompany={props.addNewCompany}
                                         key={company.idCompany}
+                                        index={index}
                                         company={company}
                                         showCompany={props.showCompany}
                                         savingNew={props.savingNew}
                                         onToggle={props.onToggle}
+                                        removeFromList={props.removeFromList}
                     />
                     )
                     )

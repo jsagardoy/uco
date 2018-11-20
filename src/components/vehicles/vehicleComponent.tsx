@@ -11,8 +11,10 @@ interface Props {
     showVehicle: boolean;
     notEditable:boolean;
     addNew:boolean;
+    index?:number;
     savingNew: (fieldId: string,element:any)=>void;
     onToggle: (string) => void;
+    removeFromList:(fieldId:string,index:number)=>void;
 }
 
 interface State {
@@ -52,6 +54,7 @@ export class VehicleComponent extends React.Component<Props,State> {
                                                 addNew={this.props.addNew}
                                                 savingNew={this.props.savingNew}
                         />
+                        <Button onClick={(e)=>this.props.removeFromList('vehicles',this.props.index)}>Eliminar vehiculo</Button>
                     </li>
                     :
                     <>
