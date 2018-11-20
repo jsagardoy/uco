@@ -42,9 +42,12 @@
     "react-images-upload": "^1.2.3",
     "react-motion": "^0.5.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-photo-gallery": "^6.2.1",
 =======
 >>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-slick": "^0.23.1",

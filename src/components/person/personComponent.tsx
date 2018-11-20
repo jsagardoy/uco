@@ -1,5 +1,6 @@
 import * as React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {PeopleEntity, FamiliarEntity, CompanyEntity} from '../../model';
 import {Edit,Save,Cancel,ExpandMore, ExpandLess} from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
@@ -20,12 +21,23 @@ import {VehicleComponent} from '../vehicles';
 import {FamiliarComponent} from '../familiar';
 import {CompanyComponent} from '../company';
 >>>>>>> no message
+=======
+import {PeopleEntity, CompanyEntity} from '../../model';
+import { LocationOn, FileUpload, ExpandMore, ExpandLess } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import { GalleryComponent } from '../helperComponent';
+
+import {VehicleComponent} from '../vehicles';
+import {FamiliarComponent} from '../familiar';
+import {CompanyComponent} from '../company';
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 
 import "../../content/site.css";
 import { dataType } from '../../common';
 import { FamiliarComponent } from '../familiar';
 
 import {createNewCompany,createNewFamiliar, createNewVehicle} from '.';
+
 
 
 interface Props {
@@ -39,6 +51,7 @@ interface Props {
     addNewVehicle:boolean;
     onToggle:(string)=>void;
 <<<<<<< HEAD
+<<<<<<< HEAD
     onEdit:()=>void;
     handleChange: (fieldName:string, value:any, group:string) => void;
     fileSelectedHandler:(fieldName:string, value:any, group:string,fileName:string) => void;
@@ -50,6 +63,9 @@ interface Props {
 =======
     handleChange: (e)=>void;
 >>>>>>> no message
+=======
+    handleChange: (e)=>void;
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 }
 
 
@@ -61,6 +77,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
     const newVehicle = createNewVehicle();
     return(
         
+<<<<<<< HEAD
 <<<<<<< HEAD
         <form className="formPerson" encType="multipart/form-data">
             <fieldset disabled={props.notEditable}>
@@ -199,6 +216,8 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                         
                     />
 =======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
         <form className="d-flex justify-content-center align-items-center flex-column" >
             <fieldset className="col-10" disabled={props.notEditable}>
             <div className="d-flex d-inline-flex">
@@ -210,6 +229,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     <h1>{`${props.person.namePerson} - ${props.person.aka}`}</h1>
                 }
             </div>
+<<<<<<< HEAD
 
             <div className="d-flex flex-column">
                 <div id="name" className='form-group'>
@@ -217,6 +237,15 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     <input type="text" className="form-control" id="namePerson" defaultValue={props.person.namePerson} onBlur={props.handleChange}/>
                 </div>
 
+=======
+
+            <div className="d-flex flex-column">
+                <div id="name" className='form-group'>
+                    <label  className="col-2" htmlFor="namePerson">Nombre</label>
+                    <input type="text" className="form-control" id="namePerson" defaultValue={props.person.namePerson} onBlur={props.handleChange}/>
+                </div>
+
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
                 <div id="alias" className='form-group'>
                     <label className="col-10" htmlFor="aka">Alias</label>
                     <input type="text" className="form-control" id="aka" defaultValue={props.person.aka} onBlur={props.handleChange}/>
@@ -288,6 +317,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         ))
                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
                     {props.showFamiliar?
                         <Button onClick={(e)=>props.addingNew('addNewFamiliar')}>Añadir nuevo Familiar</Button>
                         :
@@ -297,6 +327,8 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     </>
                 } 
 =======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
             
                 </div>
 
@@ -375,7 +407,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     } 
                 </div>
             </div>
+<<<<<<< HEAD
 >>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
             </fieldset>
         </form>
 

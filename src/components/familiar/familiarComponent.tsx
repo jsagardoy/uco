@@ -5,7 +5,10 @@ import { FamiliarEntity } from '../../model';
 import { FamiliarEntity } from '../../model/familiar';
 import { GalleryComponent } from '../helperComponent';
 import { LocationOn } from '@material-ui/icons';
+<<<<<<< HEAD
 >>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 
 
 import {dataType, fileSelectedHandler, handleChange} from '../../common';
@@ -26,6 +29,7 @@ interface Props{
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
     constructor(props:Props){
         super(props);
@@ -43,6 +47,8 @@ export class FamiliarComponent extends React.Component<Props,StateFamiliar> {
     }
     
 =======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
                 <GalleryComponent imagesList={props.familiar.familiarPics}/>
             </div> 
         </div>

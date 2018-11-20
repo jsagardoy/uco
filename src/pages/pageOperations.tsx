@@ -20,8 +20,11 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>,St
 
      componentWillMount () {
 <<<<<<< HEAD
+<<<<<<< HEAD
         getOperations().then((res)=>this.setState({operationList:res}));
 =======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
         const url = 'http://localhost:4000/api/operations';
         axios.get(url)
         .then(res=>{
