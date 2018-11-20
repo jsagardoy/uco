@@ -34,11 +34,19 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     constructor (props){
         super(props);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
 
         const person:PeopleEntity = getPerson(this.props.history.location.state);
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
         const personList = "personList";
         const operationStore = "operation";
@@ -70,6 +78,10 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         operation = this.props.history.location.state.operation
         :     
         (
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
             operation=JSON.parse(localStorage.getItem(operationStore))
         )
@@ -108,7 +120,10 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
     
     onToggle =(fieldId : keyof State) =>{
@@ -162,6 +177,11 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 newState.addNewCompany=false;
                 newState.showCompany=true;
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
     onToggle = (element:string) => {
         let newState:State = null;
@@ -188,7 +208,10 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
     }
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
     addingNew = (fieldId:keyof State) :void =>{
         let newState:State = {
@@ -210,6 +233,11 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         this.setState(newState);
         console.log('Elemento Eliminado');
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
     onClickEditButton = ()=>{
         const newState:State ={...this.state};
@@ -249,8 +277,14 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         console.log(operation.people.map((item)=>item.namePerson));
         //ahora aquí hay q actualizar la BD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> no message
+>>>>>>> master
+=======
+>>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
     }
 
@@ -258,7 +292,10 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
         return (
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
             <PersonComponent onToggle={this.onToggle} 
                              onSave={this.onSave} 
@@ -281,6 +318,11 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                
             />
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
         <>
             <Button onClick={this.onClickEditButton}>
@@ -292,8 +334,14 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                 <PersonComponent onToggle={this.onToggle} person={this.state.person} notEditable={this.state.notEditable} showVehicle={this.state.showVehicle} showCompany={this.state.showCompany} showFamiliar={this.state.showFamiliar} handleChange={this.handleChange}/>
         </>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> no message
+>>>>>>> master
+=======
+>>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
         );
     }

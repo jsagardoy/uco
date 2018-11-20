@@ -1,5 +1,6 @@
 import * as React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {PeopleEntity, CompanyEntity} from '../../model';
 import { LocationOn, FileUpload, ExpandMore, ExpandLess } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
@@ -9,6 +10,8 @@ import {VehicleComponent} from '../vehicles';
 import {FamiliarComponent} from '../familiar';
 import {CompanyComponent} from '../company';
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
 import {PeopleEntity, FamiliarEntity, CompanyEntity} from '../../model';
 import {Edit,Save,Cancel,ExpandMore, ExpandLess} from '@material-ui/icons';
@@ -30,6 +33,19 @@ import {VehicleComponent} from '../vehicles';
 import {FamiliarComponent} from '../familiar';
 import {CompanyComponent} from '../company';
 >>>>>>> no message
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+import {PeopleEntity, CompanyEntity} from '../../model';
+import { LocationOn, FileUpload, ExpandMore, ExpandLess } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import { GalleryComponent } from '../helperComponent';
+
+import {VehicleComponent} from '../vehicles';
+import {FamiliarComponent} from '../familiar';
+import {CompanyComponent} from '../company';
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
 
 import "../../content/site.css";
@@ -51,8 +67,11 @@ interface Props {
     addNewVehicle:boolean;
     onToggle:(string)=>void;
 <<<<<<< HEAD
+<<<<<<< HEAD
     handleChange: (e)=>void;
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
     onEdit:()=>void;
     handleChange: (fieldName:string, value:any, group:string) => void;
@@ -65,6 +84,12 @@ interface Props {
 =======
     handleChange: (e)=>void;
 >>>>>>> no message
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+    handleChange: (e)=>void;
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
 }
 
@@ -78,7 +103,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
     return(
         
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
         <form className="formPerson" encType="multipart/form-data">
             <fieldset disabled={props.notEditable}>
@@ -217,6 +245,11 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                                         
                     />
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
         <form className="d-flex justify-content-center align-items-center flex-column" >
             <fieldset className="col-10" disabled={props.notEditable}>
@@ -245,6 +278,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     <input type="text" className="form-control" id="namePerson" defaultValue={props.person.namePerson} onBlur={props.handleChange}/>
                 </div>
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
                 <div id="alias" className='form-group'>
                     <label className="col-10" htmlFor="aka">Alias</label>
@@ -317,7 +354,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                         ))
                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 <<<<<<< HEAD
                     {props.showFamiliar?
                         <Button onClick={(e)=>props.addingNew('addNewFamiliar')}>Añadir nuevo Familiar</Button>
@@ -328,6 +368,11 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                     </>
                 } 
 =======
+<<<<<<< HEAD
+>>>>>>> master
+=======
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
             
                 </div>
@@ -408,8 +453,14 @@ export const PersonComponent: React.StatelessComponent<Props> = (props:Props) =>
                 </div>
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> no message
+>>>>>>> master
+=======
+>>>>>>> no message
+=======
+>>>>>>> f26d312d71aaaee378265b66f405cd485854c5fe
 >>>>>>> master
             </fieldset>
         </form>
