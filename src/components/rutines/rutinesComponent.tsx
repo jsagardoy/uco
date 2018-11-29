@@ -1,8 +1,6 @@
 import * as React from 'react';
 
-import { RutineEntity, OperationEntity } from '../../model';
-
-import {getOperations} from '../../api/operationAPIConnection';
+import { RutineEntity } from '../../model';
 
 import { removeElementFromArray, appendElementToArray, updateElementFromArray } from '../../common'
 import { RutineFormComponent } from '../form';
@@ -11,7 +9,6 @@ import { createEmptyRutine } from '.';
 
 interface Props {
     rutines: Array<RutineEntity>
-    onEdit: (fieldId: string) => void;
 }
 interface State {
     rutines: Array<RutineEntity>;
@@ -118,7 +115,7 @@ export class RutinesComponent extends React.Component<Props, State> {
     }
 
     onCancel = (index: number) => {
-        if (this.state.rutines[index].data===''){
+        if (this.state.rutines.length>this.prevState.rutines.length){
             this.removeItem(index);
         }
         else{
@@ -144,9 +141,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                                         <RutineFormComponent key={index}
                                             rutine={rutine}
                                             onChange={this.handleChange(index)}
-                                            handleSubmit={this.handleSubmit}
-                                            onEdit={this.onEdit}
-                                            removeItem={this.removeItem}
+                                            
                                         />
                                         :
                                         rutine.data

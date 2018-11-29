@@ -54,21 +54,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
         <form className="formPerson" encType="multipart/form-data">
 
            
-                {
-                    /* props.notEditable ?
-                        <Button onClick={props.onEdit}>
-                            <Edit />
-                        </Button>
-                        :
-                        <>
-                            <Button onClick={() => props.onSave(oldPerson)}>
-                                <Save />
-                            </Button>
-                            <Button onClick={() => props.onCancel(oldPerson)}>
-                                <Cancel />
-                            </Button>
-                        </> */
-                }
                 <Card className="person.card">
                     <CardActionArea>
                         <CardContent>
@@ -165,17 +150,11 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
 
                
                 <RutinesComponent rutines={props.person.rutines} 
-                                    onEdit={props.onEdit}
                 />
 
-                <Card>
-                    <CardActionArea>
-                        <CardContent>
-                            <LinksComponent links={props.person.links}
-                            />
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                <LinksComponent links={props.person.links}
+                />
+         
 
                 <Button onClick={(event) => props.onToggle(dataType.FAMILIAR)}>
                     <span>Familiares</span>

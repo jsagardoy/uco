@@ -2,6 +2,7 @@ import { CompanyEntity } from './company';
 import { VehicleEntity } from './vehicle';
 import {FamiliarEntity} from './familiar';
 import { RutineEntity } from './rutine';
+import { LinkEntity } from './link';
 
 export interface PeopleEntity {
     idPerson: number;
@@ -14,6 +15,6 @@ export interface PeopleEntity {
     vehicles?: VehicleEntity [];
     companies?: CompanyEntity [];
     rutines?: RutineEntity [];
-    links?: string[];
+    links?: LinkEntity[];
     familiars?: FamiliarEntity[];
 }

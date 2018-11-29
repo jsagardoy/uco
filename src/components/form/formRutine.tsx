@@ -6,9 +6,7 @@ import { RutineEntity } from '../../model';
 interface Props {
     rutine: RutineEntity;
     onChange: (fieldName: string, value: any, group:string) => void;
-    onEdit: (index: number) => void;
-    removeItem: (index: number) => void;
-    handleSubmit: (index: number) => void;
+    
 }
 
 export const RutineFormComponent: React.StatelessComponent<Props> = (props: Props) => {
