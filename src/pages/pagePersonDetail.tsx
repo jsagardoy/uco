@@ -33,16 +33,23 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
             })
     }
      
-    onEdit=()=>{
-        this.setState({notEditable:!this.state.notEditable})
+    onEdit=(fieldId:keyof State)=>{
+        
+        let newState:State={
+            ...this.state,
+            [fieldId]:!this.state[fieldId]
+        }
+
+        this.setState(newState);
     }
+    
     onSave = (newPerson:PeopleEntity) => {
         //guardar datos
         console.log('datos guardados');
     }
     onCancel = (oldPerson:PeopleEntity) =>{
         //cancelar cambios
-        this.onEdit();
+        
     }
     fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string):any => {
      
@@ -69,19 +76,21 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                                     ...this.state.person,
                                     [fieldId]:newArray
                                 }
-                                ,notEditable:false,
         }
         const field:string =  fieldId;
         switch (field){
             case 'companies':
+                newState.notEditableCompany=false;
                 newState.addNewCompany=false;
                 newState.showCompany=true;
             break;
             case 'familiars':
+                newState.notEditableFamiliar=false;
                 newState.addNewFamiliar=false;
                 newState.showFamiliar=true;
             break;
             case 'vehicles':
+                newState.notEditableVehicle=false;
                 newState.addNewVehicle=false;
                 newState.showVehicle=true;
             break;
@@ -123,7 +132,12 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              addNewFamiliar={this.state.addNewFamiliar}
                              addNewCompany={this.state.addNewCompany}
                              addNewVehicle={this.state.addNewVehicle}
-                             notEditable={this.state.notEditable} 
+                             notEditablePerson={this.state.notEditablePerson} 
+                             notEditableVehicle={this.state.notEditableVehicle} 
+                             notEditableFamiliar={this.state.notEditableFamiliar} 
+                             notEditableRutine={this.state.notEditableRutine} 
+                             notEditableLinks={this.state.notEditableLinks} 
+                             notEditableCompany={this.state.notEditableCompany} 
                              showVehicle={this.state.showVehicle} 
                              showCompany={this.state.showCompany} 
                              showFamiliar={this.state.showFamiliar}

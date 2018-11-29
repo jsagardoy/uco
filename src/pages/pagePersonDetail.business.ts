@@ -2,7 +2,12 @@ import { PeopleEntity, OperationEntity } from '../model';
 
 export interface State {
     person: PeopleEntity;
-    notEditable:boolean;
+    notEditablePerson:boolean;
+    notEditableVehicle:boolean;
+    notEditableCompany:boolean;
+    notEditableRutine:boolean;
+    notEditableLinks:boolean;
+    notEditableFamiliar:boolean;
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
@@ -13,14 +18,19 @@ export interface State {
 
 export const createInitialState = (person:PeopleEntity, notEditable:boolean=true) => (
     {
-        person, 
-        notEditable,
-        showVehicle:false,
-        showCompany:false,
-        showFamiliar:false,
-        addNewFamiliar:false,
-        addNewCompany:false,
-        addNewVehicle:false,
+        person,
+        notEditablePerson: notEditable,
+        notEditableVehicle: notEditable,
+        notEditableCompany: notEditable,
+        notEditableRutine: notEditable,
+        notEditableLinks: notEditable,
+        notEditableFamiliar: notEditable,
+        showVehicle: false,
+        showCompany: false,
+        showFamiliar: false,
+        addNewFamiliar: false,
+        addNewCompany: false,
+        addNewVehicle: false,
     }
 )
 

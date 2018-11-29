@@ -1,6 +1,7 @@
 import { CompanyEntity } from './company';
 import { VehicleEntity } from './vehicle';
 import {FamiliarEntity} from './familiar';
+import { RutineEntity } from './rutine';
 
 export interface PeopleEntity {
     idPerson: number;
@@ -12,7 +13,7 @@ export interface PeopleEntity {
     addressPic?: [{img:{data:string,contentType:string}}];
     vehicles?: VehicleEntity [];
     companies?: CompanyEntity [];
-    rutines?: string [];
+    rutines?: RutineEntity [];
     links?: string[];
     familiars?: FamiliarEntity[];
 }

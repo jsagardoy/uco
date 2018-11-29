@@ -1,25 +1,24 @@
 import * as React from 'react';
 import { Input } from './common';
-import Button from '@material-ui/core/Button';
+import { RutineEntity } from '../../model';
 
 
-interface Props{
-    rutine:string;
-    handleSubmit:()=>void;
-    handleChange:(fieldName:string,value:any,group:string)=>void;
+interface Props {
+    rutine: RutineEntity;
+    onChange: (fieldName: string, value: any, group:string) => void;
+    onEdit: (index: number) => void;
+    removeItem: (index: number) => void;
+    handleSubmit: (index: number) => void;
 }
 
-export const RutineFormComponent: React.StatelessComponent<Props> = (props:Props) => {
-    return(
-    <>    
-        <Input  name='rutine'
-                value={props.rutine}
-                placeholder={props.rutine} 
-                label='Rutina'
-                group='rutines'
-                onChange={props.handleChange}
+export const RutineFormComponent: React.StatelessComponent<Props> = (props: Props) => {
+    return (
+        <Input name='rutines'
+            value={props.rutine.data}
+            placeholder={props.rutine.data}
+            label={props.rutine.data}
+            group='rutines'
+            onChange={props.onChange}
         />
-        <Button onClick={props.handleSubmit}>Submit</Button>
-    </>
     );
-  }
+}

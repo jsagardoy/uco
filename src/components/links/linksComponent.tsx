@@ -71,7 +71,7 @@ export class LinksComponent extends React.Component<Props,State> {
     render(){
         return(
             <>
-            <label className="links" htmlFor="links">Rutinas</label>
+            <label className="links" htmlFor="links">Vínculos</label>
             <ul>
            
                 {

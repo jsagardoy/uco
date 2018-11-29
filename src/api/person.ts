@@ -20,7 +20,7 @@ export const storePerson = (person:PeopleEntity) =>{
 
 export const initializeState = (state:State, person: PeopleEntity) =>
     !!state?
-        createInitialState(state.person, state.notEditable)
+        createInitialState(state.person)
         :
         createInitialState(person);
 

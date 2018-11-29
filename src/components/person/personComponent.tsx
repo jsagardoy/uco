@@ -19,7 +19,12 @@ import { Card, CardActionArea, CardMedia, CardContent } from '@material-ui/core'
 
 interface Props {
     person: PeopleEntity;
-    notEditable: boolean;
+    notEditablePerson:boolean;
+    notEditableVehicle:boolean;
+    notEditableCompany:boolean;
+    notEditableRutine:boolean;
+    notEditableLinks:boolean;
+    notEditableFamiliar:boolean;
     showVehicle: boolean;
     showCompany: boolean;
     showFamiliar: boolean;
@@ -27,7 +32,7 @@ interface Props {
     addNewCompany: boolean;
     addNewVehicle: boolean;
     onToggle: (string) => void;
-    onEdit: () => void;
+    onEdit: (fieldId:string) => void;
     handleChange: (fieldName: string, value: any, group: string) => void;
     fileSelectedHandler: (fieldName: string, value: any, group: string, fileName: string) => void;
     onSave: (person) => void;
@@ -48,9 +53,9 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
 
         <form className="formPerson" encType="multipart/form-data">
 
-            <fieldset disabled={props.notEditable}>
+           
                 {
-                    props.notEditable ?
+                    /* props.notEditable ?
                         <Button onClick={props.onEdit}>
                             <Edit />
                         </Button>
@@ -62,13 +67,13 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                             <Button onClick={() => props.onCancel(oldPerson)}>
                                 <Cancel />
                             </Button>
-                        </>
+                        </> */
                 }
                 <Card className="person.card">
                     <CardActionArea>
                         <CardContent>
                             <PersonFormComponent person={props.person}
-                                notEditable={props.notEditable}
+                                notEditable={props.notEditablePerson}
                                 handleChange={props.handleChange}
                                 handlefileSelectorChange={props.fileSelectedHandler}
                             />
@@ -90,7 +95,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                         <VehicleComponent key={newVehicle.idVehicle}
                             vehicle={newVehicle}
                             showVehicle={props.showVehicle}
-                            notEditable={props.notEditable}
+                            notEditable={props.notEditableVehicle}
                             onToggle={props.onToggle}
                             addNew={props.addNewVehicle}
                             savingNew={props.savingNew}
@@ -103,7 +108,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                                 vehicle={vehicle}
                                 index={index}
                                 showVehicle={props.showVehicle}
-                                notEditable={props.notEditable}
+                                notEditable={props.notEditableVehicle}
                                 onToggle={props.onToggle}
                                 addNew={props.addNewVehicle}
                                 savingNew={props.savingNew}
@@ -158,15 +163,10 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                         <></>
                 }
 
-
-                <Card>
-                    <CardActionArea>
-                        <CardContent>
-                            <RutinesComponent rutines={props.person.rutines} />
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-
+               
+                <RutinesComponent rutines={props.person.rutines} 
+                                    onEdit={props.onEdit}
+                />
 
                 <Card>
                     <CardActionArea>
@@ -186,7 +186,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                 </Button>
                 {
                     props.addNewFamiliar ?
-                        <FamiliarComponent notEditable={props.notEditable}
+                        <FamiliarComponent notEditable={props.notEditableFamiliar}
                             familiar={newFamiliar}
                             showFamiliar={props.showFamiliar}
                             onToggle={props.onToggle}
@@ -200,7 +200,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                             {
                                 props.person.familiars.map((familiar, index) => (
                                     <FamiliarComponent key={familiar.idFamiliar}
-                                        notEditable={props.notEditable}
+                                        notEditable={props.notEditableFamiliar}
                                         familiar={familiar}
                                         showFamiliar={props.showFamiliar}
                                         onToggle={props.onToggle}
@@ -219,7 +219,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
 
                         </>
                 }
-            </fieldset>
+           
         </form>
 
     );
