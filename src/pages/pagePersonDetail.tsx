@@ -2,7 +2,7 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 
 import {PeopleEntity} from '../model/people';
-import { PersonComponent } from '../components/person';
+import { PersonComponent, createNewFamiliar } from '../components/person';
 
 import {appendElementToArray, removeElementFromArray } from '../model';
 
@@ -43,14 +43,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         this.setState(newState);
     }
     
-    onSave = (newPerson:PeopleEntity) => {
-        //guardar datos
-        console.log('datos guardados');
-    }
-    onCancel = (oldPerson:PeopleEntity) =>{
-        //cancelar cambios
-        
-    }
     fileSelectedHandler = (fieldName:string,value:File,group:string, fileName:string):any => {
      
         fileSelectedHandler(fieldName, value, group, fileName,this.state.person,(data)=>{
@@ -100,12 +92,15 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
     }
     
-    addingNew = (fieldId:keyof State) :void =>{
-        let newState:State = {
+    addingNew = (fieldId:keyof State, group:string, newElement:any) :void =>{
+
+        let newState: State = {
             ...this.state,
-            [fieldId]:!this.state[fieldId]
+            [fieldId]: !this.state[fieldId],
         }
-        
+        let newArray = appendElementToArray(newState.person[group], newElement);
+
+        newState.person[group] = newArray;
         this.setState(newState);
     }
     removeFromList = (fieldId:keyof State, index:number): void =>{
@@ -125,8 +120,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         
         return (
             <PersonComponent onToggle={this.onToggle} 
-                             onSave={this.onSave} 
-                             onCancel={this.onCancel} 
                              onEdit={this.onEdit} 
                              person={this.state.person} 
                              addNewFamiliar={this.state.addNewFamiliar}
@@ -146,8 +139,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              savingNew={this.savingNew}
                              addingNew={this.addingNew}
                              removeFromList={this.removeFromList}
-                             
-               
             />
         );
     }

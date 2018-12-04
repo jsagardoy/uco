@@ -4,7 +4,7 @@ export const createNewFamiliar = ():FamiliarEntity =>(
     {
         idFamiliar: Math.pow(Math.round(Math.random()*100),2) ,
         nameFamiliar: '',
-        notEditable:false,
+        notEditable:true,
         familiarPics: [{img:{data:null,contentType:null}}],
         familiarAddress: '',
         addressLink:'',

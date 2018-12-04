@@ -15,16 +15,16 @@ import { dataType } from '../../common';
 import { FamiliarComponent } from '../familiar';
 
 import { createNewCompany, createNewFamiliar, createNewVehicle } from '.';
-import { Card, CardActionArea, CardMedia, CardContent } from '@material-ui/core';
+import { Card, CardActionArea, CardMedia, CardContent, CardActions } from '@material-ui/core';
 
 interface Props {
     person: PeopleEntity;
-    notEditablePerson:boolean;
-    notEditableVehicle:boolean;
-    notEditableCompany:boolean;
-    notEditableRutine:boolean;
-    notEditableLinks:boolean;
-    notEditableFamiliar:boolean;
+    notEditablePerson: boolean;
+    notEditableVehicle: boolean;
+    notEditableCompany: boolean;
+    notEditableRutine: boolean;
+    notEditableLinks: boolean;
+    notEditableFamiliar: boolean;
     showVehicle: boolean;
     showCompany: boolean;
     showFamiliar: boolean;
@@ -32,13 +32,11 @@ interface Props {
     addNewCompany: boolean;
     addNewVehicle: boolean;
     onToggle: (string) => void;
-    onEdit: (fieldId:string) => void;
+    onEdit: (fieldId: string) => void;
     handleChange: (fieldName: string, value: any, group: string) => void;
     fileSelectedHandler: (fieldName: string, value: any, group: string, fileName: string) => void;
-    onSave: (person) => void;
-    onCancel: (person) => void;
     savingNew: (fieldId: string, element: any) => void;
-    addingNew: (fieldId: string) => void;
+    addingNew: (fieldId: string, group: string, value:any) => void;
     removeFromList: (fieldId: string, index: number) => void;
 }
 
@@ -51,34 +49,47 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
     const newVehicle = createNewVehicle();
     return (
 
-        <form className="formPerson" encType="multipart/form-data">
-
-           
-                <Card className="person.card">
-                    <CardActionArea>
-                        <CardContent>
-                            <PersonFormComponent person={props.person}
-                                notEditable={props.notEditablePerson}
-                                handleChange={props.handleChange}
-                                handlefileSelectorChange={props.fileSelectedHandler}
-                            />
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+        <Card>
 
 
-                <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
-                    <span>Vehículos</span>
-                    {props.showVehicle ?
-                        <ExpandLess /> :
-                        <ExpandMore />
-                    }
-                </Button>
+            <Card className="person.card">
+                <CardActionArea>
+                    <CardContent>
+                        <PersonFormComponent person={props.person}
+                            notEditable={props.notEditablePerson}
+                            handleChange={props.handleChange}
+                            handlefileSelectorChange={props.fileSelectedHandler}
+                        />
+                    </CardContent>
+                </CardActionArea>
+            </Card>
 
-                {
-                    props.addNewVehicle ?
-                        <VehicleComponent key={newVehicle.idVehicle}
-                            vehicle={newVehicle}
+
+            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+                <span>Vehículos</span>
+                {props.showVehicle ?
+                    <ExpandLess /> :
+                    <ExpandMore />
+                }
+            </Button>
+
+            {
+                props.addNewVehicle ?
+                    <VehicleComponent key={newVehicle.idVehicle}
+                        vehicle={newVehicle}
+                        showVehicle={props.showVehicle}
+                        notEditable={props.notEditableVehicle}
+                        onToggle={props.onToggle}
+                        addNew={props.addNewVehicle}
+                        savingNew={props.savingNew}
+                        removeFromList={props.removeFromList}
+                    />
+                    :
+
+                    props.person.vehicles.map((vehicle, index) => (
+                        <VehicleComponent key={vehicle.idVehicle}
+                            vehicle={vehicle}
+                            index={index}
                             showVehicle={props.showVehicle}
                             notEditable={props.notEditableVehicle}
                             onToggle={props.onToggle}
@@ -86,120 +97,117 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                             savingNew={props.savingNew}
                             removeFromList={props.removeFromList}
                         />
-                        :
+                    ))
 
-                        props.person.vehicles.map((vehicle, index) => (
-                            <VehicleComponent key={vehicle.idVehicle}
-                                vehicle={vehicle}
-                                index={index}
-                                showVehicle={props.showVehicle}
-                                notEditable={props.notEditableVehicle}
-                                onToggle={props.onToggle}
-                                addNew={props.addNewVehicle}
-                                savingNew={props.savingNew}
-                                removeFromList={props.removeFromList}
-                            />
-                        ))
+            }
 
-                }
+            {
+                props.showVehicle ?
+                    <Button onClick={(e) => props.addingNew("addNewVehicle", 'vehicles',newVehicle)}>Añadir nuevo vehiculo</Button>
+                    :
+                    <></>
+            }
 
-                {
-                    props.showVehicle ?
-                        <Button onClick={(e) => props.addingNew("addNewVehicle")}>Añadir nuevo vehiculo</Button>
-                        :
-                        <></>
-                }
-
-                <Button onClick={(event) => props.onToggle(dataType.COMPANY)}>
-                    <span>Empresas</span>
-                    {
-                        props.showCompany ?
-                            <ExpandLess /> :
-                            <ExpandMore />
-                    }
-                </Button>
-                    {
-                        props.addNewCompany ?
-                            <CompanyComponent addNewCompany={props.addNewCompany}
-                                company={newCompany}
-                                showCompany={props.showCompany}
-                                savingNew={props.savingNew}
-                                onToggle={props.onToggle}
-                                removeFromList={props.removeFromList}
-                            />
-                            :
-                            props.person.companies.map((company, index) => (
-                                <CompanyComponent addNewCompany={props.addNewCompany}
-                                    key={company.idCompany}
-                                    index={index}
-                                    company={company}
-                                    showCompany={props.showCompany}
-                                    savingNew={props.savingNew}
-                                    onToggle={props.onToggle}
-                                    removeFromList={props.removeFromList}
-                                />
-                            )
-                            )
-                    }
+            <Button onClick={(event) => props.onToggle(dataType.COMPANY)}>
+                <span>Empresas</span>
                 {
                     props.showCompany ?
-                        <Button onClick={(e) => props.addingNew("addNewCompany")}>Añadir nueva Empresa</Button>
-                        :
-                        <></>
-                }
-
-               
-                <RutinesComponent rutines={props.person.rutines} 
-                />
-
-                <LinksComponent links={props.person.links}
-                />
-         
-
-                <Button onClick={(event) => props.onToggle(dataType.FAMILIAR)}>
-                    <span>Familiares</span>
-                    {props.showFamiliar ?
                         <ExpandLess /> :
                         <ExpandMore />
-                    }
-                </Button>
-                {
-                    props.addNewFamiliar ?
-                        <FamiliarComponent notEditable={props.notEditableFamiliar}
-                            familiar={newFamiliar}
-                            showFamiliar={props.showFamiliar}
-                            onToggle={props.onToggle}
-                            savingNew={props.savingNew}
-                            addNew={props.addNewFamiliar}
-                            removeFromList={props.removeFromList}
-
-                        />
-                        :
-                        <>
-                            {
-                                props.person.familiars.map((familiar, index) => (
-                                    <FamiliarComponent key={familiar.idFamiliar}
-                                        notEditable={props.notEditableFamiliar}
-                                        familiar={familiar}
-                                        showFamiliar={props.showFamiliar}
-                                        onToggle={props.onToggle}
-                                        savingNew={props.savingNew}
-                                        addNew={props.addNewFamiliar}
-                                        removeFromList={props.removeFromList}
-                                        index={index}
-                                    />
-                                ))
-                            }
-                            {props.showFamiliar ?
-                                <Button onClick={(e) => props.addingNew('addNewFamiliar')}>Añadir nuevo Familiar</Button>
-                                :
-                                <></>
-                            }
-
-                        </>
                 }
-           
-        </form>
+            </Button>
+            {
+                props.addNewCompany ?
+                    <CompanyComponent addNewCompany={props.addNewCompany}
+                        company={newCompany}
+                        showCompany={props.showCompany}
+                        savingNew={props.savingNew}
+                        onToggle={props.onToggle}
+                        removeFromList={props.removeFromList}
+                    />
+                    :
+                    props.person.companies.map((company, index) => (
+                        <CompanyComponent addNewCompany={props.addNewCompany}
+                            key={company.idCompany}
+                            index={index}
+                            company={company}
+                            showCompany={props.showCompany}
+                            savingNew={props.savingNew}
+                            onToggle={props.onToggle}
+                            removeFromList={props.removeFromList}
+                        />
+                    )
+                    )
+            }
+            {
+                props.showCompany ?
+                    <Button onClick={(e) => props.addingNew("addNewCompany", 'companies',newCompany)}>Añadir nueva Empresa</Button>
+                    :
+                    <></>
+            }
+
+
+            <RutinesComponent rutines={props.person.rutines}
+            />
+
+            <LinksComponent links={props.person.links}
+            />
+
+
+            <Button onClick={(event) => props.onToggle(dataType.FAMILIAR)}>
+                <span>Familiares</span>
+                {props.showFamiliar ?
+                    <ExpandLess /> :
+                    <ExpandMore />
+                }
+            </Button>
+            {
+                props.addNewFamiliar ?
+                    <>
+                        {
+                            props.person.familiars.map((familiar, index) => (
+                                <FamiliarComponent key={familiar.idFamiliar}
+                                    notEditable={props.notEditableFamiliar}
+                                    familiar={familiar}
+                                    showFamiliar={props.showFamiliar}
+                                    onToggle={props.onToggle}
+                                    savingNew={props.savingNew}
+                                    addNew={props.addNewFamiliar}
+                                    removeFromList={props.removeFromList}
+                                    index={index}
+                                />
+                            ))
+                        }
+                    </>
+                    :
+                    <>
+                        {
+                            props.person.familiars.map((familiar, index) => (
+                                <FamiliarComponent key={familiar.idFamiliar}
+                                    notEditable={props.notEditableFamiliar}
+                                    familiar={familiar}
+                                    showFamiliar={props.showFamiliar}
+                                    onToggle={props.onToggle}
+                                    savingNew={props.savingNew}
+                                    addNew={props.addNewFamiliar}
+                                    removeFromList={props.removeFromList}
+                                    index={index}
+                                />
+                            ))
+                        }
+                    </>
+            }
+            
+            <CardActions>
+                {
+                props.showFamiliar?
+                <Button onClick={(e) => props.addingNew('addNewFamiliar','familiars',newFamiliar)}>Añadir nuevo Familiar</Button>
+                :
+                null
+                }
+            </CardActions>
+            
+        </Card>
 
     );
 }

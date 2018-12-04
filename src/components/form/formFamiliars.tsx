@@ -60,7 +60,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                                 />
                                                 :null
                                 }
-                                <Button onClick={(e) => props.savingNew('familiars', props.familiar)}>Guardar nuevo</Button>
+                                
                         </div> :
                         <div>
                                 <Input name='nameFamiliar'
