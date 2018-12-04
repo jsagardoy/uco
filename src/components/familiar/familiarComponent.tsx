@@ -19,7 +19,7 @@ interface Props {
     showFamiliar: boolean;
     notEditable: boolean;
     addNew: boolean;
-    index?: number;
+    index?:number;
     savingNew: (fieldId: string, element: any) => void;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
@@ -56,7 +56,6 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
             ...this.state,
             familiar :element
         }
-
         this.setState(newState);
     }
     
@@ -76,11 +75,14 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
     }
 
-    onCancel = (index:number) => {
-        
-            const newState:StateFamiliar = {...this.prevState};
-            newState.familiar.notEditable=false;
-            this.setState(newState);
+    onCancel = () => {
+            if(this.props.addNew)
+                this.props.removeFromList('familiars', this.props.index)
+            else{
+                const newState:StateFamiliar = {...this.prevState};
+                newState.familiar.notEditable=false;
+                this.setState(newState);
+            }  
     }
 
     render() {
@@ -110,7 +112,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                                             <Button onClick={() => this.onSave(this.state.familiar)}> 
                                             <Save /> 
                                             </Button>
-                                            <Button onClick={(e) => this.onCancel(this.props.index)}> 
+                                            <Button onClick={(e) => this.onCancel()}> 
                                                 <Cancel /> 
                                             </Button>
                                         </>
