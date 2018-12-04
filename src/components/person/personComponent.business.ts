@@ -1,11 +1,10 @@
 import { FamiliarEntity, CompanyEntity, VehicleEntity } from "../../model";
-import { Edit, Save } from "@material-ui/icons";
-import Button from "@material-ui/core/Button";
 
 export const createNewFamiliar = ():FamiliarEntity =>(
     {
         idFamiliar: Math.pow(Math.round(Math.random()*100),2) ,
         nameFamiliar: '',
+        notEditable:false,
         familiarPics: [{img:{data:null,contentType:null}}],
         familiarAddress: '',
         addressLink:'',
