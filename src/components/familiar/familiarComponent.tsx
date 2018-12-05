@@ -17,7 +17,6 @@ import { TextField } from '@material-ui/core';
 interface Props {
     familiar: FamiliarEntity;
     showFamiliar: boolean;
-    notEditable: boolean;
     addNew: boolean;
     index?:number;
     savingNew: (fieldId: string, element: any) => void;
