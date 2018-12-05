@@ -167,7 +167,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                         {
                             props.person.familiars.map((familiar, index) => (
                                 <FamiliarComponent key={familiar.idFamiliar}
-                                    notEditable={props.notEditableFamiliar}
                                     familiar={familiar}
                                     showFamiliar={props.showFamiliar}
                                     onToggle={props.onToggle}
@@ -184,7 +183,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                         {
                             props.person.familiars.map((familiar, index) => (
                                 <FamiliarComponent key={familiar.idFamiliar}
-                                    notEditable={props.notEditableFamiliar}
                                     familiar={familiar}
                                     showFamiliar={props.showFamiliar}
                                     onToggle={props.onToggle}
