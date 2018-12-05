@@ -19,12 +19,12 @@ import { Card, CardActionArea, CardMedia, CardContent, CardActions } from '@mate
 
 interface Props {
     person: PeopleEntity;
-    notEditablePerson: boolean;
-    notEditableVehicle: boolean;
-    notEditableCompany: boolean;
-    notEditableRutine: boolean;
-    notEditableLinks: boolean;
-    notEditableFamiliar: boolean;
+    editablePerson: boolean;
+    editableVehicle: boolean;
+    editableCompany: boolean;
+    editableRutine: boolean;
+    editableLinks: boolean;
+    editableFamiliar: boolean;
     showVehicle: boolean;
     showCompany: boolean;
     showFamiliar: boolean;
@@ -56,7 +56,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                 <CardActionArea>
                     <CardContent>
                         <PersonFormComponent person={props.person}
-                            notEditable={props.notEditablePerson}
+                            editable={props.editablePerson}
                             handleChange={props.handleChange}
                             handlefileSelectorChange={props.fileSelectedHandler}
                         />
@@ -78,7 +78,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                     <VehicleComponent key={newVehicle.idVehicle}
                         vehicle={newVehicle}
                         showVehicle={props.showVehicle}
-                        notEditable={props.notEditableVehicle}
+                        editable={props.editableVehicle}
                         onToggle={props.onToggle}
                         addNew={props.addNewVehicle}
                         savingNew={props.savingNew}
@@ -91,7 +91,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                             vehicle={vehicle}
                             index={index}
                             showVehicle={props.showVehicle}
-                            notEditable={props.notEditableVehicle}
+                            editable={props.editableVehicle}
                             onToggle={props.onToggle}
                             addNew={props.addNewVehicle}
                             savingNew={props.savingNew}

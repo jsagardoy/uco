@@ -72,17 +72,17 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         const field:string =  fieldId;
         switch (field){
             case 'companies':
-                newState.notEditableCompany=false;
+                newState.editableCompany=false;
                 newState.addNewCompany=false;
                 newState.showCompany=true;
             break;
             case 'familiars':
-                newState.notEditableFamiliar=false;
+                newState.editableFamiliar=false;
                 newState.addNewFamiliar=false;
                 newState.showFamiliar=true;
             break;
             case 'vehicles':
-                newState.notEditableVehicle=false;
+                newState.editableVehicle=false;
                 newState.addNewVehicle=false;
                 newState.showVehicle=true;
             break;
@@ -125,12 +125,12 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              addNewFamiliar={this.state.addNewFamiliar}
                              addNewCompany={this.state.addNewCompany}
                              addNewVehicle={this.state.addNewVehicle}
-                             notEditablePerson={this.state.notEditablePerson} 
-                             notEditableVehicle={this.state.notEditableVehicle} 
-                             notEditableFamiliar={this.state.notEditableFamiliar} 
-                             notEditableRutine={this.state.notEditableRutine} 
-                             notEditableLinks={this.state.notEditableLinks} 
-                             notEditableCompany={this.state.notEditableCompany} 
+                             editablePerson={this.state.editablePerson} 
+                             editableVehicle={this.state.editableVehicle} 
+                             editableFamiliar={this.state.editableFamiliar} 
+                             editableRutine={this.state.editableRutine} 
+                             editableLinks={this.state.editableLinks} 
+                             editableCompany={this.state.editableCompany} 
                              showVehicle={this.state.showVehicle} 
                              showCompany={this.state.showCompany} 
                              showFamiliar={this.state.showFamiliar}

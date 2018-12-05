@@ -19,7 +19,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                 {props.addNew ?
                         <div>
                                 <Input name='nameFamiliar'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.nameFamiliar}
                                         placeholder={props.familiar.nameFamiliar}
                                         label='Nombre'
@@ -27,7 +27,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                         onChange={props.handleChange}
                                 />
                                 <Input name='familiarAddress'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.familiarAddress}
                                         placeholder={props.familiar.familiarAddress}
                                         label='Dirección'
@@ -35,7 +35,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                         onChange={props.handleChange}
                                 />
                                 <Input name='addressLink'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.addressLink}
                                         placeholder={props.familiar.addressLink}
                                         label='URL de ubicación del domicilio'
@@ -44,7 +44,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                 />
 
                                 <Input name='related'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.related}
                                         placeholder={props.familiar.related}
                                         label='Tipo de relación'
@@ -53,7 +53,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                 />
                                 <GalleryComponent list={props.familiar.familiarPics} />
                                 {
-                                        props.familiar.notEditable ? 
+                                        props.familiar.editable ? 
                                                 <InputFile group='familiars'
                                                         name='familiarPics'
                                                         onChange={props.handlefileSelectorChange}
@@ -64,7 +64,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                         </div> :
                         <div>
                                 <Input name='nameFamiliar'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.nameFamiliar}
                                         placeholder={props.familiar.nameFamiliar}
                                         label='Nombre'
@@ -72,7 +72,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                         onChange={props.handleChange}
                                 />
                                 <Input name='familiarAddress'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.familiarAddress}
                                         placeholder={props.familiar.familiarAddress}
                                         label='Dirección'
@@ -82,7 +82,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                 <a target="_blank" href={props.familiar.addressLink}><LocationOn /> Ubicación del Domicilio</a>
 
                                 <Input name='related'
-                                        notEditable={props.familiar.notEditable}
+                                        editable={props.familiar.editable}
                                         value={props.familiar.related}
                                         placeholder={props.familiar.related}
                                         label='Tipo de relación'
@@ -91,7 +91,7 @@ export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Pr
                                 />
                                 <GalleryComponent list={props.familiar.familiarPics} />
                                 {
-                                        props.familiar.notEditable ?
+                                        props.familiar.editable ?
                                                 <InputFile group='familiars'
                                                         name='familiarPics'
                                                         onChange={props.handlefileSelectorChange}

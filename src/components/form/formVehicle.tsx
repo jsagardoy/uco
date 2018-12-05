@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 interface Props{
     vehicle:  VehicleEntity;
-    notEditable:boolean;
+    editable:boolean;
     addNew:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
     handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
@@ -61,7 +61,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
 
         <GalleryComponent list={props.vehicle.pic}/>
         {
-                props.notEditable?
+                props.editable?
                 null:
                 <InputFile group='vehicle'
                         name='pic'
@@ -116,7 +116,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
 
         <GalleryComponent list={props.vehicle.pic}/>
         {
-                props.notEditable?
+                props.editable?
                 null:
                 <InputFile group='vehicle'
                         name='pic'

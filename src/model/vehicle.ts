@@ -1,5 +1,6 @@
 export interface VehicleEntity {
     idVehicle: number;
+    editable:boolean;
     brand?: string;//marca
     model?: string;
     vehicleType: string;

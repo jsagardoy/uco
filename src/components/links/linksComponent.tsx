@@ -39,7 +39,7 @@ export class LinksComponent extends React.Component<Props, State> {
         if (index === -1)
             index = this.state.links.length || 0
         let newArray: Array<LinkEntity> = appendElementToArray(this.state.links, this.state.links[index]);
-        newArray[index].notEditable=false;
+        newArray[index].editable=false;
         let newState = {
             ...this.state,
             links: newArray
@@ -58,10 +58,10 @@ export class LinksComponent extends React.Component<Props, State> {
                 data: value,
                 
             }
-            if (element.notEditable===null)
-                element.notEditable=true;
+            if (element.editable===null)
+                element.editable=true;
 
-        element.notEditable=true;
+        element.editable=true;
         let newList = updateElementFromArray(this.state[fieldName], element, (item) => item === this.state[fieldName][index])
         
         let newState = {
@@ -87,7 +87,7 @@ export class LinksComponent extends React.Component<Props, State> {
             index = this.state.links.length || 0
 
         let element: LinkEntity = {...this.state.links[index]}
-        element.notEditable = !element.notEditable;
+        element.editable = !element.editable;
         let newState: State = {
             ...this.state,
         }
@@ -100,7 +100,7 @@ export class LinksComponent extends React.Component<Props, State> {
             index = this.state.links.length || 0
         let element = {
             data: value.data,
-            notEditable: !this.state.links[index].notEditable
+            editable: !this.state.links[index].editable
         }
         let newList = updateElementFromArray(this.state.links, element, (item) => item === this.state.links[index])
 
@@ -119,7 +119,7 @@ export class LinksComponent extends React.Component<Props, State> {
             this.removeItem(index);
         }else{
             const newState:State = {...this.prevState};
-            newState.links[index].notEditable=false;
+            newState.links[index].editable=false;
             this.setState(newState);
         }
 
@@ -136,7 +136,7 @@ export class LinksComponent extends React.Component<Props, State> {
                         <Card key={index}>
                             <CardActionArea>
                                 <CardContent>
-                                    {link.notEditable ?
+                                    {link.editable ?
                                         <LinkFormComponent key={index}
                                             link={link}
                                             onChange={this.handleChange(index)}
@@ -149,7 +149,7 @@ export class LinksComponent extends React.Component<Props, State> {
                             </CardActionArea>
                             <CardActions>
                                 {
-                                    link.notEditable ?
+                                    link.editable ?
                                         <>
                                             <Button onClick={() => this.savelink(index, link)}>Guardar cambios</Button>
                                             <Button onClick={(e) => this.onCancel(index)}>Cancelar</Button>

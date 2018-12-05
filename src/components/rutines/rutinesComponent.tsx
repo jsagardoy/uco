@@ -39,7 +39,7 @@ export class RutinesComponent extends React.Component<Props, State> {
         if (index === -1)
             index = this.state.rutines.length || 0
         let newArray: Array<RutineEntity> = appendElementToArray(this.state.rutines, this.state.rutines[index]);
-        newArray[index].notEditable=false;
+        newArray[index].editable=false;
         let newState = {
             ...this.state,
             rutines: newArray
@@ -58,10 +58,10 @@ export class RutinesComponent extends React.Component<Props, State> {
                 data: value,
                 
             }
-            if (element.notEditable===null)
-                element.notEditable=true;
+            if (element.editable===null)
+                element.editable=true;
 
-        element.notEditable=true;
+        element.editable=true;
         let newList = updateElementFromArray(this.state[fieldName], element, (item) => item === this.state[fieldName][index])
         
         let newState = {
@@ -87,7 +87,7 @@ export class RutinesComponent extends React.Component<Props, State> {
             index = this.state.rutines.length || 0
 
         let element: RutineEntity = this.state.rutines[index];
-        element.notEditable = !element.notEditable;
+        element.editable = !element.editable;
         let newState: State = {
             ...this.state,
         }
@@ -100,7 +100,7 @@ export class RutinesComponent extends React.Component<Props, State> {
             index = this.state.rutines.length || 0
         let element = {
             data: value.data,
-            notEditable: !this.state.rutines[index].notEditable
+            editable: !this.state.rutines[index].editable
         }
         let newList = updateElementFromArray(this.state.rutines, element, (item) => item === this.state.rutines[index])
 
@@ -120,7 +120,7 @@ export class RutinesComponent extends React.Component<Props, State> {
         }
         else{
             const newState:State = {...this.prevState};
-            newState.rutines[index].notEditable=false;
+            newState.rutines[index].editable=false;
             this.setState(newState);
         }
 
@@ -137,7 +137,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                         <Card key={index}>
                             <CardActionArea>
                                 <CardContent>
-                                    {rutine.notEditable ?
+                                    {rutine.editable ?
                                         <RutineFormComponent key={index}
                                             rutine={rutine}
                                             onChange={this.handleChange(index)}
@@ -151,7 +151,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                             </CardActionArea>
                             <CardActions>
                                 {
-                                    rutine.notEditable ?
+                                    rutine.editable ?
                                         <>
                                             <Button onClick={() => this.saveRutine(index, rutine)}>Guardar cambios</Button>
                                             <Button onClick={(e) => this.onCancel(index)}>Cancelar</Button>

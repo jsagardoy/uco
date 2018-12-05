@@ -50,7 +50,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
 
     onEdit = () => {
         let element: FamiliarEntity = this.state.familiar;
-        element.notEditable = !element.notEditable;
+        element.editable = !element.editable;
         let newState: StateFamiliar = {
             ...this.state,
             familiar :element
@@ -62,7 +62,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
 
         let element:FamiliarEntity= {
             ...value,
-            notEditable: !this.state.familiar.notEditable
+            editable: !this.state.familiar.editable
         }
         const newState: StateFamiliar = {
             ...this.state,
@@ -79,7 +79,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                 this.props.removeFromList('familiars', this.props.index)
             else{
                 const newState:StateFamiliar = {...this.prevState};
-                newState.familiar.notEditable=false;
+                newState.familiar.editable=false;
                 this.setState(newState);
             }  
     }
@@ -106,7 +106,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                         </CardActionArea>
                         <CardActions>
                             {
-                            this.state.familiar.notEditable ?
+                            this.state.familiar.editable ?
                                         <>
                                             <Button onClick={() => this.onSave(this.state.familiar)}> 
                                             <Save /> 

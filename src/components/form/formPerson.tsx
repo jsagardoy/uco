@@ -10,7 +10,7 @@ import { Input,InputFile } from './common';
 
 interface Props {
     person: PeopleEntity;
-    notEditable:boolean;
+    editable:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
     handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
 }
@@ -47,7 +47,7 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props:Props
             {//show button only if in edditing mode
             }
             {
-            props.notEditable?
+            props.editable?
             null:
             <InputFile group='person'
                        name='picsLinks'
@@ -64,7 +64,7 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props:Props
                     group='person'
                     onChange={props.handleChange}
             />
-            {props.notEditable?
+            {props.editable?
             <a target="_blank" href={props.person.addressLink}> <LocationOn /> Ubicación</a>:
             <Input  name='addressLink'
                     value={props.person.addressLink}
@@ -77,7 +77,7 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props:Props
 
             <GalleryComponent list = {props.person.addressPic}/>
             {
-            props.notEditable?
+            props.editable?
             null:
             <InputFile group='person'
                        name='addressPic'

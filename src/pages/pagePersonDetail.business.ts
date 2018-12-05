@@ -2,12 +2,12 @@ import { PeopleEntity, OperationEntity } from '../model';
 
 export interface State {
     person: PeopleEntity;
-    notEditablePerson:boolean;
-    notEditableVehicle:boolean;
-    notEditableCompany:boolean;
-    notEditableRutine:boolean;
-    notEditableLinks:boolean;
-    notEditableFamiliar:boolean;
+    editablePerson:boolean;
+    editableVehicle:boolean;
+    editableCompany:boolean;
+    editableRutine:boolean;
+    editableLinks:boolean;
+    editableFamiliar:boolean;
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
@@ -16,15 +16,15 @@ export interface State {
     addNewVehicle:boolean;
 }
 
-export const createInitialState = (person:PeopleEntity, notEditable:boolean=true) => (
+export const createInitialState = (person:PeopleEntity, editable:boolean=true) => (
     {
         person,
-        notEditablePerson: notEditable,
-        notEditableVehicle: notEditable,
-        notEditableCompany: notEditable,
-        notEditableRutine: notEditable,
-        notEditableLinks: notEditable,
-        notEditableFamiliar: notEditable,
+        editablePerson: editable,
+        editableVehicle: editable,
+        editableCompany: editable,
+        editableRutine: editable,
+        editableLinks: editable,
+        editableFamiliar: editable,
         showVehicle: false,
         showCompany: false,
         showFamiliar: false,

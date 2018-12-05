@@ -10,7 +10,7 @@ interface Props {
   group: string;
   onChange: (fieldName: string, value: any, group: string) => void;
   error?: string;
-  notEditable?: boolean;
+  editable?: boolean;
 }
 
 export const Input: React.StatelessComponent<Props> = (props: Props) => {
@@ -19,7 +19,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
       <label htmlFor={props.name}>{props.label}</label>
       <div className="field">
         {
-          props.notEditable ?
+          props.editable ?
             <TextField type="text"
               name={props.name}
               className="form-control"

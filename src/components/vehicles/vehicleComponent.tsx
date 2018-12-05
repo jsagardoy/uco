@@ -14,7 +14,7 @@ import CardActions from '@material-ui/core/CardActions';
 interface Props {
     vehicle: VehicleEntity;
     showVehicle: boolean;
-    notEditable: boolean;
+    editable: boolean;
     addNew: boolean;
     index?: number;
     savingNew: (fieldId: string, element: any) => void;
@@ -60,7 +60,7 @@ export class VehicleComponent extends React.Component<Props, State> {
                         />
                         <CardContent>
                             <VehicleFormComponent vehicle={this.state.vehicle}
-                                notEditable={this.props.notEditable}
+                                editable={this.props.editable}
                                 handleChange={this.handleChange}
                                 handlefileSelectorChange={this.fileSelectedHandler}
                                 addNew={this.props.addNew}

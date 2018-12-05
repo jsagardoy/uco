@@ -4,7 +4,7 @@ export const createNewFamiliar = ():FamiliarEntity =>(
     {
         idFamiliar: Math.pow(Math.round(Math.random()*100),2) ,
         nameFamiliar: '',
-        notEditable:true,
+        editable:true,
         familiarPics: [{img:{data:null,contentType:null}}],
         familiarAddress: '',
         addressLink:'',
@@ -25,6 +25,7 @@ export const createNewVehicle = ():VehicleEntity => (
     {
         idVehicle: Math.pow(Math.round(Math.random()*100),2) ,
         brand: '',
+        editable: true,
         model: '',
         vehicleType: '',
         plate: '',

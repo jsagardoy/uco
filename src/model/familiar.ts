@@ -1,6 +1,6 @@
 export interface FamiliarEntity{
     idFamiliar: number;
-    notEditable:boolean;
+    editable:boolean;
     nameFamiliar: string;
     familiarPics?: [{img:{data:string,contentType:string}}];
     familiarAddress?: string;
