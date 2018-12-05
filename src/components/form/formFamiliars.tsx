@@ -3,7 +3,7 @@ import { FamiliarEntity } from '../../model/familiar';
 import { LocationOn } from '@material-ui/icons';
 import { GalleryComponent } from '../../common';
 import { Input, InputFile } from './common';
-import Button from '@material-ui/core/Button';
+
 
 interface Props {
         familiar: FamiliarEntity;

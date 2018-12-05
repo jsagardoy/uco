@@ -74,30 +74,17 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
             </Button>
 
             {
-                props.addNewVehicle ?
-                    <VehicleComponent key={newVehicle.idVehicle}
-                        vehicle={newVehicle}
-                        showVehicle={props.showVehicle}
-                        editable={props.editableVehicle}
-                        onToggle={props.onToggle}
-                        addNew={props.addNewVehicle}
-                        savingNew={props.savingNew}
-                        removeFromList={props.removeFromList}
-                    />
-                    :
-
                     props.person.vehicles.map((vehicle, index) => (
                         <VehicleComponent key={vehicle.idVehicle}
                             vehicle={vehicle}
                             index={index}
                             showVehicle={props.showVehicle}
-                            editable={props.editableVehicle}
                             onToggle={props.onToggle}
                             addNew={props.addNewVehicle}
                             savingNew={props.savingNew}
                             removeFromList={props.removeFromList}
                         />
-                    ))
+                    )) 
 
             }
 
@@ -162,40 +149,20 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                 }
             </Button>
             {
-                props.addNewFamiliar ?
-                    <>
-                        {
-                            props.person.familiars.map((familiar, index) => (
-                                <FamiliarComponent key={familiar.idFamiliar}
-                                    familiar={familiar}
-                                    showFamiliar={props.showFamiliar}
-                                    onToggle={props.onToggle}
-                                    savingNew={props.savingNew}
-                                    addNew={props.addNewFamiliar}
-                                    removeFromList={props.removeFromList}
-                                    index={index}
-                                />
-                            ))
-                        }
-                    </>
-                    :
-                    <>
-                        {
-                            props.person.familiars.map((familiar, index) => (
-                                <FamiliarComponent key={familiar.idFamiliar}
-                                    familiar={familiar}
-                                    showFamiliar={props.showFamiliar}
-                                    onToggle={props.onToggle}
-                                    savingNew={props.savingNew}
-                                    addNew={props.addNewFamiliar}
-                                    removeFromList={props.removeFromList}
-                                    index={index}
-                                />
-                            ))
-                        }
-                    </>
+
+                props.person.familiars.map((familiar, index) => (
+                    <FamiliarComponent key={familiar.idFamiliar}
+                        familiar={familiar}
+                        showFamiliar={props.showFamiliar}
+                        onToggle={props.onToggle}
+                        savingNew={props.savingNew}
+                        addNew={props.addNewFamiliar}
+                        removeFromList={props.removeFromList}
+                        index={index}
+                    />
+                ))
             }
-            
+
             <CardActions>
                 {
                 props.showFamiliar?

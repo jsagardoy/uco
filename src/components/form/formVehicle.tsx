@@ -2,11 +2,10 @@ import * as React from 'react';
 import {VehicleEntity} from '../../model/vehicle';
 import { GalleryComponent } from '../../common';
 import {Input,InputFile} from '../form//common';
-import Button from '@material-ui/core/Button';
+
 
 interface Props{
     vehicle:  VehicleEntity;
-    editable:boolean;
     addNew:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
     handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
@@ -26,6 +25,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Marca'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <Input  name='model'
@@ -34,6 +34,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Modelo'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
         <Input  name='vehicleType'
                 value={props.vehicle.vehicleType}
@@ -41,6 +42,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Tipo de vehículo'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
         
         <Input  name='plate'
@@ -49,6 +51,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Matrícula'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <Input  name='frame'
@@ -57,18 +60,19 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Bastidor'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <GalleryComponent list={props.vehicle.pic}/>
         {
-                props.editable?
-                null:
+                props.vehicle.editable?
+               
                 <InputFile group='vehicle'
                         name='pic'
                         onChange={props.handlefileSelectorChange}     
-                />   
+                />:  
+                null
         }
-             <Button onClick={(e)=>props.savingNew('vehicles',props.vehicle)}>Guardar nuevo</Button>
      </>
      :
      <>    
@@ -81,6 +85,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Marca'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <Input  name='model'
@@ -89,6 +94,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Modelo'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
         <Input  name='vehicleType'
                 value={props.vehicle.vehicleType}
@@ -96,6 +102,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Tipo de vehículo'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
         
         <Input  name='plate'
@@ -104,6 +111,7 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Matrícula'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <Input  name='frame'
@@ -112,16 +120,19 @@ export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Prop
                 label='Bastidor'
                 group='vehicle'
                 onChange={props.handleChange}
+                editable={props.vehicle.editable}
         />
 
         <GalleryComponent list={props.vehicle.pic}/>
         {
-                props.editable?
-                null:
+                props.vehicle.editable?
+            
                 <InputFile group='vehicle'
                         name='pic'
                         onChange={props.handlefileSelectorChange}     
-                />   
+                /> 
+                :
+                null 
         }
             
      </>
