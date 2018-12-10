@@ -91,12 +91,12 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         console.log(`New ${field} added`);
         
     }
-    
+   
     addingNew = (fieldId:keyof State, group:string, newElement:any) :void =>{
 
         let newState: State = {
             ...this.state,
-            [fieldId]: !this.state[fieldId],
+            [fieldId]: true,
         }
         let newArray = appendElementToArray(newState.person[group], newElement);
 
@@ -139,6 +139,7 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              savingNew={this.savingNew}
                              addingNew={this.addingNew}
                              removeFromList={this.removeFromList}
+                            
             />
         );
     }

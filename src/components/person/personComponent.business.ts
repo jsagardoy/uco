@@ -18,6 +18,7 @@ export const createNewCompany = ():CompanyEntity =>(
         cif: '',
         address: '',
         map: '',
+        editable:true,
     }
 )
 

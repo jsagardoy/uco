@@ -8,17 +8,17 @@ import Button from '@material-ui/core/Button';
 
 interface Props {
     company: CompanyEntity;
-    addNewCompany:boolean;
+    addNew:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
-    savingNew: (fieldId: string,element:any)=>void;
 }
 
 export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Props) => (
 
     <>
-    {props.addNewCompany?
-    <div className="card-body">
+    {props.addNew?
+    <div>
         <Input  name='nameCompany'
+                editable={props.company.editable} 
                 value={props.company.nameCompany}
                 placeholder={props.company.nameCompany} 
                 label='Nombre'
@@ -26,6 +26,7 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 onChange={props.handleChange}
         />
         <Input  name='cif'
+                editable={props.company.editable} 
                 value={props.company.cif}
                 placeholder={props.company.cif} 
                 label='CIF'
@@ -33,6 +34,7 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 onChange={props.handleChange}
         />
         <Input  name='address'
+                editable={props.company.editable} 
                 value={props.company.address}
                 placeholder={props.company.address} 
                 label='Dirección'
@@ -40,17 +42,18 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 onChange={props.handleChange}
         />
         <Input  name='map'
+                editable={props.company.editable} 
                 value={props.company.map}
                 placeholder={props.company.map} 
                 label='URL Ubicación de la empresa'
                 group='company'
                 onChange={props.handleChange}
         />
-         <Button onClick={(e)=>props.savingNew('companies',props.company)}>Guardar nuevo</Button>
     </div>
     :
-    <div className="card-body">
+    <div>
         <Input  name='nameCompany'
+                editable={props.company.editable} 
                 value={props.company.nameCompany}
                 placeholder={props.company.nameCompany} 
                 label='Nombre'
@@ -58,6 +61,7 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 onChange={props.handleChange}
         />
         <Input  name='cif'
+                editable={props.company.editable} 
                 value={props.company.cif}
                 placeholder={props.company.cif} 
                 label='CIF'
@@ -65,6 +69,7 @@ export const CompanyFormComponent: React.StatelessComponent<Props> = (props:Prop
                 onChange={props.handleChange}
         />
         <Input  name='address'
+                editable={props.company.editable} 
                 value={props.company.address}
                 placeholder={props.company.address} 
                 label='address'

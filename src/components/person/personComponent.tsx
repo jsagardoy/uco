@@ -103,22 +103,13 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                 }
             </Button>
             {
-                props.addNewCompany ?
-                    <CompanyComponent addNewCompany={props.addNewCompany}
-                        company={newCompany}
-                        showCompany={props.showCompany}
-                        savingNew={props.savingNew}
-                        onToggle={props.onToggle}
-                        removeFromList={props.removeFromList}
-                    />
-                    :
                     props.person.companies.map((company, index) => (
-                        <CompanyComponent addNewCompany={props.addNewCompany}
+                        <CompanyComponent 
+                            addNew={props.addNewCompany}
                             key={company.idCompany}
                             index={index}
                             company={company}
                             showCompany={props.showCompany}
-                            savingNew={props.savingNew}
                             onToggle={props.onToggle}
                             removeFromList={props.removeFromList}
                         />

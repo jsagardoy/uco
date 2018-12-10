@@ -4,4 +4,5 @@ export interface CompanyEntity {
     cif: string;
     address: string;
     map: string;
+    editable:boolean;
 }

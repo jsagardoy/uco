@@ -126,24 +126,24 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                         </CardActionArea>
                         <CardActions>
                             {
-                            this.state.familiar.editable ?
-                                        <>
-                                            <Button onClick={() => this.onSave(this.state.familiar)}> 
-                                            <Save /> 
-                                            </Button>
-                                            <Button onClick={(e) => this.onCancel()}> 
-                                                <Cancel /> 
-                                            </Button>
-                                        </>
-                                        :
-                                        <>
-                                            <Button onClick={(e) => this.onEdit()}> 
-                                                <Edit /> 
-                                            </Button>
-                                            <Button onClick={(e) => this.props.removeFromList('familiars', this.props.index)}>
-                                               <Delete />
-                                            </Button>
-                                        </>
+                                this.state.familiar.editable ?
+                                    <>
+                                        <Button onClick={() => this.onSave(this.state.familiar)}>
+                                            <Save />
+                                        </Button>
+                                        <Button onClick={(e) => this.onCancel()}>
+                                            <Cancel />
+                                        </Button>
+                                    </>
+                                    :
+                                    <>
+                                        <Button onClick={(e) => this.onEdit()}>
+                                            <Edit />
+                                        </Button>
+                                        <Button onClick={(e) => this.props.removeFromList('familiars', this.props.index)}>
+                                            <Delete />
+                                        </Button>
+                                    </>
                             }
                         </CardActions>
                     </Card>

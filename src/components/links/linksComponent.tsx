@@ -6,6 +6,7 @@ import { removeElementFromArray, appendElementToArray, updateElementFromArray } 
 import { LinkFormComponent } from '../form';
 import { Button, CardActionArea, Card, CardContent, CardActions } from '@material-ui/core';
 import { createEmptyLink } from '.';
+import { Save, Cancel, Edit, Delete } from '@material-ui/icons';
 
 interface Props {
     links: Array<LinkEntity>
@@ -151,13 +152,13 @@ export class LinksComponent extends React.Component<Props, State> {
                                 {
                                     link.editable ?
                                         <>
-                                            <Button onClick={() => this.savelink(index, link)}>Guardar cambios</Button>
-                                            <Button onClick={(e) => this.onCancel(index)}>Cancelar</Button>
+                                            <Button onClick={() => this.savelink(index, link)}> <Save /></Button>
+                                            <Button onClick={(e) => this.onCancel(index)}><Cancel /></Button>
                                         </>
                                         :
                                         <>
-                                            <Button onClick={(e) => this.onEdit(index)}>Editar</Button>
-                                            <Button onClick={(e) => this.removeItem(index)}>Eliminar</Button>
+                                            <Button onClick={(e) => this.onEdit(index)}><Edit /></Button>
+                                            <Button onClick={(e) => this.removeItem(index)}><Delete /></Button>
                                         </>
 
                                 }
