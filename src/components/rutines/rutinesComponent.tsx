@@ -6,6 +6,7 @@ import { removeElementFromArray, appendElementToArray, updateElementFromArray } 
 import { RutineFormComponent } from '../form';
 import { Button, CardActionArea, Card, CardContent, CardActions } from '@material-ui/core';
 import { createEmptyRutine } from '.';
+import { Edit, Save, Cancel, Delete } from '@material-ui/icons';
 
 interface Props {
     rutines: Array<RutineEntity>
@@ -153,13 +154,13 @@ export class RutinesComponent extends React.Component<Props, State> {
                                 {
                                     rutine.editable ?
                                         <>
-                                            <Button onClick={() => this.saveRutine(index, rutine)}>Guardar cambios</Button>
-                                            <Button onClick={(e) => this.onCancel(index)}>Cancelar</Button>
+                                            <Button onClick={() => this.saveRutine(index, rutine)}> <Save /> cambios</Button>
+                                            <Button onClick={(e) => this.onCancel(index)}><Cancel /></Button>
                                         </>
                                         :
                                         <>
-                                            <Button onClick={(e) => this.onEdit(index)}>Editar</Button>
-                                            <Button onClick={(e) => this.removeItem(index)}>Eliminar</Button>
+                                            <Button onClick={(e) => this.onEdit(index)}><Edit /></Button>
+                                            <Button onClick={(e) => this.removeItem(index)}> <Delete /></Button>
                                         </>
 
                                 }
