@@ -8,7 +8,6 @@ import { Input, InputFile } from './common';
 interface Props {
         familiar: FamiliarEntity;
         addNew: boolean;
-        savingNew: (fieldId: string, element: any) => void;
         handleChange: (fieldName: string, value: any, group: string) => void;
         handlefileSelectorChange: (fieldName: string, value: File, group: string, fileName: string) => void;
 }

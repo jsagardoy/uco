@@ -154,7 +154,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                         familiar={familiar}
                         showFamiliar={props.showFamiliar}
                         onToggle={props.onToggle}
-                        savingNew={props.savingNew}
                         addNew={props.addNewFamiliar}
                         removeFromList={props.removeFromList}
                         index={index}

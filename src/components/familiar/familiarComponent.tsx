@@ -19,7 +19,6 @@ interface Props {
     showFamiliar: boolean;
     addNew: boolean;
     index?:number;
-    savingNew: (fieldId: string, element: any) => void;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
 }
@@ -119,7 +118,6 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                             <CardContent>
                                         <FamiliarFormComponent
                                             familiar={this.state.familiar}
-                                            savingNew={this.props.savingNew}
                                             handleChange={this.handleChange}
                                             handlefileSelectorChange={this.fileSelectedHandler}
                                             addNew={this.props.addNew}
