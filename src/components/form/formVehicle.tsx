@@ -9,7 +9,7 @@ interface Props{
     addNew:boolean;
     handleChange:(fieldName:string,value:any,group:string)=>void;
     handlefileSelectorChange:(fieldName:string,value:File,group:string,fileName:string)=>void;
-    savingNew: (fieldId: string,element:any)=>void;
+
 }
 
 export const VehicleFormComponent: React.StatelessComponent<Props> = (props:Props) => {

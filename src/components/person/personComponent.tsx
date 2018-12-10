@@ -81,7 +81,6 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
                             showVehicle={props.showVehicle}
                             onToggle={props.onToggle}
                             addNew={props.addNewVehicle}
-                            savingNew={props.savingNew}
                             removeFromList={props.removeFromList}
                         />
                     )) 

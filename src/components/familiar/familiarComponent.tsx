@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FamiliarEntity } from '../../model';
+import { FamiliarEntity, removeElementFromArray } from '../../model';
 
 
 import { dataType, fileSelectedHandler, handleChange } from '../../common';
@@ -29,7 +29,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
     prevState: StateFamiliar;
     constructor(props: Props) {
         super(props);
-        this.state = { familiar: this.props.familiar }
+        this.state = { familiar: this.props.familiar };
         this.prevState=this.state;
     }
     fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string) => {
@@ -64,9 +64,26 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
             ...value,
             editable: !this.state.familiar.editable
         }
+        let element2;
+        if (this.state.familiar.familiarPics[0].img.data===null){
+          
+            const newVehicle= {
+                ...this.state.familiar,
+                pic:removeElementFromArray(this.state.familiar.familiarPics,(item)=>item.img.data==null)
+            }
+            element2={
+                ...element,
+                pic:newVehicle.pic
+            }
+        }
+        else{
+            element2={
+                ...element
+            }
+        }
         const newState: StateFamiliar = {
             ...this.state,
-            familiar:element
+            familiar:element2
         }
         
         this.setState(newState);
@@ -90,10 +107,15 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                 this.props.showFamiliar ?
                     <Card className='familiar.card'>
                         <CardActionArea>
+                        {
+                        (this.state.familiar.familiarPics[0]==null||this.state.familiar.familiarPics[0].img.data==null)?
+                        null
+                        :
                             <CardMedia component="img"
                                 image={this.state.familiar.familiarPics[0].img.data}
                                 title={this.state.familiar.nameFamiliar}
                             />
+                        }
                             <CardContent>
                                         <FamiliarFormComponent
                                             familiar={this.state.familiar}
