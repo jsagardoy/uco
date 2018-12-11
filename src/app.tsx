@@ -12,7 +12,7 @@ interface State {
 export const App = () => (
   
     <Switch>
-      <Route exact ={true} path="/" component = {HomePage}/>
+      <Route exact ={true} path="/" component = {OperationsTable}/>
       <Route path="/operations" component={OperationsTable}/>
       <Route exact ={true} path="/operationDetail/:idOperation" component={OperationDetailedPage}/>
       <Route path={`/operationDetail/:idOperation/personDetail/:idPerson`} component={DetailPersonPage} /> 

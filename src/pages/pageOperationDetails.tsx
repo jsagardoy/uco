@@ -5,6 +5,8 @@ import { OperationEntity, PeopleEntity } from '../model';
 import {RouteComponentProps} from 'react-router'
 import { storeOperations,getOperationList,initializeStateDetail,loadOperationDetail} from '../api/operationDetail';
 import {StateOperation} from '.';
+import { Button } from '@material-ui/core';
+import { ArrowLeft } from '@material-ui/icons';
 
 
 
@@ -49,11 +51,18 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
             }
         </div>
     )
-   
-    
-    render(){
-        return(
-            this.showOperationDetail(this.props.match.params.idOperation)
+    goBack = () => {
+        this.props.history.goBack();
+    }
+
+    render() {
+        return (
+            <>
+                <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
+                {
+                    this.showOperationDetail(this.props.match.params.idOperation)
+                }
+            </>
         );
     }
 
