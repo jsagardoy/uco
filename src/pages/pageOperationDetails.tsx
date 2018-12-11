@@ -3,22 +3,21 @@ import { ShowOperation } from '../components/operationDetails';
 import { OperationEntity, PeopleEntity } from '../model';
 //import { operationAPI } from '../api/operationAPI';
 import {RouteComponentProps} from 'react-router'
+import { storeOperations,getOperationList,initializeStateDetail,loadOperationDetail} from '../api/operationDetail';
+import {StateOperation} from '.';
 
-interface State {
-    operationList:Array<OperationEntity>
-}
 
-export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,State> {
+
+export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,StateOperation> {
     constructor(props){
         
         super(props);
-        const opList = "operationList";
-        
-        !!this.props.history.location.state?
-        this.state={operationList:this.props.history.location.state.operationList}:
-        this.state={operationList:JSON.parse(localStorage.getItem(opList))};
-        
-        localStorage.setItem(opList,JSON.stringify(this.state.operationList));
+        const operations:Array<OperationEntity> = getOperationList(this.props.history.location.state);
+        storeOperations(operations);
+        this.state = initializeStateDetail(
+                                    this.props.history.location.state,
+                                    operations   
+                                )
     }
 
     onClickRow = (idPerson:number) =>{

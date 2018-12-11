@@ -2,13 +2,16 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 
 import {PeopleEntity} from '../model/people';
-import { PersonComponent, createNewFamiliar } from '../components/person';
+import { PersonComponent} from '../components/person';
 
 import {appendElementToArray, removeElementFromArray } from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import {initializeState,getPerson, storePerson} from '../api/person';
 import {State} from './pagePersonDetail.business';
+import { Button } from '@material-ui/core';
+import { ArrowLeft } from '@material-ui/icons';
+import {Link} from 'react-router-dom';
 
 export class DetailPersonPage extends React.Component< RouteComponentProps<any>,State> {
 
@@ -24,7 +27,6 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                                     person   
                                 )
     }
-
     
     onToggle =(fieldId : keyof State) =>{
             this.setState({
@@ -115,10 +117,14 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
         this.setState(newState);
         console.log('Elemento Eliminado');
     }
+    goBack =() =>{
+
+    }
 
     render(){
         
         return (
+            <>
             <PersonComponent onToggle={this.onToggle} 
                              onEdit={this.onEdit} 
                              person={this.state.person} 
@@ -141,6 +147,9 @@ export class DetailPersonPage extends React.Component< RouteComponentProps<any>,
                              removeFromList={this.removeFromList}
                             
             />
+                <Link to={`/operationDetail/3`}><ArrowLeft/></Link> 
+            
+            </>
         );
     }
 }
