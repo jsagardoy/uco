@@ -1,8 +1,5 @@
-
-
 import * as React from 'react';
 import { PeopleEntity, removeElementFromArray } from '../../model';
-
 
 import { fileSelectedHandler, handleChange } from '../../common';
 import { PersonFormComponent } from '../form';
@@ -62,16 +59,31 @@ export class PersonComponent extends React.Component<Props, State> {
     }
     
     onSave = (value: PeopleEntity, ) => {
+        let newState: State = {
+            ...this.state
+        }
 
         let element: PeopleEntity = {
             ...value,
             editable: !this.state.person.editable,
         }
         let element2;
-        if (this.state.person.picsLinks[0].img.data === null) {
-
+        if(this.state.person.addressLink.length >1 &&(this.state.person.addressPic[0].img.data==null || this.state.person.addressPic[0] === null)){
             const newPerson = {
                 ...this.state.person,
+                addressPic: removeElementFromArray(this.state.person.addressPic, (item) => item.img.data == null)
+            }
+            element2 = {
+                ...element,
+                addressPic: newPerson.addressPic
+            }
+            
+            newState.person=element2;
+        }
+        if (this.state.person.picsLinks.length >1 &&(this.state.person.picsLinks[0].img.data === null ||this.state.person.picsLinks[0] === null)) {
+
+            const newPerson = {
+                ...newState.person,
                 picsLinks: removeElementFromArray(this.state.person.picsLinks, (item) => item.img.data == null)
             }
             element2 = {
@@ -85,7 +97,7 @@ export class PersonComponent extends React.Component<Props, State> {
             }
         }
 
-        const newState: State = {
+         newState= {
             ...this.state,
             person: element2
         }
