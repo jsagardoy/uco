@@ -61,36 +61,36 @@ export class PersonComponent extends React.Component<Props, State> {
         this.setState(newState);
     }
     
-    onSave = (value: PeopleEntity) => {
+    onSave = (value: PeopleEntity, ) => {
 
-        let element:PeopleEntity= {
+        let element: PeopleEntity = {
             ...value,
-            editable: !this.state.person.editable
+            editable: !this.state.person.editable,
         }
         let element2;
-        if (this.state.person.picsLinks[0].img.data===null){
-          
-            const newVehicle= {
+        if (this.state.person.picsLinks[0].img.data === null) {
+
+            const newPerson = {
                 ...this.state.person,
-                pic:removeElementFromArray(this.state.person.picsLinks,(item)=>item.img.data==null)
+                picsLinks: removeElementFromArray(this.state.person.picsLinks, (item) => item.img.data == null)
             }
-            element2={
+            element2 = {
                 ...element,
-                pic:newVehicle.pic
+                picsLinks: newPerson.picsLinks
             }
         }
-        else{
-            element2={
+        else {
+            element2 = {
                 ...element
             }
         }
+
         const newState: State = {
             ...this.state,
-            person:element2
+            person: element2
         }
-        
         this.setState(newState);
-        this.prevState=newState;//update content for prevState with the saved data
+        this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
     }
 
@@ -111,7 +111,7 @@ export class PersonComponent extends React.Component<Props, State> {
                     <Card className='person.card'>
                         <CardActionArea>
                         {
-                        (this.state.person.picsLinks[0]==null||this.state.person.picsLinks[0].img.data==null)?
+                        (this.state.person.picsLinks[0]===null||this.state.person.picsLinks[0].img.data===null)?
                         null
                         :
                             <CardMedia component="img"
@@ -170,7 +170,7 @@ import Button from '@material-ui/core/Button';
 
 import { PersonFormComponent } from '../form';
 
-import { VehicleComponent } from '../vehicles';
+import { personComponent } from '../persons';
 import { CompanyComponent } from '../company';
 import { RutinesComponent } from '../rutines';
 import { LinksComponent } from '../links';
@@ -179,23 +179,23 @@ import "../../content/site.css";
 import { dataType } from '../../common';
 import { FamiliarComponent } from '../familiar';
 
-import { createNewCompany, createNewFamiliar, createNewVehicle } from '.';
+import { createNewCompany, createNewFamiliar, createNewperson } from '.';
 import { Card, CardActionArea, CardContent, CardActions, CardMedia } from '@material-ui/core';
 
 interface Props {
     person: PeopleEntity;
     editablePerson: boolean;
-    editableVehicle: boolean;
+    editableperson: boolean;
     editableCompany: boolean;
     editableRutine: boolean;
     editableLinks: boolean;
     editableFamiliar: boolean;
-    showVehicle: boolean;
+    showperson: boolean;
     showCompany: boolean;
     showFamiliar: boolean;
     addNewFamiliar: boolean;
     addNewCompany: boolean;
-    addNewVehicle: boolean;
+    addNewperson: boolean;
     onToggle: (string) => void;
     onEdit: (fieldId: string) => void;
     handleChange: (fieldName: string, value: any, group: string) => void;
@@ -213,7 +213,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
     //var oldPerson: PeopleEntity = { ...props.person };
     const newFamiliar = createNewFamiliar();
     const newCompany = createNewCompany();
-    const newVehicle = createNewVehicle();
+    const newperson = createNewperson();
 
     return (
 
@@ -261,22 +261,22 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
             </Card>
 
 
-            <Button className="buttonVehicle" onClick={(event) => props.onToggle(dataType.VEHICLE)}>
+            <Button className="buttonperson" onClick={(event) => props.onToggle(dataType.person)}>
                 <span>Vehículos</span>
-                {props.showVehicle ?
+                {props.showperson ?
                     <ExpandLess /> :
                     <ExpandMore />
                 }
             </Button>
 
             {
-                    props.person.vehicles.map((vehicle, index) => (
-                        <VehicleComponent key={vehicle.idVehicle}
-                            vehicle={vehicle}
+                    props.person.persons.map((person, index) => (
+                        <personComponent key={person.idperson}
+                            person={person}
                             index={index}
-                            showVehicle={props.showVehicle}
+                            showperson={props.showperson}
                             onToggle={props.onToggle}
-                            addNew={props.addNewVehicle}
+                            addNew={props.addNewperson}
                             removeFromList={props.removeFromList}
                         />
                     )) 
@@ -284,8 +284,8 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
             }
 
             {
-                props.showVehicle ?
-                    <Button onClick={(e) => props.addingNew("addNewVehicle", 'vehicles',newVehicle)}>Añadir nuevo vehiculo</Button>
+                props.showperson ?
+                    <Button onClick={(e) => props.addingNew("addNewperson", 'persons',newperson)}>Añadir nuevo vehiculo</Button>
                     :
                     <></>
             }

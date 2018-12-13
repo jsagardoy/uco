@@ -149,51 +149,8 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         this.setState(newState);
     }
 
-    onSave = (value: PeopleEntity) => {
+   
 
-        let element = {
-            ...this.state,
-            person: value,
-        }
-
-        let element2;
-        if (this.state.person.picsLinks[0].img.data === null || this.state.person.picsLinks[0] === null) {
-
-            const newPerson = {
-                ...this.state.person,
-                picsLinks: removeElementFromArray(this.state.person.picsLinks, (item) => item.img.data == null)
-            }
-            element2 = {
-                ...element.person,
-                picsLinks: newPerson.picsLinks
-            }
-        }
-        else {
-            element2 = {
-                ...element.person
-            }
-        }
-        const newState: State = {
-            ...this.state,
-            person: element2,
-            editablePerson: !this.state.editablePerson
-
-        }
-
-        this.setState(newState);
-        this.prevState = newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
-    }
-
-    onCancel = () => {
-        if (this.state.addNewPerson)
-            this.goBack();
-        else {
-            const newState: State = { ...this.prevState };
-            newState.editablePerson = false;
-            this.setState(newState);
-        }
-    }
     render() {
         const newFamiliar = createNewFamiliar();
         const newCompany = createNewCompany();
