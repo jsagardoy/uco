@@ -5,6 +5,7 @@ import { RutineEntity } from '../../model';
 
 interface Props {
     rutine: RutineEntity;
+    editable:boolean;
     onChange: (fieldName: string, value: any, group:string) => void;
     
 }
@@ -12,6 +13,7 @@ interface Props {
 export const RutineFormComponent: React.StatelessComponent<Props> = (props: Props) => {
     return (
         <Input name='rutines'
+            editable={props.editable}
             value={props.rutine.data}
             placeholder={props.rutine.data}
             label={props.rutine.data}

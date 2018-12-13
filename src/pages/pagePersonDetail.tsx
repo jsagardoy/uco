@@ -231,6 +231,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
 
                 <RutinesComponent rutines={this.state.person.rutines}
+
                 />
 
                 <LinksComponent links={this.state.person.links}

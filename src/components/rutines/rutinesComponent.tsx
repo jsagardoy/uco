@@ -142,6 +142,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                                         <RutineFormComponent key={index}
                                             rutine={rutine}
                                             onChange={this.handleChange(index)}
+                                            editable={this.state.rutines[index].editable}
                                             
                                         />
                                         :
