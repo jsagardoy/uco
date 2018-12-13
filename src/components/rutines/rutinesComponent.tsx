@@ -155,7 +155,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                                 {
                                     rutine.editable ?
                                         <>
-                                            <Button onClick={() => this.saveRutine(index, rutine)}> <Save /> cambios</Button>
+                                            <Button onClick={() => this.saveRutine(index, rutine)}> <Save /></Button>
                                             <Button onClick={(e) => this.onCancel(index)}><Cancel /></Button>
                                         </>
                                         :
