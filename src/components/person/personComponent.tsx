@@ -96,7 +96,7 @@ export class PersonComponent extends React.Component<Props, State> {
 
     onCancel = () => {
             if(this.props.addNew)
-                this.props.removeFromList('persons', this.props.index)
+                this.props.removeFromList('person', this.props.index)
             else{
                 const newState:State = {...this.prevState};
                 newState.person.editable=false;
@@ -105,7 +105,7 @@ export class PersonComponent extends React.Component<Props, State> {
     }
 
     render() {
-        return (<div id='persons' className='persons'>
+        return (<div id='person' className='person'>
             {
                 this.props.showPerson ?
                     <Card className='person.card'>
@@ -170,7 +170,7 @@ import Button from '@material-ui/core/Button';
 
 import { PersonFormComponent } from '../form';
 
-import { personComponent } from '../persons';
+import { personComponent } from '../person';
 import { CompanyComponent } from '../company';
 import { RutinesComponent } from '../rutines';
 import { LinksComponent } from '../links';
@@ -270,7 +270,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
             </Button>
 
             {
-                    props.person.persons.map((person, index) => (
+                    props.person.person.map((person, index) => (
                         <personComponent key={person.idperson}
                             person={person}
                             index={index}
@@ -285,7 +285,7 @@ export const PersonComponent: React.StatelessComponent<Props> = (props: Props) =
 
             {
                 props.showperson ?
-                    <Button onClick={(e) => props.addingNew("addNewperson", 'persons',newperson)}>Añadir nuevo vehiculo</Button>
+                    <Button onClick={(e) => props.addingNew("addNewperson", 'person',newperson)}>Añadir nuevo vehiculo</Button>
                     :
                     <></>
             }

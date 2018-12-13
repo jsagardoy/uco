@@ -95,7 +95,7 @@ export class PersonComponent extends React.Component<Props, State> {
 
     onCancel = () => {
             if(this.props.addNew)
-                this.props.removeFromList('persons', this.props.index)
+                this.props.removeFromList('person', this.props.index)
             else{
                 const newState:State = {...this.prevState};
                 newState.person.editable=false;
@@ -104,7 +104,7 @@ export class PersonComponent extends React.Component<Props, State> {
     }
 
     render() {
-        return (<div id='persons' className='persons'>
+        return (<div id='person' className='person'>
             {
                 this.props.showperson ?
                     <Card className='person.card'>
