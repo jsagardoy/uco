@@ -141,6 +141,7 @@ export class LinksComponent extends React.Component<Props, State> {
                                         <LinkFormComponent key={index}
                                             link={link}
                                             onChange={this.handleChange(index)}
+                                            editable={this.state.links[index].editable}
                                         />
                                         :
                                         link.data
