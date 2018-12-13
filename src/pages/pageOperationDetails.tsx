@@ -20,6 +20,7 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
                                 )
     }
 
+
     onClickRow = (idPerson:number) =>{
         const idOperation:number =  +this.props.match.params.idOperation;
         const operation:OperationEntity = this.state.operationList.find(((operation)=>operation.idOperation===idOperation));

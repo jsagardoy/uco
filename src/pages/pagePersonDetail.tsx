@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { PeopleEntity } from '../model/people';
 import { PersonComponent, createNewCompany, createNewFamiliar, createNewVehicle } from '../components/person';
 
-import { appendElementToArray, removeElementFromArray } from '../model';
+import { appendElementToArray, removeElementFromArray, OperationEntity } from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import { initializeState, getPerson, storePerson } from '../api/person';
@@ -17,8 +17,10 @@ import { VehicleComponent } from '../components/vehicles';
 import { CompanyComponent } from '../components/company';
 import { RutinesComponent } from '../components/rutines';
 import { LinksComponent } from '../components/links';
-import { FamiliarComponent } from '../components/familiar';
+import { FamiliarComponent, StateFamiliar } from '../components/familiar';
 import { CardActions } from '@material-ui/core';
+import { getOperationList, storeOperations } from '../api/operationDetail';
+import { StateOperation } from './pageOperationDetails.business';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
     prevState: State;
@@ -149,6 +151,31 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         this.setState(newState);
     }
 
+    newPersonAdded = () =>{
+         
+        let operations:Array<OperationEntity> = getOperationList(this.props.history.location.state);
+        const idOperation:number =  +this.props.match.params.idOperation;
+        let operation:OperationEntity  = operations.find((operation:OperationEntity)=>operation.idOperation===idOperation);
+        let operationIndex:number  = operations.findIndex((operation:OperationEntity)=>operation.idOperation===idOperation);
+        let peopleList=appendElementToArray(operation.people,this.state.person);
+        operations[operationIndex].people=peopleList;
+        let path = this.props.history.location.pathname.substring(0,this.props.history.location.pathname.indexOf('/personDetail/newPerson'));
+
+        /* this.props.history.push(path); */
+        this.props.history.push(
+            {
+                pathname: `${path}`,
+                state: {operationList:operations}
+            }
+        )  
+    }
+    updateState = (fieldId: keyof State, state:any) =>{
+        let newState = {
+            ...this.state,
+            [fieldId]:state
+        }
+        this.setState(newState);
+    }
    
 
     render() {
@@ -160,13 +187,18 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
                 <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
                 {
-                    /*  this.props.history.location.pathname.endsWith('newPerson') ? */
+                    this.props.history.location.pathname.endsWith('newPerson')? 
+                    <Button onClick={e => this.newPersonAdded()}> <Save/> </Button>
+                    :null
+                }                    
+                {
                     <PersonComponent
                         showPerson={true}
                         onToggle={this.onToggle}
                         person={this.state.person}
                         removeFromList={this.removeFromList}
                         addNew={this.state.addNewPerson}
+                        updateState={this.updateState}
                     />
 
 

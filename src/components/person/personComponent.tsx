@@ -19,6 +19,7 @@ interface Props {
     index?:number;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
+    updateState:(fieldId:string, state:any) =>void;
 }
 
 interface State {
@@ -104,6 +105,7 @@ export class PersonComponent extends React.Component<Props, State> {
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+        this.props.updateState('person', newState.person);
     }
 
     onCancel = () => {
