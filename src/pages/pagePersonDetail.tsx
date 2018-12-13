@@ -2,18 +2,26 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { PeopleEntity } from '../model/people';
-import { PersonComponent } from '../components/person';
+import { PersonComponent, createNewCompany, createNewFamiliar, createNewVehicle } from '../components/person';
 
 import { appendElementToArray, removeElementFromArray } from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import { initializeState, getPerson, storePerson } from '../api/person';
 import { State } from './pagePersonDetail.business';
-import { ArrowLeft } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, GroupAdd, Save, Cancel, Edit, Delete, ExpandLess, ExpandMore } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
+import { createNewPerson } from '../components/person/personComponent.business';
+import { dataType } from '../common';
+import { VehicleComponent } from '../components/vehicles';
+import { CompanyComponent } from '../components/company';
+import { RutinesComponent } from '../components/rutines';
+import { LinksComponent } from '../components/links';
+import { FamiliarComponent } from '../components/familiar';
+import { CardActions } from '@material-ui/core';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
+    prevState: State;
 
     constructor(props) {
         super(props);
@@ -27,8 +35,14 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             person
         )
     }
+  
+    componentWillMount() {
+        if (this.props.history.location.pathname.endsWith('newPerson')) {
+            this.updateStateNewPerson();
+        }
+    }
 
-    onToggle = (fieldId: keyof State) => {
+    onToggle = (fieldId: keyof State | string) => {
         this.setState({
             ...this.state,
             [fieldId]: !this.state[fieldId]
@@ -73,6 +87,11 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         }
         const field: string = fieldId;
         switch (field) {
+            case 'person':
+                newState.editablePerson = false;
+                newState.addNewPerson = false;
+                newState.showPerson = true;
+                break;
             case 'companies':
                 newState.editableCompany = false;
                 newState.addNewCompany = false;
@@ -105,7 +124,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         newState.person[group] = newArray;
         this.setState(newState);
     }
-    removeFromList = (fieldId: keyof State, index: number): void => {
+    removeFromList = (fieldId: keyof State, index: number = 0): void => {
         let newArray = removeElementFromArray(this.state.person[fieldId], (item) => item === this.state.person[fieldId][index]);
         let newState: State = {
             ...this.state,
@@ -121,35 +140,235 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         this.props.history.goBack();
     }
 
-    render() {
+    updateStateNewPerson = () => {
+        const newPerson: PeopleEntity = createNewPerson();
+        let newState: State = {
+            ...this.state,
+            person: newPerson
+        }
+        this.setState(newState);
+    }
 
+    onSave = (value: PeopleEntity) => {
+
+        let element = {
+            ...this.state,
+            person: value,
+        }
+
+        let element2;
+        if (this.state.person.picsLinks[0].img.data === null || this.state.person.picsLinks[0] === null) {
+
+            const newPerson = {
+                ...this.state.person,
+                picsLinks: removeElementFromArray(this.state.person.picsLinks, (item) => item.img.data == null)
+            }
+            element2 = {
+                ...element.person,
+                picsLinks: newPerson.picsLinks
+            }
+        }
+        else {
+            element2 = {
+                ...element.person
+            }
+        }
+        const newState: State = {
+            ...this.state,
+            person: element2,
+            editablePerson: !this.state.editablePerson
+
+        }
+
+        this.setState(newState);
+        this.prevState = newState;//update content for prevState with the saved data
+        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+    }
+
+    onCancel = () => {
+        if (this.state.addNewPerson)
+            this.goBack();
+        else {
+            const newState: State = { ...this.prevState };
+            newState.editablePerson = false;
+            this.setState(newState);
+        }
+    }
+    render() {
+        const newFamiliar = createNewFamiliar();
+        const newCompany = createNewCompany();
+        const newVehicle = createNewVehicle();
         return (
             <>
-                <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
-                <PersonComponent onToggle={this.onToggle}
-                    onEdit={this.onEdit}
-                    person={this.state.person}
-                    addNewFamiliar={this.state.addNewFamiliar}
-                    addNewCompany={this.state.addNewCompany}
-                    addNewVehicle={this.state.addNewVehicle}
-                    editablePerson={this.state.editablePerson}
-                    editableVehicle={this.state.editableVehicle}
-                    editableFamiliar={this.state.editableFamiliar}
-                    editableRutine={this.state.editableRutine}
-                    editableLinks={this.state.editableLinks}
-                    editableCompany={this.state.editableCompany}
-                    showVehicle={this.state.showVehicle}
-                    showCompany={this.state.showCompany}
-                    showFamiliar={this.state.showFamiliar}
-                    handleChange={this.handleChange}
-                    fileSelectedHandler={this.fileSelectedHandler}
-                    savingNew={this.savingNew}
-                    addingNew={this.addingNew}
-                    removeFromList={this.removeFromList}
 
+                <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
+                {
+                    /*  this.props.history.location.pathname.endsWith('newPerson') ? */
+                    <PersonComponent
+                        showPerson={true}
+                        onToggle={this.onToggle}
+                        person={this.state.person}
+                        removeFromList={this.removeFromList}
+                        addNew={this.state.addNewPerson}
+                    />
+
+
+                }
+                <Button className="buttonVehicle" onClick={(event) => this.onToggle(dataType.VEHICLE)}>
+                    <span>Vehículos</span>
+                    {this.state.showVehicle ?
+                        <ExpandLess /> :
+                        <ExpandMore />
+                    }
+                </Button>
+
+                {
+                    this.state.person.vehicles.map((vehicle, index) => (
+                        <VehicleComponent key={vehicle.idVehicle}
+                            vehicle={vehicle}
+                            index={index}
+                            showVehicle={this.state.showVehicle}
+                            onToggle={this.onToggle}
+                            addNew={this.state.addNewVehicle}
+                            removeFromList={this.removeFromList}
+                        />
+                    ))
+
+                }
+
+                {
+                    this.state.showVehicle ?
+                        <Button onClick={(e) => this.addingNew("addNewVehicle", 'vehicles', newVehicle)}>Añadir nuevo vehiculo</Button>
+                        :
+                        <></>
+                }
+
+                <Button onClick={(event) => this.onToggle(dataType.COMPANY)}>
+                    <span>Empresas</span>
+                    {
+                        this.state.showCompany ?
+                            <ExpandLess /> :
+                            <ExpandMore />
+                    }
+                </Button>
+                {
+                    this.state.person.companies.map((company, index) => (
+                        <CompanyComponent
+                            addNew={this.state.addNewCompany}
+                            key={company.idCompany}
+                            index={index}
+                            company={company}
+                            showCompany={this.state.showCompany}
+                            onToggle={this.onToggle}
+                            removeFromList={this.removeFromList}
+                        />
+                    )
+                    )
+                }
+                {
+                    this.state.showCompany ?
+                        <Button onClick={(e) => this.addingNew("addNewCompany", 'companies', newCompany)}>Añadir nueva Empresa</Button>
+                        :
+                        <></>
+                }
+
+
+                <RutinesComponent rutines={this.state.person.rutines}
                 />
 
-            </>
-        );
+                <LinksComponent links={this.state.person.links}
+                />
+
+
+                <Button onClick={(event) => this.onToggle(dataType.FAMILIAR)}>
+                    <span>Familiares</span>
+                    {this.state.showFamiliar ?
+                        <ExpandLess /> :
+                        <ExpandMore />
+                    }
+                </Button>
+                {
+
+                    this.state.person.familiars.map((familiar, index) => (
+                        <FamiliarComponent key={familiar.idFamiliar}
+                            familiar={familiar}
+                            showFamiliar={this.state.showFamiliar}
+                            onToggle={this.onToggle}
+                            addNew={this.state.addNewFamiliar}
+                            removeFromList={this.removeFromList}
+                            index={index}
+                        />
+                    ))
+                }
+
+                <CardActions>
+                    {
+                        this.state.showFamiliar ?
+                            <Button onClick={(e) => this.addingNew('addNewFamiliar', 'familiars', newFamiliar)}>Añadir nuevo Familiar</Button>
+                            :
+                            null
+                    }
+                </CardActions>
+
+
+               {/*  <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
+                {
+                    this.props.history.location.pathname.endsWith('newPerson') ?
+                        <>
+                            <PersonComponent
+                                onToggle={this.onToggle}
+                                onEdit={this.onEdit}
+                                person={this.state.person}
+                                addNewFamiliar={this.state.addNewFamiliar}
+                                addNewCompany={this.state.addNewCompany}
+                                addNewVehicle={this.state.addNewVehicle}
+                                editablePerson={true}
+                                editableVehicle={true}
+                                editableFamiliar={true}
+                                editableRutine={true}
+                                editableLinks={true}
+                                editableCompany={true}
+                                showVehicle={true}
+                                showCompany={true}
+                                showFamiliar={true}
+                                showPerson={true}
+                                handleChange={this.handleChange}
+                                fileSelectedHandler={this.fileSelectedHandler}
+                                savingNew={this.savingNew}
+                                addingNew={this.addingNew}
+                                removeFromList={this.removeFromList}
+                                onCancel={this.onCancel}
+                                onSave={this.onSave}
+                            />
+                        </>
+                        :
+                        <PersonComponent onToggle={this.onToggle}
+                            onEdit={this.onEdit}
+                            person={this.state.person}
+                            addNewFamiliar={this.state.addNewFamiliar}
+                            addNewCompany={this.state.addNewCompany}
+                            addNewVehicle={this.state.addNewVehicle}
+                            editablePerson={this.state.editablePerson}
+                            editableVehicle={this.state.editableVehicle}
+                            editableFamiliar={this.state.editableFamiliar}
+                            editableRutine={this.state.editableRutine}
+                            editableLinks={this.state.editableLinks}
+                            editableCompany={this.state.editableCompany}
+                            showPerson={this.state.showPerson}
+                            showVehicle={this.state.showVehicle}
+                            showCompany={this.state.showCompany}
+                            showFamiliar={this.state.showFamiliar}
+                            handleChange={this.handleChange}
+                            fileSelectedHandler={this.fileSelectedHandler}
+                            savingNew={this.savingNew}
+                            addingNew={this.addingNew}
+                            removeFromList={this.removeFromList}
+                            onCancel={this.onCancel}
+                            onSave={this.onSave}
+                        />
+                }
+                 
+            */}
+            </>);
     }
 }

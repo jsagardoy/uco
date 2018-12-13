@@ -8,9 +8,11 @@ export interface State {
     editableRutine:boolean;
     editableLinks:boolean;
     editableFamiliar:boolean;
+    showPerson:boolean;
     showVehicle:boolean;
     showCompany:boolean;
     showFamiliar:boolean;
+    addNewPerson:boolean;
     addNewFamiliar:boolean;
     addNewCompany:boolean;
     addNewVehicle:boolean;
@@ -25,12 +27,14 @@ export const createInitialState = (person:PeopleEntity, editable:boolean=true) =
         editableRutine: editable,
         editableLinks: editable,
         editableFamiliar: editable,
+        showPerson: false,
         showVehicle: false,
         showCompany: false,
         showFamiliar: false,
         addNewFamiliar: false,
         addNewCompany: false,
         addNewVehicle: false,
+        addNewPerson: false,
     }
 )
 

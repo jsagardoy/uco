@@ -16,6 +16,7 @@ export const App = () => (
       <Route path="/operations" component={OperationsTable}/>
       <Route exact ={true} path="/operationDetail/:idOperation" component={OperationDetailedPage}/>
       <Route path={`/operationDetail/:idOperation/personDetail/:idPerson`} component={DetailPersonPage} /> 
+      <Route path={`/operationDetail/:idOperation/personDetail/newPerson`} component={DetailPersonPage} /> 
     </Switch>
 
 )

@@ -5,6 +5,7 @@ import { RutineEntity } from './rutine';
 import { LinkEntity } from './link';
 
 export interface PeopleEntity {
+    editable:boolean
     idPerson: number;
     namePerson: string;
     aka?: string;
