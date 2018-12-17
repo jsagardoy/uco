@@ -2,9 +2,13 @@ import { FamiliarEntity, CompanyEntity, VehicleEntity, PeopleEntity, LinkEntity,
 import { createEmptyRutine } from "../rutines";
 import { createEmptyLink } from "../links";
 
+
+const generateNewId=() =>
+    Math.pow(Math.round(Math.random() * 100), 2)
+
 export const createNewFamiliar = ():FamiliarEntity =>(
     {
-        idFamiliar: Math.pow(Math.round(Math.random()*100),2) ,
+        idFamiliar: generateNewId() ,
         nameFamiliar: '',
         editable:true,
         familiarPics: [{img:{data:null,contentType:null}}],
@@ -15,7 +19,7 @@ export const createNewFamiliar = ():FamiliarEntity =>(
 )
 export const createNewCompany = ():CompanyEntity =>(
     {   
-        idCompany: Math.pow(Math.round(Math.random()*100),2) ,
+        idCompany: generateNewId() ,
         nameCompany: '',
         cif: '',
         address: '',
@@ -26,7 +30,7 @@ export const createNewCompany = ():CompanyEntity =>(
 
 export const createNewVehicle = ():VehicleEntity => (
     {
-        idVehicle: Math.pow(Math.round(Math.random()*100),2) ,
+        idVehicle: generateNewId(),
         brand: '',
         editable: true,
         model: '',
@@ -54,7 +58,7 @@ export const createNewPerson = (): PeopleEntity => {
     let newFamiliars: Array<FamiliarEntity> = [createNewFamiliar()];
 
     return {
-        idPerson: Math.pow(Math.round(Math.random() * 100), 2),
+        idPerson: generateNewId(),
         namePerson: '',
         aka: '',
         picsLinks: [{ img: { data: null, contentType: null } }],
