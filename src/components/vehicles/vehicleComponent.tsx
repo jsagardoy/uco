@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PeopleEntity, VehicleEntity, removeElementFromArray } from '../../model';
+import { VehicleEntity, removeElementFromArray } from '../../model';
 import { fileSelectedHandler, handleChange } from '../../common/handlers';
 
 import { VehicleFormComponent } from '../form/formVehicle';
@@ -18,6 +18,7 @@ interface Props {
     index?: number;
     onToggle: (string) => void;
     removeFromList: (fieldId: string, index: number) => void;
+    updateState:(fieldId:string, state:any) =>void;
 }
 
 interface State {
@@ -59,22 +60,26 @@ export class VehicleComponent extends React.Component<Props, State> {
         this.setState(newState);
     }
 
-    onSave = (value: VehicleEntity) => {
+    onSave = (value: VehicleEntity, ) => {
+        let newState: State = {
+            ...this.state
+        }
 
         let element: VehicleEntity = {
             ...value,
             editable: !this.state.vehicle.editable,
         }
         let element2;
-        if (this.state.vehicle.pic[0].img.data === null) {
+       
+        if (this.state.vehicle.pic.length >1 &&(this.state.vehicle.pic[0].img.data === null ||this.state.vehicle.pic[0] === null)) {
 
-            const newVehicle = {
-                ...this.state.vehicle,
-                pic: removeElementFromArray(this.state.vehicle.pic, (item) => item.img.data == null)
+            const newPerson = {
+                ...newState.vehicle,
+                picsLinks: removeElementFromArray(this.state.vehicle.pic, (item) => item.img.data == null)
             }
             element2 = {
                 ...element,
-                pic: newVehicle.pic
+                pics: newPerson.pic
             }
         }
         else {
@@ -83,14 +88,16 @@ export class VehicleComponent extends React.Component<Props, State> {
             }
         }
 
-        const newState: State = {
+         newState= {
             ...this.state,
             vehicle: element2
         }
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+        this.props.updateState('vehicles', newState.vehicle);
     }
+
 
     onCancel = () => {
         if (this.props.addNew)

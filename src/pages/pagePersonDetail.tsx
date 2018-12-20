@@ -4,12 +4,12 @@ import { RouteComponentProps } from 'react-router';
 import { PeopleEntity } from '../model/people';
 import { PersonComponent, createNewCompany, createNewFamiliar, createNewVehicle } from '../components/person';
 
-import { appendElementToArray, removeElementFromArray, OperationEntity } from '../model';
+import { appendElementToArray, removeElementFromArray, OperationEntity, updateElementFromArray } from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import { initializeState, getPerson, storePerson } from '../api/person';
 import { State } from './pagePersonDetail.business';
-import { ArrowLeft, GroupAdd, Save, Cancel, Edit, Delete, ExpandLess, ExpandMore } from '@material-ui/icons';
+import { ArrowLeft, Save, ExpandLess, ExpandMore } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import { createNewPerson } from '../components/person/personComponent.business';
 import { dataType } from '../common';
@@ -20,7 +20,7 @@ import { LinksComponent } from '../components/links';
 import { FamiliarComponent, StateFamiliar } from '../components/familiar';
 import { CardActions } from '@material-ui/core';
 import { getOperationList, storeOperations } from '../api/operationDetail';
-import { StateOperation } from './pageOperationDetails.business';
+//import { StateOperation } from './pageOperationDetails.business';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
     prevState: State;
@@ -37,7 +37,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             person
         )
     }
-  
+
     componentWillMount() {
         if (this.props.history.location.pathname.endsWith('newPerson')) {
             this.updateStateNewPerson();
@@ -78,8 +78,8 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
     savingNew = (fieldId: keyof State, element: any) => {
 
-        const newArray: Array<any> = appendElementToArray(this.state.person[fieldId], element);
-
+        //const newArray: Array<any> = appendElementToArray(this.state.person[fieldId], element);
+        const newArray: Array<any> = updateElementFromArray(this.state.person[fieldId], element, (item)=>item.idVehicle===this.state.person[fieldId].idVehicle)
         let newState: State = {
             ...this.state,
             person: {
@@ -139,7 +139,13 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         console.log('Elemento Eliminado');
     }
     goBack = () => {
-        this.props.history.goBack();
+        const path=`/operationDetail/${+this.props.match.params.idOperation}`;
+        this.props.history.push(
+            {
+                pathname: `${path}`,
+                /* state: { operationList: this.state } */
+            }
+        )
     }
 
     updateStateNewPerson = () => {
@@ -151,32 +157,50 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         this.setState(newState);
     }
 
-    newPersonAdded = () =>{
-         
-        let operations:Array<OperationEntity> = getOperationList(this.props.history.location.state);
-        const idOperation:number =  +this.props.match.params.idOperation;
-        let operation:OperationEntity  = operations.find((operation:OperationEntity)=>operation.idOperation===idOperation);
-        let operationIndex:number  = operations.findIndex((operation:OperationEntity)=>operation.idOperation===idOperation);
-        let peopleList=appendElementToArray(operation.people,this.state.person);
-        operations[operationIndex].people=peopleList;
-        let path = this.props.history.location.pathname.substring(0,this.props.history.location.pathname.indexOf('/personDetail/newPerson'));
+    newPersonAdded = () => {
+
+        let operations: Array<OperationEntity> = getOperationList(this.props.history.location.state);
+        const idOperation: number = +this.props.match.params.idOperation;
+        let operation: OperationEntity = operations.find((operation: OperationEntity) => operation.idOperation === idOperation);
+        let operationIndex: number = operations.findIndex((operation: OperationEntity) => operation.idOperation === idOperation);
+        let peopleList = appendElementToArray(operation.people, this.state.person);
+        operations[operationIndex].people = peopleList;
+        let path = this.props.history.location.pathname.substring(0, this.props.history.location.pathname.indexOf('/personDetail/newPerson'));
 
         /* this.props.history.push(path); */
         this.props.history.push(
             {
                 pathname: `${path}`,
-                state: {operationList:operations}
+                state: { operationList: operations }
             }
-        )  
+        )
     }
-    updateState = (fieldId: keyof State, state:any) =>{
-        let newState = {
-            ...this.state,
-            [fieldId]:state
+    updateState = (fieldId: keyof State, value: any) => {
+        //aquí tengo que hcaer cambios para el caso de que no sea person, sino person.fieldID
+        let newState;
+        if (fieldId === 'person') {
+            newState = {
+                ...this.state,
+                [fieldId]: value
+            }
+        }
+        else {
+            let newArray = updateElementFromArray (this.state.person[fieldId], value,(item)=>item.idVehicle===value.idVehicle);
+            /* let emptyItem = newArray.find((item)=>item.brand==='');
+            newArray= removeElementFromArray(newArray,emptyItem); */
+
+            newState = {
+                ...this.state,
+                person: {
+                    ...this.state.person,
+                    [fieldId]: newArray
+                }
+            }
+            
         }
         this.setState(newState);
     }
-   
+
 
     render() {
         const newFamiliar = createNewFamiliar();
@@ -186,11 +210,9 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             <>
 
                 <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
-                {
-                    this.props.history.location.pathname.endsWith('newPerson')? 
-                    <Button onClick={e => this.newPersonAdded()}> <Save/> </Button>
-                    :null
-                }                    
+                <Button onClick={e => this.newPersonAdded()}> <Save /> </Button>
+                        
+                
                 {
                     <PersonComponent
                         showPerson={true}
@@ -220,6 +242,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                             onToggle={this.onToggle}
                             addNew={this.state.addNewVehicle}
                             removeFromList={this.removeFromList}
+                            updateState={this.updateState}
                         />
                     ))
 
@@ -301,64 +324,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                 </CardActions>
 
 
-               {/*  <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
-                {
-                    this.props.history.location.pathname.endsWith('newPerson') ?
-                        <>
-                            <PersonComponent
-                                onToggle={this.onToggle}
-                                onEdit={this.onEdit}
-                                person={this.state.person}
-                                addNewFamiliar={this.state.addNewFamiliar}
-                                addNewCompany={this.state.addNewCompany}
-                                addNewVehicle={this.state.addNewVehicle}
-                                editablePerson={true}
-                                editableVehicle={true}
-                                editableFamiliar={true}
-                                editableRutine={true}
-                                editableLinks={true}
-                                editableCompany={true}
-                                showVehicle={true}
-                                showCompany={true}
-                                showFamiliar={true}
-                                showPerson={true}
-                                handleChange={this.handleChange}
-                                fileSelectedHandler={this.fileSelectedHandler}
-                                savingNew={this.savingNew}
-                                addingNew={this.addingNew}
-                                removeFromList={this.removeFromList}
-                                onCancel={this.onCancel}
-                                onSave={this.onSave}
-                            />
-                        </>
-                        :
-                        <PersonComponent onToggle={this.onToggle}
-                            onEdit={this.onEdit}
-                            person={this.state.person}
-                            addNewFamiliar={this.state.addNewFamiliar}
-                            addNewCompany={this.state.addNewCompany}
-                            addNewVehicle={this.state.addNewVehicle}
-                            editablePerson={this.state.editablePerson}
-                            editableVehicle={this.state.editableVehicle}
-                            editableFamiliar={this.state.editableFamiliar}
-                            editableRutine={this.state.editableRutine}
-                            editableLinks={this.state.editableLinks}
-                            editableCompany={this.state.editableCompany}
-                            showPerson={this.state.showPerson}
-                            showVehicle={this.state.showVehicle}
-                            showCompany={this.state.showCompany}
-                            showFamiliar={this.state.showFamiliar}
-                            handleChange={this.handleChange}
-                            fileSelectedHandler={this.fileSelectedHandler}
-                            savingNew={this.savingNew}
-                            addingNew={this.addingNew}
-                            removeFromList={this.removeFromList}
-                            onCancel={this.onCancel}
-                            onSave={this.onSave}
-                        />
-                }
-                 
-            */}
+                
             </>);
     }
 }

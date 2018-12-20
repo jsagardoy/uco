@@ -51,7 +51,8 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         </div>
     )
     goBack = () => {
-        this.props.history.goBack();
+        this.props.history.push(`/`);
+        //this.goBack();
     }
     addNewPersonToOperation = () => {
         this.props.history.push(`/operationDetail/${+this.props.match.params.idOperation}/personDetail/newPerson`);
