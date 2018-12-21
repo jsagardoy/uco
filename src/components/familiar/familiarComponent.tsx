@@ -21,6 +21,7 @@ interface Props {
     index?:number;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
+    updateState:(fieldId:string, state:any, idPerson:string) =>void;
 }
 
 
@@ -57,37 +58,42 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
         this.setState(newState);
     }
     
-    onSave = (value: FamiliarEntity) => {
+    onSave = (value: FamiliarEntity, ) => {
+        let newState: StateFamiliar = {
+            ...this.state
+        }
 
-        let element:FamiliarEntity= {
+        let element: FamiliarEntity = {
             ...value,
-            editable: !this.state.familiar.editable
+            editable: !this.state.familiar.editable,
         }
         let element2;
-        if (this.state.familiar.familiarPics[0].img.data===null){
-          
-            const newVehicle= {
-                ...this.state.familiar,
-                pic:removeElementFromArray(this.state.familiar.familiarPics,(item)=>item.img.data==null)
+       
+        if (this.state.familiar.familiarPics.length >1 &&(this.state.familiar.familiarPics[0].img.data === null ||this.state.familiar.familiarPics[0] === null)) {
+
+            const newPerson = {
+                ...newState.familiar,
+                picsLinks: removeElementFromArray(this.state.familiar.familiarPics, (item) => item.img.data == null)
             }
-            element2={
+            element2 = {
                 ...element,
-                pic:newVehicle.pic
+                pics: newPerson.familiarPics
             }
         }
-        else{
-            element2={
+        else {
+            element2 = {
                 ...element
             }
         }
-        const newState: StateFamiliar = {
+
+         newState= {
             ...this.state,
-            familiar:element2
+            familiar: element2
         }
-        
         this.setState(newState);
-        this.prevState=newState;//update content for prevState with the saved data
+        this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+        this.props.updateState('familiars', newState.familiar, 'idFamiliar');
     }
 
     onCancel = () => {

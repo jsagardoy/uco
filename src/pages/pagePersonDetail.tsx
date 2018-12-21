@@ -329,6 +329,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                             addNew={this.state.addNewFamiliar}
                             removeFromList={this.removeFromList}
                             index={index}
+                            updateState={this.updateState}
                         />
                     ))
                 }
