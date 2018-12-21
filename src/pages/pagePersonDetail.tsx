@@ -291,6 +291,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                             showCompany={this.state.showCompany}
                             onToggle={this.onToggle}
                             removeFromList={this.removeFromList}
+                            updateState={this.updateState}
                         />
                     )
                     )

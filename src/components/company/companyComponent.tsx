@@ -18,6 +18,7 @@ interface Props {
     index?: number;
     onToggle: (string) => void;
     removeFromList: (fieldId: string, index: number) => void;
+    updateState:(fieldId:string, state:any, idPerson:string) =>void;
 }
 
 interface State {
@@ -46,21 +47,29 @@ export class CompanyComponent extends React.Component<Props, State>{
         this.setState(newState);
     }
     
-    onSave = (value: CompanyEntity) => {
+    onSave = (value: CompanyEntity, ) => {
+        let newState: State = {
+            ...this.state
+        }
 
-        let element:CompanyEntity= {
+        let element: CompanyEntity = {
             ...value,
-            editable: !this.state.company.editable
+            editable: !this.state.company.editable,
         }
-    
-        const newState: State = {
+        let element2;
+              
+            element2 = {
+                ...element
+            }
+
+         newState= {
             ...this.state,
-            company:element
+            company: element2
         }
-        
         this.setState(newState);
-        this.prevState=newState;//update content for prevState with the saved data
+        this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+        this.props.updateState('companies', newState.company, 'idCompany');
     }
 
     onCancel = () => {
