@@ -18,7 +18,7 @@ interface Props {
     index?: number;
     onToggle: (string) => void;
     removeFromList: (fieldId: string, index: number) => void;
-    updateState:(fieldId:string, state:any) =>void;
+    updateState:(fieldId:string, state:any, idPerson:string) =>void;
 }
 
 interface State {
@@ -95,7 +95,7 @@ export class VehicleComponent extends React.Component<Props, State> {
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
-        this.props.updateState('vehicles', newState.vehicle);
+        this.props.updateState('vehicles', newState.vehicle, 'idVehicle');
     }
 
 

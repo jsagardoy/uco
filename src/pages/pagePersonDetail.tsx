@@ -76,19 +76,28 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         this.setState(handleChange(fieldName, value, group, this.state));
     }
 
-    savingNew = (fieldId: keyof State, element: any) => {
+    savingNew = (fieldId: keyof State, idField: string, element: any) => {
 
         //const newArray: Array<any> = appendElementToArray(this.state.person[fieldId], element);
-        const newArray: Array<any> = updateElementFromArray(this.state.person[fieldId], element, (item)=>item.idVehicle===this.state.person[fieldId].idVehicle)
-        let newState: State = {
-            ...this.state,
-            person: {
-                ...this.state.person,
-                [fieldId]: newArray
+        let newArray: Array<any>=[];
+        let newState: State;
+        if(fieldId!=='person'){
+            newArray = updateElementFromArray(this.state.person[fieldId], element, (item)=>item[idField]===this.state.person[fieldId][idField])
+            newState = {
+                ...this.state,
+                person: {
+                    ...this.state.person,
+                    [fieldId]: newArray
+                }
+            }
+        }else{
+            newState ={
+                ...this.state,
+                [fieldId]:element
             }
         }
-        const field: string = fieldId;
-        switch (field) {
+      
+        switch (String(fieldId)) {
             case 'person':
                 newState.editablePerson = false;
                 newState.addNewPerson = false;
@@ -109,9 +118,15 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                 newState.addNewVehicle = false;
                 newState.showVehicle = true;
                 break;
+            case 'links':
+                newState.editableLinks = false;
+                break;
+            case 'rutines':
+                newState.editableRutine = false;
+                break;
         }
         this.setState(newState);
-        console.log(`New ${field} added`);
+        console.log(`New ${String(fieldId)} added`);
 
     }
 
@@ -158,14 +173,18 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
     }
 
     newPersonAdded = () => {
-
-        let operations: Array<OperationEntity> = getOperationList(this.props.history.location.state);
+        let peopleList;
+        let operations: Array<OperationEntity> = getOperationList(null);
         const idOperation: number = +this.props.match.params.idOperation;
         let operation: OperationEntity = operations.find((operation: OperationEntity) => operation.idOperation === idOperation);
         let operationIndex: number = operations.findIndex((operation: OperationEntity) => operation.idOperation === idOperation);
-        let peopleList = appendElementToArray(operation.people, this.state.person);
+        const idPerson:number = this.props.match.params.idPerson; 
+        (this.props.match.url.includes('/newPerson'))?
+            peopleList = appendElementToArray(operation.people, this.state.person)
+            :
+            peopleList = updateElementFromArray(operation.people,this.state.person,(item)=>+item.idPerson===+idPerson)
         operations[operationIndex].people = peopleList;
-        let path = this.props.history.location.pathname.substring(0, this.props.history.location.pathname.indexOf('/personDetail/newPerson'));
+        let path = `/operationDetail/${idOperation}`;
 
         /* this.props.history.push(path); */
         this.props.history.push(
@@ -175,8 +194,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             }
         )
     }
-    updateState = (fieldId: keyof State, value: any) => {
-        //aquí tengo que hcaer cambios para el caso de que no sea person, sino person.fieldID
+    updateState = (fieldId: keyof State, value: any, idField:string) => {
         let newState;
         if (fieldId === 'person') {
             newState = {
@@ -185,7 +203,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             }
         }
         else {
-            let newArray = updateElementFromArray (this.state.person[fieldId], value,(item)=>item.idVehicle===value.idVehicle);
+            let newArray = updateElementFromArray (this.state.person[fieldId], value,(item)=>item[idField]===value[idField]);
             /* let emptyItem = newArray.find((item)=>item.brand==='');
             newArray= removeElementFromArray(newArray,emptyItem); */
 

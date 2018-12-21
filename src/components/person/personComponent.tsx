@@ -19,7 +19,7 @@ interface Props {
     index?:number;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
-    updateState:(fieldId:string, state:any) =>void;
+    updateState:(fieldId:string, state:any,idField: string) =>void;
 }
 
 interface State {
@@ -69,6 +69,7 @@ export class PersonComponent extends React.Component<Props, State> {
             editable: !this.state.person.editable,
         }
         let element2;
+        // ESTO TENGO QUE CAMBIARLO A UN UPDATE EN LUGAR DE ANDAR ELMINANDO EL VACIO
         if(this.state.person.addressLink.length >1 &&(this.state.person.addressPic[0].img.data==null || this.state.person.addressPic[0] === null)){
             const newPerson = {
                 ...this.state.person,
@@ -105,7 +106,7 @@ export class PersonComponent extends React.Component<Props, State> {
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
         //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
-        this.props.updateState('person', newState.person);
+        this.props.updateState('person', newState.person, 'idPerson');
     }
 
     onCancel = () => {
