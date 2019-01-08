@@ -194,8 +194,9 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             }
         )
     }
-    updateState = (fieldId: keyof State, value: any, idField:string) => {
+    updateState = (fieldId: keyof State, value: any, idField?:string) => {
         let newState;
+ 
         if (fieldId === 'person') {
             newState = {
                 ...this.state,
@@ -203,9 +204,14 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             }
         }
         else {
-            let newArray = updateElementFromArray (this.state.person[fieldId], value,(item)=>item[idField]===value[idField]);
-            /* let emptyItem = newArray.find((item)=>item.brand==='');
-            newArray= removeElementFromArray(newArray,emptyItem); */
+            /*let newArray=null;
+             if (idField===null){
+                newArray = value;
+            }
+            else{ */
+               let newArray = updateElementFromArray(this.state.person[fieldId], value, (item) => item[idField] === value[idField]);
+            
+            
 
             newState = {
                 ...this.state,
@@ -214,7 +220,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                     [fieldId]: newArray
                 }
             }
-            
+
         }
         this.setState(newState);
     }
@@ -305,7 +311,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
 
                 <RutinesComponent rutines={this.state.person.rutines}
-
+                                  updateState={this.updateState}
                 />
 
                 <LinksComponent links={this.state.person.links}

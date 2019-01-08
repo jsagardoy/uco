@@ -10,6 +10,7 @@ import { Edit, Save, Cancel, Delete } from '@material-ui/icons';
 
 interface Props {
     rutines: Array<RutineEntity>
+    updateState:(fieldId:string, state:any) =>void;
 }
 interface State {
     rutines: Array<RutineEntity>;
@@ -97,24 +98,15 @@ export class RutinesComponent extends React.Component<Props, State> {
         this.setState(newState);
     }
     saveRutine = (index: number, value: RutineEntity) => {
-        if (index === -1)
-            index = this.state.rutines.length || 0
-        let element = {
-            data: value.data,
-            editable: !this.state.rutines[index].editable
+        let newState: State = {
+            ...this.state,  
         }
-        let newList = updateElementFromArray(this.state.rutines, element, (item) => item === this.state.rutines[index])
-
-        let newState = {
-            ...this.state,
-            rutines: newList,
-        }
-        
+        newState.rutines[index].editable = !this.state.rutines[index].editable;
         this.setState(newState);
-        this.prevState=newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo
+        this.prevState = newState;//update content for prevState with the saved data
+        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
+        this.props.updateState('rutines', newState.rutines);
     }
-
     onCancel = (index: number) => {
         if (this.state.rutines.length>this.prevState.rutines.length){
             this.removeItem(index);
@@ -155,7 +147,7 @@ export class RutinesComponent extends React.Component<Props, State> {
                                 {
                                     rutine.editable ?
                                         <>
-                                            <Button onClick={() => this.saveRutine(index, rutine)}> <Save /></Button>
+                                            <Button onClick={(e) => this.saveRutine(index, rutine)}> <Save /></Button>
                                             <Button onClick={(e) => this.onCancel(index)}><Cancel /></Button>
                                         </>
                                         :
