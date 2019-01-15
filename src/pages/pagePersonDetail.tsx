@@ -17,9 +17,11 @@ import { VehicleComponent } from '../components/vehicles';
 import { CompanyComponent } from '../components/company';
 import { RutinesComponent } from '../components/rutines';
 import { LinksComponent } from '../components/links';
-import { FamiliarComponent, StateFamiliar } from '../components/familiar';
+import { FamiliarComponent } from '../components/familiar';
 import { CardActions } from '@material-ui/core';
-import { getOperationList, storeOperations } from '../api/operationDetail';
+import { getOperationList } from '../api/operationDetail';
+import { putPerson } from '../api/operationAPIConnection';
+
 //import { StateOperation } from './pageOperationDetails.business';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
@@ -184,6 +186,10 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             :
             peopleList = updateElementFromArray(operation.people,this.state.person,(item)=>+item.idPerson===+idPerson)
         operations[operationIndex].people = peopleList;
+
+        
+        putPerson(operation.idOperation,operations[operationIndex]).then((e)=>console.log('newPersonAdded'));//insert in DB
+        
         let path = `/operationDetail/${idOperation}`;
 
         /* this.props.history.push(path); */
@@ -204,15 +210,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             }
         }
         else {
-            /*let newArray=null;
-             if (idField===null){
-                newArray = value;
-            }
-            else{ */
                let newArray = updateElementFromArray(this.state.person[fieldId], value, (item) => item[idField] === value[idField]);
-            
-            
-
             newState = {
                 ...this.state,
                 person: {

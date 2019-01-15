@@ -11,6 +11,7 @@ export const createEmptyOperation = ():OperationEntity =>(
         nameOperation : '',
         state:true,
         operationType:'',
+        people:[],
     }
 )
 

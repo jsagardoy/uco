@@ -15,7 +15,7 @@ interface Props {
 export const FamiliarFormComponent: React.StatelessComponent<Props> = (props: Props) => (
         <>
                 <h3> {props.familiar.nameFamiliar}</h3>
-                {props.addNew ?
+                {props.familiar.editable ?
                         <div>
                                 <Input name='nameFamiliar'
                                         editable={props.familiar.editable}

@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import { updateElementFromArray } from '../model/';
 import { machines } from '../common';
 import axios from 'axios';
-import { getOperations } from '../api/operationAPIConnection';
+import { getOperations,putOperation } from '../api/operationAPIConnection';
 import { Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
@@ -30,6 +30,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     }
 
     componentWillMount() {
+        
         getOperations().then((res) => this.setState({ operationList: res }));
     }
 
@@ -56,6 +57,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             .catch((error) => console.log(error));
     }
 
+
     onToggle = (newOperation: OperationEntity): void => {
         const newOp: OperationEntity = { ...newOperation };
         newOp.state = !newOperation.state
@@ -72,16 +74,17 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             }
         )
     }
-
+   
     onSave = (operation:OperationEntity) =>{
 
-        this.setState(
+         this.setState(
             {
                 ...this.state,
                 operationList:appendElementToArray(this.state.operationList,operation),
                 showComponent:false,
                 }
-            )
+            ) 
+        putOperation(operation).then((e)=>console.log('data added'));
     } 
 
     onCancel = () =>  {
