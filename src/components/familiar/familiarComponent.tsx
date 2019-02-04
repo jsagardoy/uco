@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { FamiliarEntity, removeElementFromArray } from '../../model';
+import { FamiliarEntity } from '../../model';
 
 
-import { dataType, fileSelectedHandler, handleChange } from '../../common';
+import { dataType, fileSelectedHandler, handleChange, removeElementFromArray } from '../../common';
 import { FamiliarFormComponent } from '../form';
 import { StateFamiliar } from '.';
 import Button from '@material-ui/core/Button';

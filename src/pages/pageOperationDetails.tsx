@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ShowOperation } from '../components/operationDetails';
 import { OperationEntity, PeopleEntity } from '../model';
 //import { operationAPI } from '../api/operationAPI';
-import {RouteComponentProps} from 'react-router'
+import {RouteComponentProps} from 'react-router';
 import { storeOperations,getOperationList,initializeStateDetail} from '../api/operationDetail';
 import {StateOperation} from '.';
 import { Button } from '@material-ui/core';

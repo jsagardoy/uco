@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { OperationTableComponent } from '../components/operations';
-import { OperationEntity, appendElementToArray } from '../model';
+import { OperationEntity} from '../model';
 import { MuiThemeProvider } from 'material-ui';
 import { RouteComponentProps } from 'react-router';
-import { updateElementFromArray } from '../model/';
+import { updateElementFromArray, appendElementToArray  } from '../common';
 import { machines } from '../common';
 import axios from 'axios';
 import { getOperations,putOperation } from '../api/operationAPIConnection';

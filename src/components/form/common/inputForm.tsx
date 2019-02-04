@@ -7,20 +7,28 @@ interface Props {
   label: string;
   placeholder?: string;
   value: string;
-  group: string;
+  group?: string;
   onChange: (fieldName: string, value: any, group: string) => void;
   error?: string;
   editable?: boolean;
+  type?:string;
 }
 
 export const Input: React.StatelessComponent<Props> = (props: Props) => {
+  let type;
+  if (!props.type){
+    type='text';
+  }
+  else{
+    type=props.type;
+  }
   return (
     <div className={formatWrapperClass(props)}>
       <label htmlFor={props.name}>{props.label}</label>
       <div className="field">
         {
           props.editable ?
-            <TextField type="text"
+            <TextField type={type}
               name={props.name}
               className="form-control"
               placeholder={props.placeholder}
@@ -28,7 +36,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
               onChange={onChangeInput(props)}
             />
             :
-            <TextField type="text"
+            <TextField type={type}
               disabled
               name={props.name}
               className="form-control"

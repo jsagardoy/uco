@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { VehicleEntity, removeElementFromArray } from '../../model';
+import { VehicleEntity } from '../../model';
 import { fileSelectedHandler, handleChange } from '../../common/handlers';
 
 import { VehicleFormComponent } from '../form/formVehicle';
@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import { Save, Edit, Cancel, Delete } from '@material-ui/icons';
+import { removeElementFromArray } from '../../common';
 
 interface Props {
     vehicle: VehicleEntity;

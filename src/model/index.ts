@@ -5,4 +5,4 @@ export * from './vehicle';
 export * from './familiar';
 export * from './rutine';
 export * from './link';
-export {appendElementToArray,removeElementFromArray,updateElementFromArray} from '../common/arrayHandler';
+export * from './login';

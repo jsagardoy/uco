@@ -4,7 +4,8 @@ import { RouteComponentProps } from 'react-router';
 import { PeopleEntity } from '../model/people';
 import { PersonComponent, createNewCompany, createNewFamiliar, createNewVehicle } from '../components/person';
 
-import { appendElementToArray, removeElementFromArray, OperationEntity, updateElementFromArray } from '../model';
+import { appendElementToArray, removeElementFromArray, updateElementFromArray } from '../common';
+import {OperationEntity} from '../model';
 
 import { fileSelectedHandler, handleChange } from '../common/handlers';
 import { initializeState, getPerson, storePerson } from '../api/person';

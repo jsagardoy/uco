@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { PeopleEntity, removeElementFromArray } from '../../model';
+import { PeopleEntity } from '../../model';
 
-import { fileSelectedHandler, handleChange } from '../../common';
+import { fileSelectedHandler, handleChange, removeElementFromArray } from '../../common';
 import { PersonFormComponent } from '../form';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
