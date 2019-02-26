@@ -14,6 +14,7 @@ interface Props {
 
 export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props) => (
     <>
+
         <div className="tab">          
                     <Button onClick={(e) => props.handleRegister('login')}>Login</Button> 
                     <Button onClick={(e) => props.handleRegister('register')}>Register</Button>

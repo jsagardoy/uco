@@ -5,8 +5,9 @@ import { createEmptyLogin } from '../../pages';
 import { FormLoginComponent } from '../form';
 import { getLogin, createUser } from '../../api/loginAPIConnection';
 
+
 interface Props {
-    onSubmit : (token:string) =>void;
+    onSubmit : (login:State) =>void;
 }
 
 interface State {
@@ -17,13 +18,14 @@ interface State {
 
 export class LoginContainer extends React.Component<Props, State>{
     constructor(props:Props){
+        
          super(props);
          this.state={
              loginEntity:createEmptyLogin(),
              token:'',
              onNewUser:'',
         };
-
+   
     }
     
     handleChange = (fieldName: string, value: any, group: string) => {
@@ -34,12 +36,13 @@ export class LoginContainer extends React.Component<Props, State>{
         let login:LoginEntity=this.state.loginEntity;
         getLogin(login).then((response) => {
             console.log(response);
+
              this.setState(
             {
             ...this.state,
-            token: response
+            token: response.data.token
             }) 
-            this.props.onSubmit(this.state.token);
+            this.props.onSubmit(this.state);
         }
         
         )
@@ -69,6 +72,7 @@ export class LoginContainer extends React.Component<Props, State>{
     
     render(){
         return(
+
             <FormLoginComponent handleChange={this.handleChange}
                                 loginEntity={this.state.loginEntity}
                                 onNewUser={this.state.onNewUser}
@@ -76,7 +80,6 @@ export class LoginContainer extends React.Component<Props, State>{
                                 onRegister={this.onRegister}
                                 onSubmit={this.onHandleSubmit}
             />
-            
         );
     }
 }

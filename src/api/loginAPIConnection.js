@@ -1,12 +1,19 @@
-import axios from 'axios';
+import axios, {AxiosPromise} from 'axios';
 
 
 export const getLogin = async (login) => {
     
     const url = `http://localhost:4000/users/authenticate`;
     
-   const value= await axios.post(url,login);
-    return value.data.token;
+     return await axios.post(url,login).then((response)=>{
+        
+         const newLogin={
+             ...login,
+            token:response.data.token
+        }
+         return newLogin; 
+        
+        });
 }
 
 export const createUser = async (login) =>{

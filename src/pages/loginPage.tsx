@@ -37,19 +37,25 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
         })
     }
 
-    onSubmit = (token: string) => {
-        if (token) {
+    onSubmit = (login: any) => {
+        const newLogingEntity:LoginEntity = {
+            username:login.loginEntity.username,
+            password:login.loginEntity.password,
+            email:login.loginEntity.email,
+        }
+        if (login.token) {
             this.setState({
-                ...this.state,
-                token:token,
+                loginEntity: newLogingEntity,
+                token:login.token,
                 failedAuth: false,
             })
-            this.state.auth.login(this.state.loginEntity.username,this.state.loginEntity.password).then((res)=>{
+            if (this.state.auth.login(/* this.state.loginEntity.username,this.state.loginEntity.password, */this.state.token) )/* .then((res)=>{ */
                           this.props.history.replace('/');
-            })
-            .catch((err)=>{
-                alert(err);
-            })
+            /* }) */
+            else
+            /* .catch((err)=>{ */
+                alert('Unnable to set Token ');
+           /*  }) */
   
         }
         else {

@@ -11,20 +11,23 @@ export default class AuthService extends React.Component<RouteComponentProps<any
 
     constructor(props){
         super(props);
-        this.state={domain:this.state.domain || 'http://localhost:8080'}
+        this.state={domain:'http://localhost:4000'}
     }
 
-    login = (username:string, password:string) =>{
-        return this.fetch (`${this.state.domain}/login`,{
+    login = (token:string) =>{
+
+        this.setToken(token);
+        return true;
+        /* return this.fetch (`${this.state.domain}/users/register`,{
                 method: 'POST',
                 body:JSON.stringify({
                     username,
                     password
                 })
         }).then(res => {
-            this.setToken(res.getToken);
+            this.setToken(res.getToken());
             return Promise.resolve(res);
-        })
+        }) */
     }
 
     setToken = (idToken:string) => {
@@ -72,12 +75,14 @@ export default class AuthService extends React.Component<RouteComponentProps<any
             return response;
         } else {
             var error = new Error(response.statusText);
+            console.log('aquí la cago');
             error.message = response;
             throw error;
         }
     }
 
-    fetch = (url:string, options) => {
+   
+   /*  fetch = (url:string, options) => {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -92,9 +97,9 @@ export default class AuthService extends React.Component<RouteComponentProps<any
 
         return fetch(url, {
             headers,
-            ...options
+            //...options
         })
             .then(this._checkStatus)
             .then(response => response.json())
-    }
+    } */
 }
