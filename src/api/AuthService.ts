@@ -1,13 +1,11 @@
 import * as React from 'react';
 import decode from 'jwt-decode';
-import { RouteComponentProps } from 'react-router';
-
 
 interface State {
     domain:string;
 }
 
-export default class AuthService extends React.Component<RouteComponentProps<any>, State>{
+export default class AuthService extends React.Component<{}, State>{
 
     constructor(props){
         super(props);
@@ -61,7 +59,9 @@ export default class AuthService extends React.Component<RouteComponentProps<any
     }
     logout = () => {
         // Clear user token and profile data from localStorage
+        console.log('bye');
         localStorage.removeItem('id_token');
+        
     }
 
     getProfile = () => {
@@ -75,7 +75,7 @@ export default class AuthService extends React.Component<RouteComponentProps<any
             return response;
         } else {
             var error = new Error(response.statusText);
-            console.log('aquí la cago');
+
             error.message = response;
             throw error;
         }

@@ -28,7 +28,11 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
         if(this.state.auth.loggedIn()){
             this.props.history.replace('/operations');
         }
+        else{
+            this.props.history.replace('/login');
+        }
     }
+    
     cleanFields = () => {
         this.setState({
             ...this.state,
@@ -50,7 +54,7 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
                 failedAuth: false,
             })
             if (this.state.auth.login(/* this.state.loginEntity.username,this.state.loginEntity.password, */this.state.token) )/* .then((res)=>{ */
-                          this.props.history.replace('/');
+                          this.props.history.replace('/operations');
             /* }) */
             else
             /* .catch((err)=>{ */

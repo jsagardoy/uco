@@ -29,16 +29,19 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             showComponent: false
         }
     }
-
+    
     componentWillMount() {
-        
-        getOperations().then((res) => this.setState({ operationList: res }));
+        const auth:AuthService = new AuthService('');
+        if (auth.loggedIn())
+            getOperations().then((res) => this.setState({ operationList: res }));
+        else
+            this.props.history.replace('/login');
     }
 
     componentDidMount(){
         const auth:AuthService = new AuthService('');
         if (!auth.loggedIn())
-            this.props.history.push('/login');
+            this.props.history.replace('/login');
     }
 
     onClickRow = (id: number) => {
