@@ -7,6 +7,7 @@ import { storeOperations,getOperationList,initializeStateDetail} from '../api/op
 import {StateOperation} from '.';
 import { Button } from '@material-ui/core';
 import { ArrowLeft, PersonAdd } from '@material-ui/icons';
+import AuthService from '../api/AuthService';
 
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,StateOperation> {
     constructor(props){
@@ -20,6 +21,11 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
                                 )
     }
 
+    componentWillMount() {
+        const auth:AuthService = new AuthService('');
+        if (!auth.loggedIn())
+            this.props.history.replace('/login');
+    }
 
     onClickRow = (idPerson:number) =>{
         const idOperation:number =  +this.props.match.params.idOperation;
