@@ -12,6 +12,7 @@ import { Add } from '@material-ui/icons';
 
 import { OperationComponent } from '../components/operation/operationComponent';
 import { createEmptyOperation } from '../components/operation/operationComponent.business';
+import AuthService from '../api/AuthService';
 
 
 interface State {
@@ -34,6 +35,11 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
         getOperations().then((res) => this.setState({ operationList: res }));
     }
 
+    componentDidMount(){
+        const auth:AuthService = new AuthService('');
+        if (!auth.loggedIn())
+            this.props.history.push('/login');
+    }
 
     onClickRow = (id: number) => {
         this.props.history.push({

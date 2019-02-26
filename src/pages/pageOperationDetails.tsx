@@ -51,7 +51,7 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         </div>
     )
     goBack = () => {
-        this.props.history.push(`/`);
+        this.props.history.goBack();
         //this.goBack();
     }
     addNewPersonToOperation = () => {

@@ -35,12 +35,10 @@ export class LoginContainer extends React.Component<Props, State>{
     onHandleSubmit = () => {
         let login:LoginEntity=this.state.loginEntity;
         getLogin(login).then((response) => {
-            console.log(response);
-
              this.setState(
             {
             ...this.state,
-            token: response.data.token
+            token: response.token
             }) 
             this.props.onSubmit(this.state);
         }

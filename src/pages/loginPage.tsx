@@ -26,7 +26,7 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
     componentWillMount(){
         //if already logged in
         if(this.state.auth.loggedIn()){
-            this.props.history.replace('/');
+            this.props.history.replace('/operations');
         }
     }
     cleanFields = () => {
