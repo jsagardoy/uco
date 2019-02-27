@@ -4,7 +4,8 @@ import { LoginEntity } from '../../model';
 import { createEmptyLogin } from '../../pages';
 import { FormLoginComponent } from '../form';
 import { getLogin, createUser } from '../../api/loginAPIConnection';
-
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
     onSubmit : (login:State) =>void;
@@ -32,7 +33,7 @@ export class LoginContainer extends React.Component<Props, State>{
         this.setState(handleChange(fieldName, value, group, this.state));
     }
    
-    onHandleSubmit = () => {
+    /* onHandleSubmit = () => {
         let login:LoginEntity=this.state.loginEntity;
         getLogin(login).then((response) => {
              this.setState(
@@ -41,9 +42,26 @@ export class LoginContainer extends React.Component<Props, State>{
             token: response.token
             }) 
             this.props.onSubmit(this.state);
-        }
+        }  
+        ).catch((error)=>{
+         console.log (error);   
+        })
         
-        )
+    } */
+    onHandleSubmit = async () =>{
+        try{let login:LoginEntity=this.state.loginEntity;
+            let response =  await getLogin(login);
+            if(response!==null){
+                this.setState({
+                    ...this.state,
+                    token: response.token
+                })
+                this.props.onSubmit(this.state);
+            }else{
+               toast.error('Usuario y Password incorrectos');
+            }
+                
+            }catch(error){console.log(error);}
         
     }
 

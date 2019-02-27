@@ -3,6 +3,7 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let webpack = require('webpack');
 
+
 let basePath = __dirname;
 
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
         extensions: ['.js', '.ts', '.tsx','.jsx']
     },
     entry: [
+        "@babel/polyfill",
         './main.tsx'     
     ],
     output: {

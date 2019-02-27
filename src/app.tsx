@@ -3,6 +3,7 @@ import {OperationEntity} from './model/operation';
 import {Route, Switch, withRouter} from 'react-router';
 import {OperationsTable, OperationDetailedPage , HomePage, DetailPersonPage, LoginPageComponent, } from './pages';
 import NavBarComponent  from './components/navbar/navbar';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -18,6 +19,13 @@ interface State {
 
   return (
     <>
+    <ToastContainer
+                    position='bottom-right'
+                    autoClose={5000}
+                    hideProgressBar={true}
+                    closeOnClick
+                    pauseOnHover
+               />
     <NavBarComponent/>
     <Switch>
       <Route exact = {true} path="/" component = {LoginPageComponent}/>

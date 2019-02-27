@@ -53,13 +53,10 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
                 token:login.token,
                 failedAuth: false,
             })
-            if (this.state.auth.login(/* this.state.loginEntity.username,this.state.loginEntity.password, */this.state.token) )/* .then((res)=>{ */
+            if (this.state.auth.login(this.state.token))
                           this.props.history.replace('/operations');
-            /* }) */
             else
-            /* .catch((err)=>{ */
                 alert('Unnable to set Token ');
-           /*  }) */
   
         }
         else {
@@ -67,6 +64,7 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
                 ...this.state,
                 failedAuth: true
             })
+            console.log('user - Pass incorrectos');
             this.cleanFields();
         }
     }
