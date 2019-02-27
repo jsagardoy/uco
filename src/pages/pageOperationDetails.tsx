@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ShowOperation } from '../components/operationDetails';
 import { OperationEntity, PeopleEntity } from '../model';
-//import { operationAPI } from '../api/operationAPI';
 import {RouteComponentProps} from 'react-router';
 import { storeOperations,getOperationList,initializeStateDetail} from '../api/operationDetail';
 import {StateOperation} from '.';
@@ -32,7 +31,6 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         const operation:OperationEntity = this.state.operationList.find(((operation)=>operation.idOperation===idOperation));
         const peopleList:PeopleEntity[] = operation.people;
         const person:PeopleEntity = peopleList.find((p)=>p.idPerson===idPerson);
-        //const operationId = this.props.match.params.idOperation;
 
         this.props.history.push({
             pathname:`${idOperation}/personDetail/${idPerson}`,
@@ -58,7 +56,6 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
     )
     goBack = () => {
         this.props.history.push('/operations');
-        //this.goBack();
     }
     addNewPersonToOperation = () => {
         this.props.history.push(`/operationDetail/${+this.props.match.params.idOperation}/personDetail/newPerson`);

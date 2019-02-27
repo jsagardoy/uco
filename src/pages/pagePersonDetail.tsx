@@ -22,8 +22,8 @@ import { FamiliarComponent } from '../components/familiar';
 import { CardActions } from '@material-ui/core';
 import { getOperationList } from '../api/operationDetail';
 import { putPerson } from '../api/operationAPIConnection';
+import { toast } from 'react-toastify';
 
-//import { StateOperation } from './pageOperationDetails.business';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
     prevState: State;
@@ -81,7 +81,6 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
     savingNew = (fieldId: keyof State, idField: string, element: any) => {
 
-        //const newArray: Array<any> = appendElementToArray(this.state.person[fieldId], element);
         let newArray: Array<any>=[];
         let newState: State;
         if(fieldId!=='person'){
@@ -129,7 +128,8 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                 break;
         }
         this.setState(newState);
-        console.log(`New ${String(fieldId)} added`);
+        
+        toast.success(`${String(fieldId)} añadido`);
 
     }
 
@@ -154,14 +154,14 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             },
         }
         this.setState(newState);
-        console.log('Elemento Eliminado');
+        toast.success('Elemento Eliminado');
+        
     }
     goBack = () => {
         const path=`/operationDetail/${+this.props.match.params.idOperation}`;
         this.props.history.push(
             {
                 pathname: `${path}`,
-                /* state: { operationList: this.state } */
             }
         )
     }
@@ -189,11 +189,10 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         operations[operationIndex].people = peopleList;
 
         
-        putPerson(operation.idOperation,operations[operationIndex]).then((e)=>console.log('newPersonAdded'));//insert in DB
+        putPerson(operation.idOperation,operations[operationIndex]).then((e)=>toast.error('Añadido'));
         
         let path = `/operationDetail/${idOperation}`;
 
-        /* this.props.history.push(path); */
         this.props.history.push(
             {
                 pathname: `${path}`,

@@ -94,7 +94,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
         this.props.updateState('familiars', newState.familiar, 'idFamiliar');
-        toast.success('Guardado')
+        toast.success('Guardado');
     }
 
     onCancel = () => {

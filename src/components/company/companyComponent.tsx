@@ -10,6 +10,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import { CardActions } from '@material-ui/core';
+import {toast} from 'react-toastify';
 
 interface Props {
     company: CompanyEntity;
@@ -68,8 +69,8 @@ export class CompanyComponent extends React.Component<Props, State>{
         }
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
         this.props.updateState('companies', newState.company, 'idCompany');
+        toast.success('Guardado');
     }
 
     onCancel = () => {

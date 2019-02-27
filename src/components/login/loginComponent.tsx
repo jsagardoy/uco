@@ -46,7 +46,7 @@ export class LoginContainer extends React.Component<Props, State>{
                toast.error('Usuario y Password incorrectos');
             }
                 
-            }catch(error){console.log(error);}
+            }catch(error){toast.error(error);}
         
     }
 

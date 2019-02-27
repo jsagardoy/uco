@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {VehicleEntity} from '../../model/vehicle';
 import { GalleryComponent } from '../../common';
-import {Input,InputFile} from '../form//common';
+import {Input,InputFile} from '../form/common';
 
 
 interface Props{

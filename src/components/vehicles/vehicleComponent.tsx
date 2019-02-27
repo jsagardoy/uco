@@ -11,6 +11,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import { Save, Edit, Cancel, Delete } from '@material-ui/icons';
 import { removeElementFromArray } from '../../common';
+import { toast } from 'react-toastify';
 
 interface Props {
     vehicle: VehicleEntity;
@@ -42,7 +43,6 @@ export class VehicleComponent extends React.Component<Props, State> {
                 ...this.state,
                 vehicle: data
             }
-            console.log(data);
             this.setState(newState);
         })
     }
@@ -95,8 +95,8 @@ export class VehicleComponent extends React.Component<Props, State> {
         }
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
         this.props.updateState('vehicles', newState.vehicle, 'idVehicle');
+        toast.success('Guardado');
     }
 
 

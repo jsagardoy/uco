@@ -7,6 +7,7 @@ import { RutineFormComponent } from '../form';
 import { Button, CardActionArea, Card, CardContent, CardActions } from '@material-ui/core';
 import { createEmptyRutine } from '.';
 import { Edit, Save, Cancel, Delete } from '@material-ui/icons';
+import { toast } from 'react-toastify';
 
 interface Props {
     rutines: Array<RutineEntity>
@@ -104,8 +105,8 @@ export class RutinesComponent extends React.Component<Props, State> {
         newState.rutines[index].editable = !this.state.rutines[index].editable;
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
         this.props.updateState('rutines', newState.rutines);
+        toast.success('Guardado');
     }
     onCancel = (index: number) => {
         if (this.state.rutines.length>this.prevState.rutines.length){

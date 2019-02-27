@@ -1,6 +1,7 @@
 import * as React from 'react';
 import decode from 'jwt-decode';
 import {getLogin} from '../../api/loginAPIConnection';
+import { toast } from 'react-toastify';
 export default class AuthHelperMethods extends React.Component {
     
     // Initializing important variables
@@ -40,7 +41,7 @@ export default class AuthHelperMethods extends React.Component {
                 return false;
         }
         catch (err) {
-            console.log("expired check failed! Line 42: AuthService.js");
+            toast.error("expired check failed! Line 42: AuthService.js");
             return false;
         }
     }
@@ -63,7 +64,6 @@ export default class AuthHelperMethods extends React.Component {
     getConfirm = () => {
         // Using jwt-decode npm package to decode the token
         let answer = decode(this.getToken());
-        console.log("Recieved answer!");
         return answer;
     }
 

@@ -24,5 +24,4 @@ class NavBarComponent extends React.Component<any>{
 } 
 
 export default withRouter(NavBarComponent);
-//const NavBarHoC = withRouter(NavBarComponent);
 

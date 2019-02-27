@@ -11,13 +11,6 @@ export default function withAuth (AuthComponent) {
     const Auth = new AuthHelperMethods({});
     class AuthWrapped extends React.Component<RouteComponentProps, State>{
         
-        /* constructor(props){
-            super(props);
-            this.state={
-                confirm:null,
-                loaded:false,
-            }
-        } */
         state = {
           confirm:null, 
           loaded:false

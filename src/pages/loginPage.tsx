@@ -64,7 +64,6 @@ export class LoginPageComponent extends React.Component<RouteComponentProps<any>
                 ...this.state,
                 failedAuth: true
             })
-            console.log('user - Pass incorrectos');
             this.cleanFields();
         }
     }

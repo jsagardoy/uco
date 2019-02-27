@@ -7,6 +7,7 @@ import { LinkFormComponent } from '../form';
 import { Button, CardActionArea, Card, CardContent, CardActions } from '@material-ui/core';
 import { createEmptyLink } from '.';
 import { Save, Cancel, Edit, Delete } from '@material-ui/icons';
+import { toast } from 'react-toastify';
 
 interface Props {
     links: Array<LinkEntity>
@@ -112,7 +113,7 @@ export class LinksComponent extends React.Component<Props, State> {
         
         this.setState(newState);
         this.prevState=newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo
+        toast.success('Guardado');
     }
 
     onCancel = (index: number) => {

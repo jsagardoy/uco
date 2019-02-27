@@ -54,18 +54,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             }
         })
     }
-/* 
-    patchStateOperation = (operation: OperationEntity) => {
-        const url = `${machines.DEV}/${operation.idOperation}`;
 
-        axios.patch(url,
-            { "state": operation.state }
-        )
-            .then(res => {
-                toast.success('Operation updated');
-            })
-            .catch((error) => console.log(error));
-    } */
     patchStateOperation = async (operation:OperationEntity) =>{
         try{
         let result = await putPerson(operation.idOperation,operation);
@@ -80,7 +69,6 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
         newOp.state = !newOperation.state
         const updatedList = updateElementFromArray(this.state.operationList, newOp, (item) => item.idOperation === newOp.idOperation)
         this.setState({ operationList: updatedList });
-        //this.patchStateOperation(newOp);
         this.patchStateOperation(newOp);
         
     }

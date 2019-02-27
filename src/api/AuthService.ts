@@ -16,16 +16,6 @@ export default class AuthService extends React.Component<{}, State>{
 
         this.setToken(token);
         return true;
-        /* return this.fetch (`${this.state.domain}/users/register`,{
-                method: 'POST',
-                body:JSON.stringify({
-                    username,
-                    password
-                })
-        }).then(res => {
-            this.setToken(res.getToken());
-            return Promise.resolve(res);
-        }) */
     }
 
     setToken = (idToken:string) => {
@@ -79,26 +69,4 @@ export default class AuthService extends React.Component<{}, State>{
             throw error;
         }
     }
-
-   
-   /*  fetch = (url:string, options) => {
-        // performs api calls sending the required authentication headers
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-
-        // Setting Authorization header
-        // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken()
-        }
-
-        return fetch(url, {
-            headers,
-            //...options
-        })
-            .then(this._checkStatus)
-            .then(response => response.json())
-    } */
 }

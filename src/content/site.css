@@ -9,15 +9,6 @@ h1{
     font-size: 2,5em; 
 }
 
-/* img{
-    
-    display: block;
-    max-width:600px;
-    max-height: 600px;
-    width: auto;
-    height: auto;
-    
-} */
 img.avatar{
     border-radius: 50%;
     background-color:silver;
@@ -29,7 +20,6 @@ img.avatar{
     justify-content: center;
 }
 .image-gallery-image{
-/*hay q adaptarlo para distintos tamaños*/
     width: 600px;
     height: 600px;
 }
