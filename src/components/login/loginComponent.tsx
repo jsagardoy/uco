@@ -33,21 +33,6 @@ export class LoginContainer extends React.Component<Props, State>{
         this.setState(handleChange(fieldName, value, group, this.state));
     }
    
-    /* onHandleSubmit = () => {
-        let login:LoginEntity=this.state.loginEntity;
-        getLogin(login).then((response) => {
-             this.setState(
-            {
-            ...this.state,
-            token: response.token
-            }) 
-            this.props.onSubmit(this.state);
-        }  
-        ).catch((error)=>{
-         console.log (error);   
-        })
-        
-    } */
     onHandleSubmit = async () =>{
         try{let login:LoginEntity=this.state.loginEntity;
             let response =  await getLogin(login);

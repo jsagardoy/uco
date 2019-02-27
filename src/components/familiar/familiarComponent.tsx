@@ -12,6 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import {Save,Edit,Cancel,Delete } from '@material-ui/icons';
+import { toast } from 'react-toastify';
 
 
 interface Props {
@@ -92,8 +93,8 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
         }
         this.setState(newState);
         this.prevState = newState;//update content for prevState with the saved data
-        //aquí debería llamar a la API parar guardarlo y hacer sacar una tarjetita diciendo que OK o Fail
         this.props.updateState('familiars', newState.familiar, 'idFamiliar');
+        toast.success('Guardado')
     }
 
     onCancel = () => {
@@ -104,6 +105,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
                 newState.familiar.editable=false;
                 this.setState(newState);
             }  
+            toast.info('Cancelado');
     }
 
     render() {

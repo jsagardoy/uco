@@ -6,13 +6,14 @@ import { RouteComponentProps } from 'react-router';
 import { updateElementFromArray, appendElementToArray  } from '../common';
 import { machines } from '../common';
 import axios from 'axios';
-import { getOperations,putOperation } from '../api/operationAPIConnection';
+import { getOperations,putPerson, putOperation } from '../api/operationAPIConnection';
 import { Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 import { OperationComponent } from '../components/operation/operationComponent';
 import { createEmptyOperation } from '../components/operation/operationComponent.business';
 import AuthService from '../api/AuthService';
+import { toast } from 'react-toastify';
 
 
 interface State {
@@ -53,7 +54,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             }
         })
     }
-
+/* 
     patchStateOperation = (operation: OperationEntity) => {
         const url = `${machines.DEV}/${operation.idOperation}`;
 
@@ -61,18 +62,27 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
             { "state": operation.state }
         )
             .then(res => {
-                console.log('Operation updated');
+                toast.success('Operation updated');
             })
             .catch((error) => console.log(error));
+    } */
+    patchStateOperation = async (operation:OperationEntity) =>{
+        try{
+        let result = await putPerson(operation.idOperation,operation);
+        toast.success('Actualizado');
+        }catch(error){
+            toast.error(error.message);
+        }
     }
-
 
     onToggle = (newOperation: OperationEntity): void => {
         const newOp: OperationEntity = { ...newOperation };
         newOp.state = !newOperation.state
         const updatedList = updateElementFromArray(this.state.operationList, newOp, (item) => item.idOperation === newOp.idOperation)
         this.setState({ operationList: updatedList });
+        //this.patchStateOperation(newOp);
         this.patchStateOperation(newOp);
+        
     }
 
     addNewOperation = () => {
@@ -93,7 +103,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
                 showComponent:false,
                 }
             ) 
-        putOperation(operation).then((e)=>console.log('data added'));
+        putOperation(operation).then((e)=>toast.success('Guardado'));
     } 
 
     onCancel = () =>  {

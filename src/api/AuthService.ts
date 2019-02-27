@@ -59,7 +59,6 @@ export default class AuthService extends React.Component<{}, State>{
     }
     logout = () => {
         // Clear user token and profile data from localStorage
-        console.log('bye');
         localStorage.removeItem('id_token');
         
     }
