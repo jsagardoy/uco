@@ -2,28 +2,17 @@ import * as React from 'react';
 import decode from 'jwt-decode';
 import {getLogin} from '../../api/loginAPIConnection';
 import { toast } from 'react-toastify';
+import { LoginEntity } from '../../model';
+
 export default class AuthHelperMethods extends React.Component {
     
     // Initializing important variables
 
-    login = (username:string, password:string) => {
-        
-        // Get a token from api server using the fetch api
-        return this.fetch(`/login`, {
-            method: 'POST',
-            body: JSON.stringify({
-                username,
-                password
-            })
-        }).then(res => {
-            
-            this.setToken(res.token) // Setting the token in localStorage
-            return Promise.resolve(res);
-        }) 
+    login = (token:string) =>{
 
-        
+        this.setToken(token);
+        return true;
     }
-
 
     loggedIn = () => {
         // Checks if there is a saved token and it's still valid
@@ -56,9 +45,11 @@ export default class AuthHelperMethods extends React.Component {
         return localStorage.getItem('id_token')
     }
 
-    logout = () => {
-        // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
+    logout = async () => {
+        if (this.loggedIn()){
+            // Clear user token and profile data from localStorage
+            localStorage.removeItem('id_token');
+        }
     }
 
     getConfirm = () => {

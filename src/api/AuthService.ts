@@ -1,4 +1,4 @@
-import * as React from 'react';
+/* import * as React from 'react';
 import decode from 'jwt-decode';
 
 interface State {
@@ -9,7 +9,7 @@ export default class AuthService extends React.Component<{}, State>{
 
     constructor(props){
         super(props);
-        this.state={domain:'http://localhost:4000'}
+        this.state={domain:'https://localhost:4000'}
     }
 
     login = (token:string) =>{
@@ -47,10 +47,10 @@ export default class AuthService extends React.Component<{}, State>{
             return false;
         }
     }
-    logout = () => {
+    logout = async () => {
+        if (this.loggedIn())
         // Clear user token and profile data from localStorage
-        localStorage.removeItem('id_token');
-        
+            await localStorage.removeItem('id_token');
     }
 
     getProfile = () => {
@@ -69,4 +69,4 @@ export default class AuthService extends React.Component<{}, State>{
             throw error;
         }
     }
-}
+} */

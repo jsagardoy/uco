@@ -1,11 +1,12 @@
-import * as React from 'react';
-import axios, {AxiosPromise} from 'axios';
+import axios from 'axios';
+import https from 'https';
+
 export const getLogin = async (login) => {
 
-    const url = `http://localhost:4000/users/authenticate`;
+    const url = `https://localhost:4000/users/authenticate`;
     try{
         console.log(login);
-        let response = await axios.post(url,login);
+        let response = await axios.post(url,login, {httpsAgent: new https.Agent({rejectUnauthorized: false})});
         const newLogin = {
             ...login,
             token:response.data.token
@@ -17,8 +18,8 @@ export const getLogin = async (login) => {
 }
 
 export const createUser = async (login) =>{
-    const url =`http://localhost:4000/users/register`;
-    await axios.post(url,login);
+    const url =`https://localhost:4000/users/register`;
+    await axios.post(url,login, {httpsAgent: new https.Agent({rejectUnauthorized: false})});
 }
 
 

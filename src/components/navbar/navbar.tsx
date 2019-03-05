@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AuthService from '../../api/AuthService';
+import AuthService from '../Auth/withAuth.business';
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 

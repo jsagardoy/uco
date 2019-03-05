@@ -5,5 +5,5 @@ export const dataType ={
 }   
 
 export const machines ={
-    DEV:'http://localhost:4000/api/operations',
+    DEV:'https://localhost:4000/api/operations',
 }

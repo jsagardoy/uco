@@ -12,7 +12,7 @@ import { Add } from '@material-ui/icons';
 
 import { OperationComponent } from '../components/operation/operationComponent';
 import { createEmptyOperation } from '../components/operation/operationComponent.business';
-import AuthService from '../api/AuthService';
+import AuthService from '../components/Auth/withAuth.business';
 import { toast } from 'react-toastify';
 
 

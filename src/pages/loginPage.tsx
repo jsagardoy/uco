@@ -3,8 +3,7 @@ import { LoginEntity } from '../model';
 import { createEmptyLogin } from './loginPage.business';
 import { RouteComponentProps } from 'react-router';
 import { LoginContainer } from '../components/login/loginComponent';
-import AuthService from '../api/AuthService';
-
+import AuthService from '../components/Auth/withAuth.business';
 
 interface State {
     loginEntity: LoginEntity;

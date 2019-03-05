@@ -19,6 +19,9 @@ module.exports = {
         path: path.join(basePath, 'dist'),
         filename: 'bundle.js'
     },
+    node: {
+        fs: 'empty'
+      },
     devtool: 'source-map',
     devServer: {
         contentBase: './dist', // Content base

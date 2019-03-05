@@ -6,7 +6,7 @@ import { storeOperations,getOperationList,initializeStateDetail} from '../api/op
 import {StateOperation} from '.';
 import { Button } from '@material-ui/core';
 import { ArrowLeft, PersonAdd } from '@material-ui/icons';
-import AuthService from '../api/AuthService';
+import AuthService from '../components/Auth/withAuth.business';
 
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,StateOperation> {
     constructor(props){
