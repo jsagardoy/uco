@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {OperationEntity} from './model/operation';
 import {Route, Switch, withRouter} from 'react-router';
-import {OperationsTable, OperationDetailedPage , HomePage, DetailPersonPage, LoginPageComponent, } from './pages';
+import {OperationsTable, OperationDetailedPage , DetailPersonPage, LoginPageComponent, } from './pages';
 import NavBarComponent  from './components/navbar/navbar';
 import { ToastContainer } from 'react-toastify';
+import styled from 'styled-components';
 
 
 
@@ -26,7 +27,9 @@ interface State {
                     closeOnClick
                     pauseOnHover
                />
+  
     <NavBarComponent/>
+
     <Switch>
       <Route exact = {true} path="/" component = {LoginPageComponent}/>
       <Route path={"/login"} component = {LoginPageComponent} /> 
@@ -36,7 +39,8 @@ interface State {
       <Route path={`/operationDetail/:idOperation/personDetail/newPerson`} component={DetailPersonPage} /> 
       <Route path={`/operationDetail/:idOperation/personDetail/newPerson`} component={DetailPersonPage} /> 
     </Switch>
-  </>  
+    </>
+   
   )
 };
 

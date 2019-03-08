@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Exo+2|Libre+Franklin');
 
-* {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 18px;
-}
-
-h1{
-    font-size: 2,5em; 
-}
-
 img.avatar{
     border-radius: 50%;
     background-color:silver;

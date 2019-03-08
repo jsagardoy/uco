@@ -106,6 +106,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
 
     render() {
         return (
+
             <MuiThemeProvider>
                 <>
                     <Button onClick={(e) => this.addNewOperation()}>
@@ -127,6 +128,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
                     />
                 </>
             </MuiThemeProvider>
+
         );
     }
 }

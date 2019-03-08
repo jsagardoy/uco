@@ -2,6 +2,13 @@ import * as React from 'react';
 import { LoginEntity } from '../../model';
 import { Input } from './common';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+    font-family: 'Source Sans Pro', sans-serif;
+    display: block;
+    position: relative;
+`;
 
 interface Props {
     loginEntity: LoginEntity;
@@ -13,7 +20,7 @@ interface Props {
 }
 
 export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props) => (
-    <>
+    <Wrapper>
 
         <div className="tab">          
                     <Button onClick={(e) => props.handleRegister('login')}>Login</Button> 
@@ -71,5 +78,5 @@ export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props
                 <Button onClick={(e) => props.onSubmit()}>Entrar</Button>
             </form>
         }
-    </>
+    </Wrapper>
 )
