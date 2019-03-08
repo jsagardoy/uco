@@ -5,13 +5,13 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Button } from '@material-ui/core';
-const logo = require('../../common/images/escudo_guardia_civil.gif') ;
+const logo = require('../../common/images/escudo_guardia_civil.gif');
 
 //background-color:#007A53;
 
 
 
-const Nav =  styled.nav`
+const Nav = styled.nav`
 height: 5%;
 width: 100%;
 grid-auto-rows: auto;
@@ -65,7 +65,7 @@ const A2 = styled.a`
 `;
 const A3 = styled.a`
     text-decoration: none;
-    padding: 0 0 1em 0;
+    padding: 0 0 0 0;
     background-color:#007A53;
     color: #FFCD00;
     display: block;
@@ -77,7 +77,7 @@ const A3 = styled.a`
     }
 `;
 
- const Img = styled.img`
+const Img = styled.img`
     display:block;
     float: left;
     max-height: 40px;
@@ -88,20 +88,22 @@ const A3 = styled.a`
     border-width: 10px;
  `;
 
- const StyledButton =  styled.button `
+const StyledButton = styled.button`
     display: block;
     align-content:left;
+    color:inherit;
+    padding: 0;
  `;
 
 interface State {
-    showNav:boolean;
+    showNav: boolean;
 }
 
-class NavBarComponent extends React.Component<any,State>{
-    state={showNav:false};
+class NavBarComponent extends React.Component<any, State>{
+    state = { showNav: false };
 
-    toogleNav  = ()=>{
-        this.setState({showNav:!this.state.showNav});
+    toogleNav = () => {
+        this.setState({ showNav: !this.state.showNav });
     }
 
     auth: AuthService = new AuthService('');
@@ -111,15 +113,14 @@ class NavBarComponent extends React.Component<any,State>{
                 <Nav>
                     <Ul>
                         <Li>
-                         
-                            <StyledButton>
                             <A3>
-                                <Button color='inherit' onClick={(e) => this.toogleNav()}><MenuIcon />
-                                </Button>
-                            </A3></StyledButton>
+                                <StyledButton onClick={(e) => this.toogleNav()}>
+                                    <MenuIcon />
+                                </StyledButton>
+                            </A3>
                         </Li>
-                            {
-                                this.state.showNav?
+                        {
+                            this.state.showNav ?
                                 <>
                                     <Li><A3 href='#/operations'>Operaciones</A3></Li>
                                     <Li><A3 href='#/login'>Login</A3></Li>
@@ -132,19 +133,19 @@ class NavBarComponent extends React.Component<any,State>{
                                 </>
                                 :
                                 null
+                        }
+                        <>
+                            <Li><A2 href="/"><Img src={logo} /></A2></Li>
+                            <Li><A href='#/operations'>Operaciones</A></Li>
+                            <Li><A href='#/login'>Login</A></Li>
+                            <Li><A onClick={(e) => {
+                                this.auth.logout();
+                                this.props.history.replace('/login');
+                                toast.info('Adios. Usuario desconectado');
                             }
-                            <>
-                                <Li><A2 href="/"><Img src={logo} /></A2></Li>
-                                <Li><A href='#/operations'>Operaciones</A></Li>
-                                <Li><A href='#/login'>Login</A></Li>
-                                <Li><A onClick={(e) => {
-                                    this.auth.logout();
-                                    this.props.history.replace('/login');
-                                    toast.info('Adios. Usuario desconectado');
-                                }
-                                }>Logout</A></Li>
-                            </>
-                        
+                            }>Logout</A></Li>
+                        </>
+
                     </Ul>
                 </Nav>
             </>
