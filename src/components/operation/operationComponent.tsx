@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { OperationEntity } from "../../model";
-import { handleChange } from '../../common';
+import { handleChange, colors } from '../../common';
 import { FormOperationComponent } from '../form';
 import { Button } from '@material-ui/core';
 import { Save, Cancel } from '@material-ui/icons';
+import { css } from 'emotion';
 
 interface Props {
     operation: OperationEntity;
@@ -27,7 +28,16 @@ export class OperationComponent extends React.Component<Props, State> {
     handleChange = (fieldName: string, value: any, group: string) => {
         this.setState(handleChange(fieldName, value, group, this.state));
     }
-    
+    //Styles
+    buttonStyle = css`
+        color:${colors.GREEN};
+        
+    `;
+    divStyle = css`
+        margin-right:5%;
+        float: right;
+    `;
+    // END Styles
     render(){
         if(this.props.showComponent){
             return(
@@ -36,12 +46,14 @@ export class OperationComponent extends React.Component<Props, State> {
                                                 editable={true}
                                                 handleChange={this.handleChange}
                         />
-                        <Button onClick={(e) => this.props.onSave(this.state.operation)}>
-                            <Save />
-                        </Button>
-                        <Button onClick={(e) => this.props.onCancel ()}>
-                            <Cancel />
-                        </Button>
+                        <div className={this.divStyle}>
+                            <Button onClick={(e) => this.props.onSave(this.state.operation)}>
+                                <Save className={this.buttonStyle}/>
+                            </Button>
+                            <Button onClick={(e) => this.props.onCancel ()}>
+                                <Cancel className={this.buttonStyle}/>
+                            </Button>
+                        </div>
                     </>
                 )
         }

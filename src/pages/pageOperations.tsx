@@ -124,6 +124,12 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
       color:${green}
     }
     `;
+
+    formStyle = css`
+        width: 80%;
+        margin: 10%;
+        color: ${green};
+    `; 
     // END Styles
     render() {
         return (
@@ -133,7 +139,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
                     <Fab className={this.fabStyle} aria-label="Add" onClick={(e) => this.addNewOperation()}>
                         <Add color='inherit' />
                     </Fab>
-                    <div className={this.divStyle}>
+                    <form className={this.formStyle}>
                         {
                             this.state.showComponent ?
                                 <OperationComponent operation={createEmptyOperation()}
@@ -144,6 +150,8 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
                                 :
                                 null
                         }
+                    </form>
+                    <div className={this.divStyle}>
                         <OperationTableComponent operationList={this.state.operationList}
                             onClickRow={this.onClickRow}
                             onToggle={this.onToggle}
