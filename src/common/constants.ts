@@ -7,3 +7,8 @@ export const dataType ={
 export const machines ={
     DEV:'https://localhost:4000/api/operations',
 }
+
+export const colors = {
+    GREEN:'#007A53',
+    YELLOW: '#FFCD00',
+}

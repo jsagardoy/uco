@@ -4,6 +4,9 @@ import { Toggle } from 'material-ui';
 
 import {OperationEntity} from '../../model';
 
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+
 interface Props{
     operation: OperationEntity;
     onToogle: (newOperation:OperationEntity) => void;
@@ -14,15 +17,15 @@ interface Props{
 export const RowComponent: React.StatelessComponent<Props> = (props) => {
 
     return (
-        <tr>
-            <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.nameOperation}</td>
-            <td onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.operationType}</td>
-            <td>
+        <TableRow hover>
+            <TableCell align='left' onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.nameOperation}</TableCell>
+            <TableCell align='left' onClick={()=> props.onClickRow(props.operation.idOperation)}>{props.operation.operationType}</TableCell>
+            <TableCell align='left'>
                 <Toggle onToggle={()=>props.onToogle(props.operation)}
                 defaultToggled={props.operation.state}
                 />
-            </td>
-        </tr>
+            </TableCell>
+        </TableRow>
     );
 }
 

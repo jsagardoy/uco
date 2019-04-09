@@ -1,6 +1,8 @@
 import * as React  from 'react';
 import {OperationEntity} from '../../model/operation';
 import {RowComponent} from './'
+import TableBody from '@material-ui/core/TableBody';
+
 
 interface Props{
     operationList: Array<OperationEntity>;
@@ -12,7 +14,7 @@ interface Props{
 export const TableBodyComponent: React.StatelessComponent<Props> =  (props:Props) =>{
 
     return (
-        <tbody>                        
+       <>            
             
            { 
             props.operationList
@@ -28,7 +30,7 @@ export const TableBodyComponent: React.StatelessComponent<Props> =  (props:Props
                 ))
             }   
              
-        </tbody>
+        </>
     );
 }
 

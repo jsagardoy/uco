@@ -1,7 +1,16 @@
 import * as React from "react";
-
+import styled from 'styled-components';
 import { TextField } from '@material-ui/core';
 
+
+const Div = styled.div`
+   color:green;
+   width:100%;
+`
+const StyledTextField = styled(TextField)`
+  &&{width:95%;
+  padding-right: 10px;}
+`;
 interface Props {
   name: string;
   label: string;
@@ -25,28 +34,28 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
   return (
     <div className={formatWrapperClass(props)}>
       <label htmlFor={props.name}>{props.label}</label>
-      <div className="field">
+      <Div className="field">
         {
           props.editable ?
-            <TextField type={type}
+            <StyledTextField type={type}
               name={props.name}
-              className="form-control"
+              
               placeholder={props.placeholder}
               value={props.value}
               onChange={onChangeInput(props)}
             />
             :
-            <TextField type={type}
+            <StyledTextField type={type}
               disabled
               name={props.name}
-              className="form-control"
+              
               placeholder={props.placeholder}
               value={props.value}
               onChange={onChangeInput(props)}
             />
         }
 
-      </div>
+      </Div>
       <div className="help-block">{props.error}</div>
     </div>
   )

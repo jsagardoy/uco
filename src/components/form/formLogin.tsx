@@ -4,11 +4,42 @@ import { Input } from './common';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-    font-family: 'Source Sans Pro', sans-serif;
-    display: block;
-    position: relative;
+const green = '#007A53';
+const yellow = '#FFCD00';
+const Container = styled.div`
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1em;
+    display: flex; 
+    align-items:center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-top: auto;
+    color:#007A53;
+    box-sizing: border-box;
 `;
+const Form = styled.form`  
+    width: 100%;
+    padding-left: 10px;
+    border: 1px solid #007A53;
+`;
+const Div = styled.div`
+    padding-top:1%;
+    width: 30%;
+`;
+const StyledButton = styled(Button)`
+    &&{
+        background-color:${green};
+        color: ${yellow};
+        align-content:flex-start;
+        width: 40%;
+        margin-left:10px;
+        :hover{
+            background-color:#FFCD00;
+            color: #007A53;
+        }
+}
+`;
+
 
 interface Props {
     loginEntity: LoginEntity;
@@ -20,14 +51,15 @@ interface Props {
 }
 
 export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props) => (
-    <Wrapper>
-
-        <div className="tab">          
-                    <Button onClick={(e) => props.handleRegister('login')}>Login</Button> 
-                    <Button onClick={(e) => props.handleRegister('register')}>Register</Button>
-        </div>
+    <Container>
+        <Div>
+            <StyledButton onClick={(e) => props.handleRegister('login')}>Login</StyledButton> 
+            <StyledButton onClick={(e) => props.handleRegister('register')}>Register</StyledButton>
+        </Div>
+        <Div>
         {props.onNewUser==='register' ?
-            <form className='newUserForm'>
+            <Form className='newUserForm'>
+            
                 <Input name='username'
                     editable={true}
                     value={props.loginEntity.username}
@@ -54,10 +86,10 @@ export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props
                     onChange={props.handleChange}
                     type="email"
                 />
-                <Button onClick={(e) => props.onRegister()}>Registrate</Button>
-            </form> 
+                <StyledButton onClick={(e) => props.onRegister()}>Registrate</StyledButton>
+            </Form> 
             :
-            <form className='LoginForm'>
+            <Form className='LoginForm'>
                 <Input name='username'
                     editable={true}
                     value={props.loginEntity.username}
@@ -75,8 +107,11 @@ export const FormLoginComponent: React.StatelessComponent<Props> = (props: Props
                     onChange={props.handleChange}
                     type="password"
                 />
-                <Button onClick={(e) => props.onSubmit()}>Entrar</Button>
-            </form>
-        }
-    </Wrapper>
+                
+                    <StyledButton onClick={(e) => props.onSubmit()}>Entrar</StyledButton>
+                
+            </Form>
+        } 
+        </Div>
+    </Container>
 )
