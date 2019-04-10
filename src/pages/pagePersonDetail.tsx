@@ -248,7 +248,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
                 }
                 <Button className="buttonVehicle" onClick={(event) => this.onToggle(dataType.VEHICLE)}>
-                    <span>Vehículos</span>
+                    Vehículos
                     {this.state.showVehicle ?
                         <ExpandLess /> :
                         <ExpandMore />

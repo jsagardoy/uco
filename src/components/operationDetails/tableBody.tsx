@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PeopleEntity } from '../../model';
 import { PersonRow } from '.';
+import { TableBody } from '@material-ui/core';
 
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 
 export const TableBodyComponent: React.StatelessComponent<Props> = (props:Props) =>(
 
-<tbody>
+<TableBody>
 {
     props.people?
     props.people.map((person : PeopleEntity)=> (
@@ -23,5 +24,5 @@ export const TableBodyComponent: React.StatelessComponent<Props> = (props:Props)
     :
     null
 }
-</tbody>
+</TableBody>
 )

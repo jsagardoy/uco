@@ -7,6 +7,8 @@ import {StateOperation} from '.';
 import { Button } from '@material-ui/core';
 import { ArrowLeft, PersonAdd } from '@material-ui/icons';
 import AuthService from '../components/Auth/withAuth.business';
+import { colors } from '../common';
+import { css } from 'emotion';
 
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>,StateOperation> {
     constructor(props){
@@ -61,11 +63,22 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         this.props.history.push(`/operationDetail/${+this.props.match.params.idOperation}/personDetail/newPerson`);
     }
 
+    buttonStyle = css`
+            color:${colors.GREEN};
+            
+    `;
+    divStyle = css`
+        margin-top: 2.5%;
+        margin-bottom: 2.5%;
+        text-align: right;
+    `
     render() {
         return (
             <>
-                <Button onClick={(e) => this.goBack()}><ArrowLeft /></Button>
-                <Button onClick={(e) => this.addNewPersonToOperation()}><PersonAdd/></Button> 
+                <div className={this.divStyle}>
+                    <Button className= {this.buttonStyle} onClick={(e) => this.goBack()}><ArrowLeft /></Button>
+                    <Button className= {this.buttonStyle} onClick={(e) => this.addNewPersonToOperation()}><PersonAdd/></Button> 
+                </div>
                 {
                     this.showOperationDetail(this.props.match.params.idOperation)
                 }

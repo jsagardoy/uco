@@ -9,22 +9,23 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import {Save,Edit,Cancel,Delete } from '@material-ui/icons';
+import { Save, Edit, Cancel, Delete } from '@material-ui/icons';
 import { toast } from 'react-toastify';
+import { css } from 'emotion';
 
 
 interface Props {
     person: PeopleEntity;
     showPerson: boolean;
     addNew: boolean;
-    index?:number;
+    index?: number;
     onToggle: (fieldId: string) => void;
     removeFromList: (fieldId: string, index: number) => void;
-    updateState:(fieldId:string, state:any,idField: string) =>void;
+    updateState: (fieldId: string, state: any, idField: string) => void;
 }
 
 interface State {
-    person:PeopleEntity;
+    person: PeopleEntity;
 }
 
 export class PersonComponent extends React.Component<Props, State> {
@@ -32,7 +33,7 @@ export class PersonComponent extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = { person: this.props.person };
-        this.prevState=this.state;
+        this.prevState = this.state;
     }
     fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string) => {
 
@@ -55,11 +56,11 @@ export class PersonComponent extends React.Component<Props, State> {
         element.editable = !element.editable;
         let newState: State = {
             ...this.state,
-            person :element
+            person: element
         }
         this.setState(newState);
     }
-    
+
     onSave = (value: PeopleEntity, ) => {
         let newState: State = {
             ...this.state
@@ -71,7 +72,7 @@ export class PersonComponent extends React.Component<Props, State> {
         }
         let element2;
         // ESTO TENGO QUE CAMBIARLO A UN UPDATE EN LUGAR DE ANDAR ELMINANDO EL VACIO
-        if(this.state.person.addressLink.length >1 &&(this.state.person.addressPic[0].img.data==null || this.state.person.addressPic[0] === null)){
+        if (this.state.person.addressLink.length > 1 && (this.state.person.addressPic[0].img.data == null || this.state.person.addressPic[0] === null)) {
             const newPerson = {
                 ...this.state.person,
                 addressPic: removeElementFromArray(this.state.person.addressPic, (item) => item.img.data == null)
@@ -80,10 +81,10 @@ export class PersonComponent extends React.Component<Props, State> {
                 ...element,
                 addressPic: newPerson.addressPic
             }
-            
-            newState.person=element2;
+
+            newState.person = element2;
         }
-        if (this.state.person.picsLinks.length >1 &&(this.state.person.picsLinks[0].img.data === null ||this.state.person.picsLinks[0] === null)) {
+        if (this.state.person.picsLinks.length > 1 && (this.state.person.picsLinks[0].img.data === null || this.state.person.picsLinks[0] === null)) {
 
             const newPerson = {
                 ...newState.person,
@@ -100,7 +101,7 @@ export class PersonComponent extends React.Component<Props, State> {
             }
         }
 
-         newState= {
+        newState = {
             ...this.state,
             person: element2
         }
@@ -111,68 +112,91 @@ export class PersonComponent extends React.Component<Props, State> {
     }
 
     onCancel = () => {
-            if(this.props.addNew)
-                this.props.removeFromList('person', this.props.index)
-            else{
-                const newState:State = {...this.prevState};
-                newState.person.editable=false;
-                this.setState(newState);
-            }  
+        if (this.props.addNew)
+            this.props.removeFromList('person', this.props.index)
+        else {
+            const newState: State = { ...this.prevState };
+            newState.person.editable = false;
+            this.setState(newState);
+        }
     }
 
+    //styles
+    divStyle = css`
+            width:80%;
+            margin-left:10%;
+    `;
+
+    imgStyle = css`
+            padding-top: 2%;
+            padding-bottom: 0%;
+            display: block;
+            margin: auto;  
+            max-width: 200px;
+            border-radius:20%;
+    `;
+    
+    cardContentStyle = css`
+        padding-top: 0px;
+    `;
+    //end styles
     render() {
-        return (<div id='person' className='person'>
-            {
-                this.props.showPerson ?
-                    <Card className='person.card'>
-                        <CardActionArea>
-                        {
-                        (this.state.person.picsLinks[0]===null||this.state.person.picsLinks[0].img.data===null)?
-                        null
-                        :
-                            <CardMedia component="img"
-                                image={this.state.person.picsLinks[0].img.data}
-                                title={this.state.person.namePerson}
-                            />
-                        }
-                            <CardContent>
+        return (
+            <div className={this.divStyle}>
+                <div id='person' className='person'>
+                    {
+                        this.props.showPerson ?
+                            <Card className='person.card'>
+                                <CardActionArea>
+                                    {
+                                        (this.state.person.picsLinks[0] === null || this.state.person.picsLinks[0].img.data === null) ?
+                                            null
+                                            :
+                                            <CardMedia className={this.imgStyle} component="img"
+                                                image={this.state.person.picsLinks[0].img.data}
+                                                title={this.state.person.namePerson}
+                                            />
+                                    }
+                                    <CardContent className={this.cardContentStyle}>
                                         <PersonFormComponent
                                             person={this.state.person}
                                             handleChange={this.handleChange}
                                             handlefileSelectorChange={this.fileSelectedHandler}
                                             editable={this.state.person.editable}
                                         />
-                            </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                            {
-                                this.state.person.editable ?
-                                    <>
-                                        <Button onClick={() => this.onSave(this.state.person)}>
-                                            <Save />
-                                        </Button>
-                                        <Button onClick={(e) => this.onCancel()}>
-                                            <Cancel />
-                                        </Button>
-                                    </>
-                                    :
-                                    <>
-                                        <Button onClick={(e) => this.onEdit()}>
-                                            <Edit />
-                                        </Button>
-                                        <Button onClick={(e) => this.props.removeFromList('people', this.props.index)}>
-                                            <Delete />
-                                        </Button>
-                                    </>
-                            }
-                        </CardActions>
-                    </Card>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    {
+                                        this.state.person.editable ?
+                                            <>
+                                                <Button onClick={() => this.onSave(this.state.person)}>
+                                                    <Save />
+                                                </Button>
+                                                <Button onClick={(e) => this.onCancel()}>
+                                                    <Cancel />
+                                                </Button>
+                                            </>
+                                            :
+                                            <>
+                                                <Button onClick={(e) => this.onEdit()}>
+                                                    <Edit />
+                                                </Button>
+                                                <Button onClick={(e) => this.props.removeFromList('people', this.props.index)}>
+                                                    <Delete />
+                                                </Button>
+                                            </>
+                                    }
+                                </CardActions>
+                            </Card>
 
-                    :
-                    <>
-                    </>
-            }
-        </div>
+                            :
+                            <>
+                            </>
+                    }
+                </div>
+
+            </div>
         );
     }
 
