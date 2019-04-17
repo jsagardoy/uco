@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Input } from './common';
 import { RutineEntity } from '../../model';
+import { css } from 'emotion';
 
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 
 export const RutineFormComponent: React.StatelessComponent<Props> = (props: Props) => {
     return (
+        
         <Input name='rutines'
             editable={props.editable}
             value={props.rutine.data}

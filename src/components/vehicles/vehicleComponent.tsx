@@ -12,6 +12,7 @@ import CardActions from '@material-ui/core/CardActions';
 import { Save, Edit, Cancel, Delete } from '@material-ui/icons';
 import { removeElementFromArray } from '../../common';
 import { toast } from 'react-toastify';
+import { Collapse } from '@material-ui/core';
 
 interface Props {
     vehicle: VehicleEntity;
@@ -20,7 +21,7 @@ interface Props {
     index?: number;
     onToggle: (string) => void;
     removeFromList: (fieldId: string, index: number) => void;
-    updateState:(fieldId:string, state:any, idPerson:string) =>void;
+    updateState: (fieldId: string, state: any, idPerson: string) => void;
 }
 
 interface State {
@@ -71,8 +72,8 @@ export class VehicleComponent extends React.Component<Props, State> {
             editable: !this.state.vehicle.editable,
         }
         let element2;
-       
-        if (this.state.vehicle.pic.length >1 &&(this.state.vehicle.pic[0].img.data === null ||this.state.vehicle.pic[0] === null)) {
+
+        if (this.state.vehicle.pic.length > 1 && (this.state.vehicle.pic[0].img.data === null || this.state.vehicle.pic[0] === null)) {
 
             const newPerson = {
                 ...newState.vehicle,
@@ -89,7 +90,7 @@ export class VehicleComponent extends React.Component<Props, State> {
             }
         }
 
-         newState= {
+        newState = {
             ...this.state,
             vehicle: element2
         }
@@ -112,12 +113,12 @@ export class VehicleComponent extends React.Component<Props, State> {
     render() {
         return (
 
-            this.props.showVehicle ?
-
+            //this.props.showVehicle ?
+            <Collapse in={this.props.showVehicle} timeout="auto" unmountOnExit>
                 <Card className='vehicle.card'>
                     <CardActionArea>
                         {
-                            (this.state.vehicle.pic[0]==null||this.state.vehicle.pic[0].img.data==null)?
+                            (this.state.vehicle.pic[0] == null || this.state.vehicle.pic[0].img.data == null) ?
                                 null
                                 :
                                 <CardMedia component="img"
@@ -157,9 +158,8 @@ export class VehicleComponent extends React.Component<Props, State> {
                         }
                     </CardActions>
                 </Card>
-                :
-                <>
-                </>
+            </Collapse>
+               
         )
     }
 }

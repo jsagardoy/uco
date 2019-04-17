@@ -1,4 +1,4 @@
-export interface LinkEntity{
-    data:string;
-    editable:boolean;
+export interface LinkEntity {
+  data: string;
+  editable: boolean;
 }

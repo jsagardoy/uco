@@ -1,4 +1,4 @@
-export interface RutineEntity{
-    data:string;
-    editable:boolean;
+export interface RutineEntity {
+  data: string;
+  editable: boolean;
 }

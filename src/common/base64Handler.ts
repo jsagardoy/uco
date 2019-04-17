@@ -1,20 +1,17 @@
 var base64 = require('base-64');
-export const base64ToString=(input:string):string=>{
+export const base64ToString = (input: string): string => {
+  if (!input.includes('http')) {
+    return atob(encodeURIComponent(input));
+  }
+  //already reagular string
+  else return input;
+};
 
-    if(!input.includes('http')){
-        return atob(encodeURIComponent(input));
-    }else
-    //already reagular string
+export const stringToBase64 = (input: string): string => {
+  if (input.includes('http') || input.includes('data:')) {
+    //already in base 64
     return input;
+  }
+  //return btoa(encodeURIComponent(input))
+  else return base64.encode(input);
 };
-
-export const stringToBase64 = (input:string):string=>{
-    
-    if(input.includes('http')||input.includes('data:')){
-        //already in base 64
-        return(input);
-    }else
-        //return btoa(encodeURIComponent(input))
-        return base64.encode(input);
-};
-

@@ -1,7 +1,7 @@
-import { LoginEntity } from "../model";
+import { LoginEntity } from '../model';
 
-export const createEmptyLogin =():LoginEntity =>({
-    username:'',
-    password:'',
-    email:'',
-})
+export const createEmptyLogin = (): LoginEntity => ({
+  username: '',
+  password: '',
+  email: '',
+});

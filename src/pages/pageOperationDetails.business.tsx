@@ -1,11 +1,9 @@
-import { OperationEntity } from "../model";
+import { OperationEntity } from '../model';
 
 export interface StateOperation {
-    operationList:Array<OperationEntity>
+  operationList: Array<OperationEntity>;
 }
 
-export const createInitialStateOperationDetail = (operationList:Array<OperationEntity>) => (
-    {
-        operationList
-    }
-)
+export const createInitialStateOperationDetail = (operationList: Array<OperationEntity>) => ({
+  operationList,
+});

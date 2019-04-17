@@ -141,6 +141,7 @@ export class PersonComponent extends React.Component<Props, State> {
     `;
     //end styles
     render() {
+        const props = 'img';
         return (
             <div className={this.divStyle}>
                 <div id='person' className='person'>
@@ -152,9 +153,11 @@ export class PersonComponent extends React.Component<Props, State> {
                                         (this.state.person.picsLinks[0] === null || this.state.person.picsLinks[0].img.data === null) ?
                                             null
                                             :
-                                            <CardMedia className={this.imgStyle} component="img"
+                                            <CardMedia 
+                                                className={this.imgStyle}
                                                 image={this.state.person.picsLinks[0].img.data}
                                                 title={this.state.person.namePerson}
+                                                component={'img' as 'div'}
                                             />
                                     }
                                     <CardContent className={this.cardContentStyle}>
