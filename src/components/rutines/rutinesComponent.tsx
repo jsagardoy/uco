@@ -4,11 +4,17 @@ import { RutineEntity } from '../../model';
 
 import { removeElementFromArray, appendElementToArray, updateElementFromArray, colors } from '../../common'
 import { RutineFormComponent } from '../form';
-import { Button, CardActionArea, Card, CardContent, CardActions, ListItem, ListItemSecondaryAction, List } from '@material-ui/core';
+import {
+        ListItem,
+        ListItemSecondaryAction,
+        List
+        } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { createEmptyRutine } from '.';
-import { Edit, Save, Cancel, Delete } from '@material-ui/icons';
+import { Edit, Save, Cancel, Delete, Add } from '@material-ui/icons';
 import { toast } from 'react-toastify';
 import { css } from 'emotion';
+import { ButtonComponent } from '../Common';
 
 interface Props {
     rutines: Array<RutineEntity>
@@ -79,7 +85,6 @@ export class RutinesComponent extends React.Component<Props, State> {
         this.setState(
             {
                 rutines: newList,
-                showRutine: !this.state.showRutine,
             }
         )
     }
@@ -118,6 +123,11 @@ export class RutinesComponent extends React.Component<Props, State> {
 
 
     }
+    onClickButton = () =>{
+      this.setState({...this.state,
+              showRutine: !this.state.showRutine
+      })
+    }
 
     //styles
     wrapperStyles = css`
@@ -134,23 +144,25 @@ export class RutinesComponent extends React.Component<Props, State> {
     h2Styled = css`
         width: 100%;
         margin-top: 2%;
-        margin-bottom: 2%;
+        margin-bottom: 0.5%;
         text-align: center;
         background-color: ${colors.GREEN};
-        color: ${colors.YELLOW}; 
+        color: ${colors.YELLOW};
     `;
 
     listStyle = css`
-        padding: 0px;    
+        padding: 0px;
     `;
 
     //end Styles
 
     render() {
         //const newRutine: RutineEntity = createEmptyRutine();
+        let styleDiv:React.CSSProperties=null;
         return (
             <div className={this.wrapperStyles}>
-                <h2 className={this.h2Styled}>Rutinas</h2>
+                <h2 className={this.h2Styled} onClick={this.onClickButton}>Rutinas</h2>
+                {this.state.showRutine?
                 <div className={this.divStyles}>
                     {
                         this.state.rutines.map((rutine: RutineEntity, index: number) =>
@@ -188,8 +200,11 @@ export class RutinesComponent extends React.Component<Props, State> {
                         )
 
                     }
-                    <Button onClick={(e) => this.addNewRutine()}>Añadir una rutina</Button>
+                    <ButtonComponent text='Añadir una rutina' onClick={(e) => this.addNewRutine()}><Add /></ButtonComponent>
                 </div>
+                :
+                null
+                }
             </div>
         )
     }

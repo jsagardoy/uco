@@ -15,10 +15,11 @@ export const TableHeaderOperationDetailComponent: React.StatelessComponent = () 
     return (
         <TableHead>
           <TableRow>
-                <TableCell className={cellStyles} align='left'>Foto</TableCell>
-                <TableCell className={cellStyles} align='left'>Nombre</TableCell>
-                <TableCell className={cellStyles} align='left'>Alias</TableCell>
-           </TableRow> 
+                <TableCell className={cellStyles} align="left">Foto</TableCell>
+                <TableCell className={cellStyles} align="left">Nombre</TableCell>
+                <TableCell className={cellStyles} align="left">Alias</TableCell>
+                <TableCell className={cellStyles} align="left">Vehiculos</TableCell>
+           </TableRow>
         </TableHead>
     );
 }
