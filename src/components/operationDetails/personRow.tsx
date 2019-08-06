@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { PeopleEntity } from '../../model';
-import { TableRow, TableCell } from '@material-ui/core';
+import { TableRow, TableCell} from '@material-ui/core';
 import { css } from 'emotion';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { colors } from '../../common';
 
-interface Props {
+interface Props  {
   person: PeopleEntity;
   open: boolean;
   onClickRow: (id: number) => void;
@@ -20,6 +20,8 @@ const imgStyle = css`
 const textStyle = css`
   color: ${colors.YELLOW};
 `;
+
+
 
 export const PersonRow: React.FC<Props> = (props: Props) => {
   return (
@@ -42,7 +44,7 @@ export const PersonRow: React.FC<Props> = (props: Props) => {
                 key={vehicle.idVehicle}
                 media={<img src={vehicle.pic[0].img.data} />}
                 mediaBackgroundStyle={{ backgroundColor: colors.GREEN, color: colors.YELLOW }}
-                style={{ backgroundColor: colors.GREEN }}
+                style={{ color: colors.YELLOW, backgroundColor: colors.GREEN }}
                 title={vehicle.brand}
                 subtitle={vehicle.plate}
               />

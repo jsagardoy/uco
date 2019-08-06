@@ -4,8 +4,7 @@ import { OperationEntity } from '../model';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { RouteComponentProps } from 'react-router';
 import { updateElementFromArray, appendElementToArray } from '../common';
-import { machines } from '../common';
-import axios from 'axios';
+
 import { getOperations, putPerson, putOperation } from '../api/operationAPIConnection';
 import { Button, Fab } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
@@ -16,6 +15,8 @@ import AuthService from '../components/Auth/withAuth.business';
 import { toast } from 'react-toastify';
 
 import { css } from 'emotion';
+import { Theme } from '@material-ui/core';
+import { customTheme } from '../../theme';
 
 interface State {
   operationList: Array<OperationEntity>;
@@ -24,12 +25,9 @@ interface State {
 
 const green = '#007A53';
 const yellow = '#FFCD00';
-const theme = createMuiTheme({
-  /* theme for v1.x */
- });
 
 export class OperationsTable extends React.Component<RouteComponentProps<any>, State> {
-  constructor(props) {
+  constructor( props ) {
     super(props);
     this.state = {
       operationList: [],
@@ -37,18 +35,23 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     };
   }
 
-  componentWillMount() {
+  public componentWillMount() {
     const auth: AuthService = new AuthService('');
-    if (auth.loggedIn()) getOperations().then(res => this.setState({ operationList: res }));
-    else this.props.history.replace('/login');
+    if (auth.loggedIn()) {
+      getOperations().then(res => this.setState({ operationList: res }));
+    } else {
+      this.props.history.replace('/login');
+    }
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const auth: AuthService = new AuthService('');
-    if (!auth.loggedIn()) this.props.history.replace('/login');
+    if (!auth.loggedIn()) {
+      this.props.history.replace('/login');
+    }
   }
 
-  onClickRow = (id: number) => {
+  public onClickRow = (id: number) => {
     this.props.history.push({
       pathname: `/operationDetail/${id}`,
       state: {
@@ -58,16 +61,16 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     });
   };
 
-  patchStateOperation = async (operation: OperationEntity) => {
+  public patchStateOperation = async (operation: OperationEntity) => {
     try {
-      let result = await putPerson(operation.idOperation, operation);
+      const result = await putPerson(operation.idOperation, operation);
       toast.success('Actualizado');
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-  onToggle = (newOperation: OperationEntity): void => {
+  public onToggle = (newOperation: OperationEntity): void => {
     const newOp: OperationEntity = { ...newOperation };
     newOp.state = !newOperation.state;
     const updatedList = updateElementFromArray(
@@ -79,14 +82,14 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     this.patchStateOperation(newOp);
   };
 
-  addNewOperation = () => {
+  public addNewOperation = () => {
     this.setState({
       ...this.state,
       showComponent: !this.state.showComponent,
     });
   };
 
-  onSave = (operation: OperationEntity) => {
+  public onSave = (operation: OperationEntity) => {
     this.setState({
       ...this.state,
       operationList: appendElementToArray(this.state.operationList, operation),
@@ -95,20 +98,22 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     putOperation(operation).then(e => toast.success('Guardado'));
   };
 
-  onCancel = () => {
+  public onCancel = () => {
     this.setState({
       ...this.state,
       showComponent: false,
     });
   };
 
-  //styles
-  divStyle = css`
+  public theme: Theme;
+
+  // styles
+  public divStyle = css`
     width: 90%;
     margin: 0 auto;
     margin-top: 5%;
   `;
-  fabStyle = css`
+  public fabStyle = css`
     position: absolute;
     margin: 5px;
     margin-left: 95%;
@@ -120,7 +125,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     }
   `;
 
-  formStyle = css`
+  public formStyle = css`
     width: 80%;
     margin: 10%;
     color: ${green};
@@ -128,9 +133,9 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
   // END Styles
 
 
-  render() {
+  public render() {
     return (
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={customTheme}>
         <div>
           <Fab className={this.fabStyle} aria-label="Add" onClick={e => this.addNewOperation()}>
             <Add color="inherit" />
