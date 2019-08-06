@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { OperationTableComponent } from '../components/operations';
 import { OperationEntity } from '../model';
-import { MuiThemeProvider } from 'material-ui';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { RouteComponentProps } from 'react-router';
 import { updateElementFromArray, appendElementToArray } from '../common';
 import { machines } from '../common';
@@ -24,6 +24,9 @@ interface State {
 
 const green = '#007A53';
 const yellow = '#FFCD00';
+const theme = createMuiTheme({
+  /* theme for v1.x */
+ });
 
 export class OperationsTable extends React.Component<RouteComponentProps<any>, State> {
   constructor(props) {
@@ -98,6 +101,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
       showComponent: false,
     });
   };
+
   //styles
   divStyle = css`
     width: 90%;
@@ -122,10 +126,12 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
     color: ${green};
   `;
   // END Styles
+
+
   render() {
     return (
-      <MuiThemeProvider>
-        <>
+      <MuiThemeProvider theme={theme}>
+        <div>
           <Fab className={this.fabStyle} aria-label="Add" onClick={e => this.addNewOperation()}>
             <Add color="inherit" />
           </Fab>
@@ -146,7 +152,7 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
               onToggle={this.onToggle}
             />
           </div>
-        </>
+        </div>
       </MuiThemeProvider>
     );
   }

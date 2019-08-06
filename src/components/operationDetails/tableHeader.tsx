@@ -1,27 +1,30 @@
 import * as React from 'react';
-import { TableHead, TableRow, TableCell } from '@material-ui/core';
+import { TableHead, TableRow, TableCell, withStyles, createStyles } from '@material-ui/core';
 import { css } from 'emotion';
 import { colors } from '../../common';
 
 //Styles
-const cellStyles = css`
-    background-color: ${colors.GREEN};
-    color: ${colors.YELLOW};
-`;
 
+const StyledTableCell = withStyles(() =>
+  createStyles({
+    head: {
+      backgroundColor: colors.GREEN,
+      color: colors.YELLOW,
+    },
+  })
+)(TableCell);
 
-//endStyles
+// endStyles
+
 export const TableHeaderOperationDetailComponent: React.StatelessComponent = () => {
-    return (
-        <TableHead>
-          <TableRow>
-                <TableCell className={cellStyles} align="left">Foto</TableCell>
-                <TableCell className={cellStyles} align="left">Nombre</TableCell>
-                <TableCell className={cellStyles} align="left">Alias</TableCell>
-                <TableCell className={cellStyles} align="left">Vehiculos</TableCell>
-           </TableRow>
-        </TableHead>
-    );
-}
-
-
+  return (
+    <TableHead>
+      <TableRow>
+        <StyledTableCell align="left">Foto</StyledTableCell>
+        <StyledTableCell align="left">Nombre</StyledTableCell>
+        <StyledTableCell align="left">Alias</StyledTableCell>
+        <StyledTableCell align="left">Vehiculos</StyledTableCell>
+      </TableRow>
+    </TableHead>
+  );
+};

@@ -13,14 +13,17 @@ import { css } from 'emotion';
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>, StateOperation> {
   constructor(props) {
     super(props);
+    let open: boolean = false;
     const operations: Array<OperationEntity> = getOperationList(this.props.history.location.state);
     storeOperations(operations);
-    this.state = initializeStateDetail(this.props.history.location.state, operations);
+    this.state = initializeStateDetail(this.props.history.location.state, operations, open);
   }
 
   componentWillMount() {
     const auth: AuthService = new AuthService('');
-    if (!auth.loggedIn()) this.props.history.replace('/login');
+    if (!auth.loggedIn()) {
+      this.props.history.replace('/login');
+    }
   }
 
   onClickRow = (idPerson: number) => {
@@ -36,13 +39,20 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
       state: { person: person, editable: true },
     });
   };
+   handleOpen = () => this.setState({ ...this.state, open: !this.state.open });
 
   showOperationDetail = (id: number) => (
     <div className="Operation">
       {this.state.operationList
         .filter(operation => +operation.idOperation === +id)
         .map(operation => (
-          <ShowOperation key={operation.idOperation} operation={operation} onClickRow={this.onClickRow} />
+          <ShowOperation
+            key={operation.idOperation}
+            operation={operation}
+            onClickRow={this.onClickRow}
+            open={this.state.open}
+            handleOpen={this.handleOpen}
+          />
         ))}
     </div>
   );
