@@ -3,7 +3,7 @@ import { OperationTableComponent } from '../components/operations';
 import { OperationEntity } from '../model';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { RouteComponentProps } from 'react-router';
-import { updateElementFromArray, appendElementToArray } from '../common';
+import { updateElementFromArray, appendElementToArray, colors } from '../common';
 
 import { getOperations, putPerson, putOperation } from '../api/operationAPIConnection';
 import { Button, Fab } from '@material-ui/core';
@@ -23,11 +23,8 @@ interface State {
   showComponent: boolean;
 }
 
-const green = '#007A53';
-const yellow = '#FFCD00';
-
 export class OperationsTable extends React.Component<RouteComponentProps<any>, State> {
-  constructor( props ) {
+  constructor(props) {
     super(props);
     this.state = {
       operationList: [],
@@ -111,46 +108,52 @@ export class OperationsTable extends React.Component<RouteComponentProps<any>, S
   public divStyle = css`
     width: 90%;
     margin: 0 auto;
-    margin-top: 5%;
-  `;
-  public fabStyle = css`
-    position: absolute;
-    margin: 5px;
-    margin-left: 95%;
-    background-color: ${green};
-    color: ${yellow};
-    &:hover {
-      background-color: ${yellow};
-      color: ${green};
-    }
+    margin-top: 0px;
   `;
 
   public formStyle = css`
     width: 80%;
     margin: 10%;
-    color: ${green};
+    color: ${colors.GREEN};
   `;
   // END Styles
+  public fabStyle = css`
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  `;
 
+  public addIcon = css`
+    color: ${colors.YELLOW};
+    &:hover {
+      background-color: ${colors.GREEN};
+    }
+  `;
 
   public render() {
     return (
       <MuiThemeProvider theme={customTheme}>
-        <div>
-          <Fab className={this.fabStyle} aria-label="Add" onClick={e => this.addNewOperation()}>
-            <Add color="inherit" />
-          </Fab>
-          <form className={this.formStyle}>
-            {this.state.showComponent ? (
-              <OperationComponent
-                operation={createEmptyOperation()}
-                showComponent={this.state.showComponent}
-                onSave={this.onSave}
-                onCancel={this.onCancel}
-              />
-            ) : null}
-          </form>
-          <div className={this.divStyle}>
+        <div id="wrapper">
+          <div id="addIcon Div" className={this.fabStyle}>
+            <Fab id="favButton Add" color="primary" aria-label="Add" onClick={e => this.addNewOperation()}>
+              <Add className={this.addIcon} />
+            </Fab>
+          </div>
+          <div id="form div" hidden={!this.state.showComponent}>
+            <form className={this.formStyle}>
+              {this.state.showComponent ? (
+                <OperationComponent
+                  operation={createEmptyOperation()}
+                  showComponent={this.state.showComponent}
+                  onSave={this.onSave}
+                  onCancel={this.onCancel}
+                />
+              ) : null}
+            </form>
+          </div>
+          <div id="operationTable" className={this.divStyle}>
             <OperationTableComponent
               operationList={this.state.operationList}
               onClickRow={this.onClickRow}
