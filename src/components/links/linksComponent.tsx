@@ -4,7 +4,7 @@ import { LinkEntity } from '../../model';
 
 import { removeElementFromArray, appendElementToArray, updateElementFromArray, colors } from '../../common';
 import { LinkFormComponent } from '../form';
-import { Button, CardActionArea, Card, CardContent, CardActions } from '@material-ui/core';
+import { Button, CardActionArea, Card, CardContent, CardActions, createStyles } from '@material-ui/core';
 import { createEmptyLink } from '.';
 import { Save, Cancel, Edit, Delete } from '@material-ui/icons';
 import { toast } from 'react-toastify';
@@ -157,9 +157,10 @@ export class LinksComponent extends React.Component<Props, State> {
     border-radius: 10px;
   `;
 
-  public listStyle = css`
-    padding: 0px;
+  public cardStyles = css`
+    padding: 10px;
   `;
+
 
   // endStyles
 
