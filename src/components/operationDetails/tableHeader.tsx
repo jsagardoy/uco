@@ -7,7 +7,7 @@ import { colors } from '../../common';
 
 const StyledTableCell = withStyles(() =>
   createStyles({
-    head: {
+    root: {
       backgroundColor: colors.GREEN,
       color: colors.YELLOW,
     },

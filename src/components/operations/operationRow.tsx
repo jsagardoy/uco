@@ -22,7 +22,10 @@ export const RowComponent: React.StatelessComponent<Props> = props => {
         {props.operation.operationType}
       </TableCell>
       <TableCell align="left">
-        <Switch onChange={(e, checked) => props.onToogle(props.operation)} value={props.operation.state} />
+        <Switch onChange={(e, checked) => props.onToogle(props.operation)}
+        value={props.operation.state}
+        checked={props.operation.state}
+      />
       </TableCell>
     </TableRow>
   );
