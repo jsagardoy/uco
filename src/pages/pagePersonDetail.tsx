@@ -19,16 +19,37 @@ import { CompanyComponent } from '../components/company';
 import { RutinesComponent } from '../components/rutines';
 import { LinksComponent } from '../components/links';
 import { FamiliarComponent } from '../components/familiar';
-import { CardActions } from '@material-ui/core';
+import { CardActions, withStyles, createStyles } from '@material-ui/core';
 import { getOperationList } from '../api/operationDetail';
 import { putPerson } from '../api/operationAPIConnection';
 import { toast } from 'react-toastify';
 import { css } from 'emotion';
 
-export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
-  prevState: State;
+const CustomButtom = withStyles({
+  root: {
+    'boxShadow': 'none',
+    'textTransform': 'capitalize',
+    'fontSize': 16,
+    'padding': '6px 12px',
+    'border': '2px solid',
+    'lineHeight': 1.5,
+    'backgroundColor': 'none',
+    'color': colors.GREEN,
+    'borderRadius' : '5%',
+    'borderColor': colors.GREEN,
+    '&:hover': {
+      backgroundColor: colors.GREEN,
+      borderColor: colors.YELLOW,
+      color: colors.YELLOW,
+    },
+    'marginTop': '1em',
+  },
+})(Button);
 
-  constructor(props) {
+export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
+  public prevState: State;
+
+  constructor( props ) {
     super(props);
 
     const person: PeopleEntity = getPerson(this.props.history.location.state);
@@ -37,38 +58,38 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
     this.state = initializeState(this.props.history.location.state, person);
   }
-  componentWillMount() {
+  public componentWillMount() {
     if (this.props.history.location.pathname.endsWith('newPerson')) {
       this.updateStateNewPerson();
     }
   }
-  onToggle = (fieldId: keyof State | string) => {
+  public onToggle = (fieldId: keyof State | string) => {
     this.setState({
       ...this.state,
       [fieldId]: !this.state[fieldId],
     });
   };
-  onEdit = (fieldId: keyof State) => {
-    let newState: State = {
+  public onEdit = (fieldId: keyof State) => {
+    const newState: State = {
       ...this.state,
       [fieldId]: !this.state[fieldId],
     };
 
     this.setState(newState);
   };
-  fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string): any => {
+  public fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string): any => {
     fileSelectedHandler(fieldName, value, group, fileName, this.state.person, data => {
-      let newState: State = {
+      const newState: State = {
         ...this.state,
         person: data,
       };
       this.setState(newState);
     });
   };
-  handleChange = (fieldName: string, value: any, group: string) => {
+  public handleChange = (fieldName: string, value: any, group: string) => {
     this.setState(handleChange(fieldName, value, group, this.state));
   };
-  savingNew = (fieldId: keyof State, idField: string, element: any) => {
+  public savingNew = (fieldId: keyof State, idField: string, element: any) => {
     let newArray: Array<any> = [];
     let newState: State;
     if (fieldId !== 'person') {
@@ -123,22 +144,22 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
     toast.success(`${String(fieldId)} añadido`);
   };
-  addingNew = (fieldId: keyof State, group: string, newElement: any): void => {
-    let newState: State = {
+  public addingNew = (fieldId: keyof State, group: string, newElement: any): void => {
+    const newState: State = {
       ...this.state,
       [fieldId]: true,
     };
-    let newArray = appendElementToArray(newState.person[group], newElement);
+    const newArray = appendElementToArray(newState.person[group], newElement);
 
     newState.person[group] = newArray;
     this.setState(newState);
   };
-  removeFromList = (fieldId: keyof State, index: number = 0): void => {
-    let newArray = removeElementFromArray(
+  public removeFromList = (fieldId: keyof State, index: number = 0): void => {
+    const newArray = removeElementFromArray(
       this.state.person[fieldId],
       item => item === this.state.person[fieldId][index]
     );
-    let newState: State = {
+    const newState: State = {
       ...this.state,
       person: {
         ...this.state.person,
@@ -148,28 +169,28 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
     this.setState(newState);
     toast.success('Elemento Eliminado');
   };
-  goBack = () => {
+  public goBack = () => {
     const path = `/operationDetail/${+this.props.match.params.idOperation}`;
     this.props.history.push({
       pathname: `${path}`,
     });
   };
-  updateStateNewPerson = () => {
+  public updateStateNewPerson = () => {
     const newPerson: PeopleEntity = createNewPerson();
-    let newState: State = {
+    const newState: State = {
       ...this.state,
       person: newPerson,
     };
     this.setState(newState);
   };
-  newPersonAdded = () => {
+  public newPersonAdded = () => {
     let peopleList;
-    let operations: Array<OperationEntity> = getOperationList(null);
+    const operations: Array<OperationEntity> = getOperationList(null);
     const idOperation: number = +this.props.match.params.idOperation;
-    let operation: OperationEntity = operations.find(
+    const operation: OperationEntity = operations.find(
       (operation: OperationEntity) => operation.idOperation === idOperation
     );
-    let operationIndex: number = operations.findIndex(
+    const operationIndex: number = operations.findIndex(
       (operation: OperationEntity) => operation.idOperation === idOperation
     );
     const idPerson: number = this.props.match.params.idPerson;
@@ -184,14 +205,14 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
 
     putPerson(operation.idOperation, operations[operationIndex]).then(e => toast.error('Añadido'));
 
-    let path = `/operationDetail/${idOperation}`;
+    const path = `/operationDetail/${idOperation}`;
 
     this.props.history.push({
       pathname: `${path}`,
       state: { operationList: operations },
     });
   };
-  updateState = (fieldId: keyof State, value: any, idField?: string) => {
+  public updateState = (fieldId: keyof State, value: any, idField?: string) => {
     let newState;
 
     if (fieldId === 'person') {
@@ -200,7 +221,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
         [fieldId]: value,
       };
     } else {
-      let newArray = updateElementFromArray(
+      const newArray = updateElementFromArray(
         this.state.person[fieldId],
         value,
         item => item[idField] === value[idField]
@@ -215,8 +236,8 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
     }
     this.setState(newState);
   };
-  render() {
-    //Styles
+  public render() {
+    // Styles
     const wraperStyle = css`
       display: flex;
       justify-content: space-between;
@@ -226,6 +247,9 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
     `;
     const sectionStyle = css`
       width: 49.5%;
+    `;
+    const fullSectionStyle = css`
+      width: 100%;
     `;
     const iconStyle = css`
       color: ${colors.YELLOW};
@@ -243,8 +267,23 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
       border-color: ${colors.GREEN};
       background-color: ${colors.GREEN};
     `;
-
-    //end Styles
+    const h2Styled = css`
+      width: 100%;
+      margin-top: 0%;
+      margin-bottom: 0%;
+      text-align: center;
+      background-color: ${colors.GREEN};
+      color: ${colors.YELLOW};
+      border-radius: 10px;
+    `;
+    const buttonStyle = css`
+      border: 2px;
+      border-color: ${colors.GREEN};
+      color: ${colors.YELLOW};
+      text-decoration: none;
+      text-transform: capitalize;
+    `;
+    // end Styles
 
     const newFamiliar = createNewFamiliar();
     const newCompany = createNewCompany();
@@ -288,9 +327,9 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             ))}
 
             {this.state.showVehicle ? (
-              <Button onClick={e => this.addingNew('addNewVehicle', 'vehicles', newVehicle)}>
+              <CustomButtom onClick={e => this.addingNew('addNewVehicle', 'vehicles', newVehicle)}>
                 Añadir nuevo vehiculo
-              </Button>
+              </CustomButtom>
             ) : (
               <></>
             )}
@@ -313,42 +352,47 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
               />
             ))}
             {this.state.showCompany ? (
-              <Button onClick={e => this.addingNew('addNewCompany', 'companies', newCompany)}>
+              <CustomButtom onClick={e => this.addingNew('addNewCompany', 'companies', newCompany)}>
                 Añadir nueva Empresa
-              </Button>
+              </CustomButtom>
             ) : (
               <></>
             )}
           </div>
         </div>
+
         <RutinesComponent rutines={this.state.person.rutines} updateState={this.updateState} />
 
         <LinksComponent links={this.state.person.links} />
 
-        <Button onClick={event => this.onToggle(dataType.FAMILIAR)}>
-          <span>Familiares</span>
-          {this.state.showFamiliar ? <ExpandLess /> : <ExpandMore />}
-        </Button>
-        {this.state.person.familiars.map((familiar, index) => (
-          <FamiliarComponent
-            key={familiar.idFamiliar}
-            familiar={familiar}
-            showFamiliar={this.state.showFamiliar}
-            onToggle={this.onToggle}
-            addNew={this.state.addNewFamiliar}
-            removeFromList={this.removeFromList}
-            index={index}
-            updateState={this.updateState}
-          />
-        ))}
+        <div id="wrapper" className={wraperStyle}>
+          <div id="familiar section" className={sectionStyle}>
+            <div id="familiar header" className={divStyle} onClick={event => this.onToggle(dataType.FAMILIAR)}>
+              <h2 className={h2Styled}>Familiares</h2>
+              {this.state.showFamiliar ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+            </div>
+            {this.state.person.familiars.map((familiar, index) => (
+              <FamiliarComponent
+                key={familiar.idFamiliar}
+                familiar={familiar}
+                showFamiliar={this.state.showFamiliar}
+                onToggle={this.onToggle}
+                addNew={this.state.addNewFamiliar}
+                removeFromList={this.removeFromList}
+                index={index}
+                updateState={this.updateState}
+              />
+            ))}
 
-        <CardActions>
-          {this.state.showFamiliar ? (
-            <Button onClick={e => this.addingNew('addNewFamiliar', 'familiars', newFamiliar)}>
-              Añadir nuevo Familiar
-            </Button>
-          ) : null}
-        </CardActions>
+            <CardActions>
+              {this.state.showFamiliar ? (
+                <CustomButtom onClick={e => this.addingNew('addNewFamiliar', 'familiars', newFamiliar)}>
+                  Añadir nuevo Familiar
+                </CustomButtom>
+              ) : null}
+            </CardActions>
+          </div>
+        </div>
       </>
     );
   }
