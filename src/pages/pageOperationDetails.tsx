@@ -13,20 +13,20 @@ import { css } from 'emotion';
 export class OperationDetailedPage extends React.Component<RouteComponentProps<any>, StateOperation> {
   constructor(props) {
     super(props);
-    let open: boolean = false;
+    const open: boolean = false;
     const operations: Array<OperationEntity> = getOperationList(this.props.history.location.state);
     storeOperations(operations);
     this.state = initializeStateDetail(this.props.history.location.state, operations, open);
   }
 
-  componentWillMount() {
+  public componentWillMount() {
     const auth: AuthService = new AuthService('');
     if (!auth.loggedIn()) {
       this.props.history.replace('/login');
     }
   }
 
-  onClickRow = (idPerson: number) => {
+  public onClickRow = (idPerson: number) => {
     const idOperation: number = +this.props.match.params.idOperation;
     const operation: OperationEntity = this.state.operationList.find(
       operation => operation.idOperation === idOperation
@@ -36,12 +36,12 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
 
     this.props.history.push({
       pathname: `${idOperation}/personDetail/${idPerson}`,
-      state: { person: person, editable: true },
+      state: { person, editable: true },
     });
   };
-   handleOpen = () => this.setState({ ...this.state, open: !this.state.open });
+  public handleOpen = () => this.setState({ ...this.state, open: !this.state.open });
 
-  showOperationDetail = (id: number) => (
+  public showOperationDetail = (id: number) => (
     <div className="Operation">
       {this.state.operationList
         .filter(operation => +operation.idOperation === +id)
@@ -56,30 +56,33 @@ export class OperationDetailedPage extends React.Component<RouteComponentProps<a
         ))}
     </div>
   );
-  goBack = () => {
+  public goBack = () => {
     this.props.history.push('/operations');
   };
-  addNewPersonToOperation = () => {
+  public addNewPersonToOperation = () => {
     this.props.history.push(`/operationDetail/${+this.props.match.params.idOperation}/personDetail/newPerson`);
   };
 
-  buttonStyle = css`
+  public buttonStyle = css`
     color: ${colors.GREEN};
   `;
-  divStyle = css`
+  public divStyle = css`
     margin-top: 2.5%;
     margin-bottom: 2.5%;
     text-align: right;
   `;
-  render() {
+  public iconStyle = css`
+    color: ${colors.GREEN};
+  `;
+  public render() {
     return (
       <>
         <div className={this.divStyle}>
           <Button className={this.buttonStyle} onClick={e => this.goBack()}>
-            <ArrowLeft />
+            <ArrowLeft className={this.iconStyle} />
           </Button>
           <Button className={this.buttonStyle} onClick={e => this.addNewPersonToOperation()}>
-            <PersonAdd />
+            <PersonAdd className={this.iconStyle} />
           </Button>
         </div>
         {this.showOperationDetail(this.props.match.params.idOperation)}
