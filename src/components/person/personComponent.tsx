@@ -25,18 +25,20 @@ interface Props {
 
 interface State {
   person: PeopleEntity;
+  showGallery: boolean;
+  showAddressGallery: boolean;
 }
 
 export class PersonComponent extends React.Component<Props, State> {
-  prevState: State;
+  public prevState: State;
   constructor(props: Props) {
     super(props);
-    this.state = { person: this.props.person };
+    this.state = { person: this.props.person, showGallery: false, showAddressGallery: false };
     this.prevState = this.state;
   }
-  fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string) => {
+  public fileSelectedHandler = (fieldName: string, value: File, group: string, fileName: string) => {
     fileSelectedHandler(fieldName, value, group, fileName, this.state.person, data => {
-      let newState: State = {
+      const newState: State = {
         ...this.state,
         person: data,
       };
@@ -44,31 +46,38 @@ export class PersonComponent extends React.Component<Props, State> {
     });
   };
 
-  handleChange = (fieldName: string, value: any, group: string) => {
+  public handleChange = (fieldName: string, value: any, group: string) => {
     this.setState(handleChange(fieldName, value, group, this.state));
   };
 
-  onEdit = () => {
-    let element: PeopleEntity = this.state.person;
+  public handleShowGallery = () => {
+    this.setState({ ...this.state, showGallery: !this.state.showGallery });
+  };
+
+  public handleShowAddressGallery = () => {
+    this.setState({...this.state, showAddressGallery: !this.state.showAddressGallery});
+  };
+
+  public onEdit = () => {
+    const element: PeopleEntity = this.state.person;
     element.editable = !element.editable;
-    let newState: State = {
+    const newState: State = {
       ...this.state,
       person: element,
     };
     this.setState(newState);
   };
 
-  onSave = (value: PeopleEntity) => {
+  public onSave = (value: PeopleEntity) => {
     let newState: State = {
       ...this.state,
     };
 
-    let element: PeopleEntity = {
+    const element: PeopleEntity = {
       ...value,
       editable: !this.state.person.editable,
     };
     let element2;
-    // ESTO TENGO QUE CAMBIARLO A UN UPDATE EN LUGAR DE ANDAR ELMINANDO EL VACIO
     if (
       this.state.person.addressLink.length > 1 &&
       (this.state.person.addressPic[0].img.data == null || this.state.person.addressPic[0] === null)
@@ -107,27 +116,28 @@ export class PersonComponent extends React.Component<Props, State> {
       person: element2,
     };
     this.setState(newState);
-    this.prevState = newState; //update content for prevState with the saved data
+    this.prevState = newState; // update content for prevState with the saved data
     this.props.updateState('person', newState.person, 'idPerson');
     toast.success('Guardado');
   };
 
-  onCancel = () => {
-    if (this.props.addNew) this.props.removeFromList('person', this.props.index);
-    else {
+  public onCancel = () => {
+    if (this.props.addNew) {
+      this.props.removeFromList('person', this.props.index);
+    } else {
       const newState: State = { ...this.prevState };
       newState.person.editable = false;
       this.setState(newState);
     }
   };
 
-  //styles
-  divStyle = css`
+  // styles
+  public divStyle = css`
     width: 80%;
     margin-left: 10%;
   `;
 
-  imgStyle = css`
+  public imgStyle = css`
     padding-top: 2%;
     padding-bottom: 0%;
     display: block;
@@ -136,11 +146,11 @@ export class PersonComponent extends React.Component<Props, State> {
     border-radius: 20%;
   `;
 
-  cardContentStyle = css`
+  public cardContentStyle = css`
     padding-top: 0px;
   `;
-  //end styles
-  render() {
+  // end styles
+  public render() {
     const props = 'img';
     return (
       <div className={this.divStyle}>
@@ -158,6 +168,10 @@ export class PersonComponent extends React.Component<Props, State> {
                 )}
                 <CardContent className={this.cardContentStyle}>
                   <PersonFormComponent
+                    showGallery={this.state.showGallery}
+                    handleShowGallery={this.handleShowGallery}
+                    showAddressGallery={this.state.showAddressGallery}
+                    handleShowAddressGallery={this.handleShowAddressGallery}
                     person={this.state.person}
                     handleChange={this.handleChange}
                     handlefileSelectorChange={this.fileSelectedHandler}
