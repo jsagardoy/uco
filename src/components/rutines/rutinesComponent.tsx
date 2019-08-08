@@ -33,13 +33,17 @@ export class RutinesComponent extends React.Component<Props, State> {
     this.prevState = this.state;
   }
   public removeItem = index => {
-    if (index === -1) { index = this.state.rutines.length || 0; }
+    if (index === -1) {
+      index = this.state.rutines.length || 0;
+    }
     const newState: State = { ...this.state };
     newState.rutines = removeElementFromArray(this.state.rutines, item => item === this.state.rutines[index]);
     this.setState(newState);
   };
   public handleSubmit = (index: number) => {
-    if (index === -1) { index = this.state.rutines.length || 0; }
+    if (index === -1) {
+      index = this.state.rutines.length || 0;
+    }
     const newArray: Array<RutineEntity> = appendElementToArray(this.state.rutines, this.state.rutines[index]);
     newArray[index].editable = false;
     const newState = {
@@ -57,10 +61,16 @@ export class RutinesComponent extends React.Component<Props, State> {
       ...this.state[fieldName][index],
       data: value,
     };
-    if (element.editable === null) { element.editable = true; }
+    if (element.editable === null) {
+      element.editable = true;
+    }
 
     element.editable = true;
-    const newList = updateElementFromArray(this.state[fieldName], element, item => item === this.state[fieldName][index]);
+    const newList = updateElementFromArray(
+      this.state[fieldName],
+      element,
+      item => item === this.state[fieldName][index]
+    );
 
     const newState = {
       ...this.state,
@@ -71,13 +81,14 @@ export class RutinesComponent extends React.Component<Props, State> {
   public addNewRutine = () => {
     const element = createEmptyRutine();
     const newList = appendElementToArray(this.state.rutines, element);
-
     this.setState({
       rutines: newList,
     });
   };
   public onEdit = (index: number) => {
-    if (index === -1) { index = this.state.rutines.length || 0; }
+    if (index === -1) {
+      index = this.state.rutines.length || 0;
+    }
 
     const element: RutineEntity = this.state.rutines[index];
     element.editable = !element.editable;
@@ -137,6 +148,11 @@ export class RutinesComponent extends React.Component<Props, State> {
     padding: 0px;
   `;
 
+public buttonDivStyle =  css`
+  width: 100%;
+  margin-bottom: 3em;
+  margin-right: 2em;
+`;
   // end Styles
 
   public render() {
@@ -144,55 +160,53 @@ export class RutinesComponent extends React.Component<Props, State> {
     const styleDiv: React.CSSProperties = null;
     return (
       <div className={this.wrapperStyles}>
-        <h2 className={this.h2Styled} onClick={this.onClickButton}>
+        <h2 className={this.h2Styled} onClick={() => this.onClickButton()}>
           Rutinas
         </h2>
-        {this.state.showRutine ? (
-          <div className={this.divStyles}>
-            {this.state.rutines.map((rutine: RutineEntity, index: number) => (
-              <List key={index} dense={true}>
-                <ListItem>
-                  {rutine.editable ? (
-                    <RutineFormComponent
-                      key={index}
-                      rutine={rutine}
-                      onChange={this.handleChange(index)}
-                      editable={this.state.rutines[index].editable}
-                    />
-                  ) : (
-                    rutine.data
-                  )}
-                </ListItem>
-                <ListItemSecondaryAction>
-                  {rutine.editable ? (
-                    <>
-                      <Button onClick={e => this.saveRutine(index, rutine)}>
-                        {' '}
-                        <Save />
-                      </Button>
-                      <Button onClick={e => this.onCancel(index)}>
-                        <Cancel />
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button onClick={e => this.onEdit(index)}>
-                        <Edit />
-                      </Button>
-                      <Button onClick={e => this.removeItem(index)}>
-                        {' '}
-                        <Delete />
-                      </Button>
-                    </>
-                  )}
-                </ListItemSecondaryAction>
-              </List>
-            ))}
-            <ButtonComponent text="Añadir una rutina" onClick={e => this.addNewRutine()}>
-              <Add />
-            </ButtonComponent>
+        <div className={this.divStyles} hidden={!this.state.showRutine}>
+          {
+            this.state.rutines.map((rutine: RutineEntity, index: number) => (
+            <List key={index} dense={true}>
+              <ListItem>
+                {rutine.editable ? (
+                <RutineFormComponent
+                  key={index}
+                  rutine={rutine}
+                  onChange={this.handleChange(index)}
+                  editable={this.state.rutines[index].editable}
+                />
+                ) : ( rutine.data )}
+              </ListItem>
+              <ListItemSecondaryAction>
+                {rutine.editable ? (
+                  <>
+                    <Button onClick={e => this.saveRutine(index, rutine)}>
+                      {' '}
+                      <Save />
+                    </Button>
+                    <Button onClick={e => this.onCancel(index)}>
+                      <Cancel />
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button onClick={e => this.onEdit(index)}>
+                      <Edit />
+                    </Button>
+                    <Button onClick={e => this.removeItem(index)}>
+                      <Delete />
+                    </Button>
+                  </>
+                )}
+              </ListItemSecondaryAction>
+            </List>
+          ))}
+          <div id="buttonDiv" className={this.buttonDivStyle}>
+          <ButtonComponent text="Añadir una rutina" onClick={() => this.addNewRutine()}>
+            <Add />
+          </ButtonComponent>
           </div>
-        ) : null}
+        </div>
       </div>
     );
   }
