@@ -27,29 +27,29 @@ import { css } from 'emotion';
 
 const CustomButtom = withStyles({
   root: {
-    'boxShadow': 'none',
-    'textTransform': 'capitalize',
-    'fontSize': 16,
-    'padding': '6px 12px',
-    'border': '2px solid',
-    'lineHeight': 1.5,
-    'backgroundColor': 'none',
-    'color': colors.GREEN,
-    'borderRadius' : '5%',
-    'borderColor': colors.GREEN,
+    boxShadow: 'none',
+    textTransform: 'capitalize',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '2px solid',
+    lineHeight: 1.5,
+    backgroundColor: 'none',
+    color: colors.GREEN,
+    borderRadius: '5%',
+    borderColor: colors.GREEN,
     '&:hover': {
       backgroundColor: colors.GREEN,
       borderColor: colors.YELLOW,
       color: colors.YELLOW,
     },
-    'marginTop': '1em',
+    marginTop: '1em',
   },
 })(Button);
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
   public prevState: State;
 
-  constructor( props ) {
+  constructor(props) {
     super(props);
 
     const person: PeopleEntity = getPerson(this.props.history.location.state);
@@ -283,20 +283,31 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
       text-decoration: none;
       text-transform: capitalize;
     `;
+    const menuIconStyle = css`
+      color: ${colors.GREEN};
+    `;
     // end Styles
+    const buttonMenu = css`
+      display: flex;
+      margin-right: 2em;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      justify-content: flex-end;
+    `;
 
     const newFamiliar = createNewFamiliar();
     const newCompany = createNewCompany();
     const newVehicle = createNewVehicle();
     return (
       <>
-        <Button onClick={e => this.goBack()}>
-          <ArrowLeft />
-        </Button>
-        <Button onClick={e => this.newPersonAdded()}>
-          {' '}
-          <Save />{' '}
-        </Button>
+        <div className={buttonMenu}>
+          <Button onClick={e => this.goBack()}>
+            <ArrowLeft className={menuIconStyle} />
+          </Button>
+          <Button onClick={e => this.newPersonAdded()}>
+            <Save className={menuIconStyle} />
+          </Button>
+        </div>
         {
           <PersonComponent
             showPerson={true}
