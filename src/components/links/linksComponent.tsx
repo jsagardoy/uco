@@ -176,7 +176,7 @@ export class LinksComponent extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className={this.wrapperStyles}>
+      <>
         <h2 className={this.h2Styled} onClick={() => this.handleHideComponent()}>
           Conexiones
         </h2>
@@ -221,7 +221,7 @@ export class LinksComponent extends React.Component<Props, State> {
           ))}
           <ButtonComponent text="Añadir una Conexión" onClick={e => this.addNewlink()}/>
         </div>
-      </div>
+      </>
     );
   }
 }

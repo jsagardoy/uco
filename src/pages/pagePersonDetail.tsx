@@ -371,11 +371,16 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             )}
           </div>
         </div>
-
-        <RutinesComponent rutines={this.state.person.rutines} updateState={this.updateState} />
-
-        <LinksComponent links={this.state.person.links} />
-
+        <div className={wraperStyle}>
+          <div className={sectionStyle}>
+            <RutinesComponent rutines={this.state.person.rutines} updateState={this.updateState} />
+          </div>
+        </div>
+        <div className={wraperStyle}>
+          <div className={sectionStyle}>
+            <LinksComponent links={this.state.person.links} />
+          </div>
+        </div>
         <div id="wrapper" className={wraperStyle}>
           <div id="familiar section" className={sectionStyle}>
             <div id="familiar header" className={divStyle} onClick={event => this.onToggle(dataType.FAMILIAR)}>

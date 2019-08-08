@@ -159,7 +159,7 @@ public buttonDivStyle =  css`
     // const newRutine: RutineEntity = createEmptyRutine();
     const styleDiv: React.CSSProperties = null;
     return (
-      <div className={this.wrapperStyles}>
+      <>
         <h2 className={this.h2Styled} onClick={() => this.onClickButton()}>
           Rutinas
         </h2>
@@ -207,7 +207,7 @@ public buttonDivStyle =  css`
           </ButtonComponent>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
