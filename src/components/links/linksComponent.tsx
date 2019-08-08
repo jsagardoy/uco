@@ -4,11 +4,22 @@ import { LinkEntity } from '../../model';
 
 import { removeElementFromArray, appendElementToArray, updateElementFromArray, colors } from '../../common';
 import { LinkFormComponent } from '../form';
-import { Button, CardActionArea, Card, CardContent, CardActions, createStyles } from '@material-ui/core';
+import {
+  Button,
+  CardActionArea,
+  Card,
+  CardContent,
+  CardActions,
+  createStyles,
+  ListItem,
+  List,
+  ListItemSecondaryAction,
+} from '@material-ui/core';
 import { createEmptyLink } from '.';
 import { Save, Cancel, Edit, Delete } from '@material-ui/icons';
 import { toast } from 'react-toastify';
 import { css } from 'emotion';
+import { ButtonComponent } from '../Common/buttonComponent';
 
 interface Props {
   links: Array<LinkEntity>;
@@ -161,7 +172,6 @@ export class LinksComponent extends React.Component<Props, State> {
     padding: 10px;
   `;
 
-
   // endStyles
 
   public render() {
@@ -172,22 +182,20 @@ export class LinksComponent extends React.Component<Props, State> {
         </h2>
         <div hidden={this.state.hideComponent}>
           {this.state.links.map((link: LinkEntity, index: number) => (
-            <Card key={index}>
-              <CardActionArea>
-                <CardContent>
-                  {link.editable ? (
-                    <LinkFormComponent
-                      key={index}
-                      link={link}
-                      onChange={this.handleChange(index)}
-                      editable={this.state.links[index].editable}
-                    />
-                  ) : (
-                    link.data
-                  )}
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
+            <List>
+              <ListItem>
+                {link.editable ? (
+                  <LinkFormComponent
+                    key={index}
+                    link={link}
+                    onChange={this.handleChange(index)}
+                    editable={this.state.links[index].editable}
+                  />
+                ) : (
+                  link.data
+                )}
+              </ListItem>
+              <ListItemSecondaryAction>
                 {link.editable ? (
                   <>
                     <Button onClick={() => this.savelink(index, link)}>
@@ -208,10 +216,10 @@ export class LinksComponent extends React.Component<Props, State> {
                     </Button>
                   </>
                 )}
-              </CardActions>
-            </Card>
+              </ListItemSecondaryAction>
+            </List>
           ))}
-          <Button onClick={e => this.addNewlink()}>Añadir una Conexión</Button>
+          <ButtonComponent text="Añadir una Conexión" onClick={e => this.addNewlink()}/>
         </div>
       </div>
     );
