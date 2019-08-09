@@ -35,6 +35,7 @@ export class FamiliarComponent extends React.Component<Props, StateFamiliar> {
     margin-left: 10%;
     margin-right: 10%;
   `;
+ 
   public divStyles = css`
     width: 100%;
     border: 1px solid;

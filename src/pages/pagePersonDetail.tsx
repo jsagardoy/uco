@@ -24,27 +24,7 @@ import { getOperationList } from '../api/operationDetail';
 import { putPerson } from '../api/operationAPIConnection';
 import { toast } from 'react-toastify';
 import { css } from 'emotion';
-
-const CustomButtom = withStyles({
-  root: {
-    boxShadow: 'none',
-    textTransform: 'capitalize',
-    fontSize: 16,
-    padding: '6px 12px',
-    border: '2px solid',
-    lineHeight: 1.5,
-    backgroundColor: 'none',
-    color: colors.GREEN,
-    borderRadius: '5%',
-    borderColor: colors.GREEN,
-    '&:hover': {
-      backgroundColor: colors.GREEN,
-      borderColor: colors.YELLOW,
-      color: colors.YELLOW,
-    },
-    marginTop: '1em',
-  },
-})(Button);
+import { ButtonComponent } from '../components/Common/buttonComponent';
 
 export class DetailPersonPage extends React.Component<RouteComponentProps<any>, State> {
   public prevState: State;
@@ -236,52 +216,28 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
     }
     this.setState(newState);
   };
+  public onClickShowRutines = () => {
+    this.setState({ ...this.state, showRutines: !this.state.showRutines });
+  };
+  public onClickShowLinks = () => this.setState({ ...this.state, showLinks: !this.state.showLinks });
   public render() {
     // Styles
-    const wraperStyle = css`
-      display: flex;
-      justify-content: space-between;
-      width: 80%;
-      margin-left: 10%;
-      margin-top: 1%;
-    `;
-    const sectionStyle = css`
-      width: 49.5%;
-    `;
-    const fullSectionStyle = css`
-      width: 100%;
-    `;
-    const iconStyle = css`
-      color: ${colors.YELLOW};
-      padding-left: 2%;
-    `;
 
-    const divStyle = css`
+    const wrapper = css`
+      width: 80%;
       display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding-top: 0.5%;
-      padding-bottom: 0.5%;
-      border: 1px solid;
-      border-radius: 8px;
-      border-color: ${colors.GREEN};
-      background-color: ${colors.GREEN};
+      flex-direction: column;
+      margin-left: 10%;
+      margin-top: 2em;
     `;
     const h2Styled = css`
-      width: 100%;
       margin-top: 0%;
       margin-bottom: 0%;
       text-align: center;
       background-color: ${colors.GREEN};
       color: ${colors.YELLOW};
       border-radius: 10px;
-    `;
-    const buttonStyle = css`
-      border: 2px;
-      border-color: ${colors.GREEN};
-      color: ${colors.YELLOW};
-      text-decoration: none;
-      text-transform: capitalize;
+      font-size: 24px;
     `;
     const menuIconStyle = css`
       color: ${colors.GREEN};
@@ -295,9 +251,34 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
       justify-content: flex-end;
     `;
 
+    const row = css`
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      box-sizing: content-box;
+      margin-bottom: 1em;
+    `;
+
+    const column = css`
+      display: flex;
+      flex-direction: column;
+      box-sizing: content-box;
+      width: 98%;
+      flex-basis: 100%;
+      flex: 1;
+      margin-right: 0.5em;
+      margin-left: 0.5em;
+    `;
+    const iconStyle = css`
+      color: ${colors.YELLOW};
+      padding-left: 2%;
+    `;
+
     const newFamiliar = createNewFamiliar();
     const newCompany = createNewCompany();
     const newVehicle = createNewVehicle();
+
     return (
       <>
         <div className={buttonMenu}>
@@ -318,95 +299,118 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
             updateState={this.updateState}
           />
         }
-        <div className={wraperStyle}>
-          <div className={sectionStyle}>
-            <div className={divStyle} onClick={event => this.onToggle(dataType.VEHICLE)}>
-              <Motorcycle className={iconStyle} />
-              {this.state.showVehicle ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
-            </div>
-            {this.state.person.vehicles.map((vehicle, index) => (
-              <VehicleComponent
-                key={vehicle.idVehicle}
-                vehicle={vehicle}
-                index={index}
-                showVehicle={this.state.showVehicle}
-                onToggle={this.onToggle}
-                addNew={this.state.addNewVehicle}
-                removeFromList={this.removeFromList}
-                updateState={this.updateState}
-              />
-            ))}
+        <div className={wrapper}>
+          <div className={row}>
+            <div className={column}>
+              <div className={h2Styled} onClick={event => this.onToggle(dataType.VEHICLE)}>
+                <Motorcycle className={iconStyle} />
+                {this.state.showVehicle ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+              </div>
+              {this.state.person.vehicles.map((vehicle, index) => (
+                <VehicleComponent
+                  key={vehicle.idVehicle}
+                  vehicle={vehicle}
+                  index={index}
+                  showVehicle={this.state.showVehicle}
+                  onToggle={this.onToggle}
+                  addNew={this.state.addNewVehicle}
+                  removeFromList={this.removeFromList}
+                  updateState={this.updateState}
+                />
+              ))}
 
-            {this.state.showVehicle ? (
-              <CustomButtom onClick={e => this.addingNew('addNewVehicle', 'vehicles', newVehicle)}>
-                Añadir nuevo vehiculo
-              </CustomButtom>
-            ) : (
-              <></>
-            )}
-          </div>
-          <div className={sectionStyle}>
-            <div className={divStyle} onClick={event => this.onToggle(dataType.COMPANY)}>
-              <AccountBalance className={iconStyle} />
-              {this.state.showCompany ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+              {this.state.showVehicle ? (
+                <ButtonComponent onClick={e => this.addingNew('addNewVehicle', 'vehicles', newVehicle)}>
+                  Añadir nuevo vehiculo
+                </ButtonComponent>
+              ) : (
+                <></>
+              )}
             </div>
-            {this.state.person.companies.map((company, index) => (
-              <CompanyComponent
-                addNew={this.state.addNewCompany}
-                key={company.idCompany}
-                index={index}
-                company={company}
-                showCompany={this.state.showCompany}
-                onToggle={this.onToggle}
-                removeFromList={this.removeFromList}
-                updateState={this.updateState}
-              />
-            ))}
-            {this.state.showCompany ? (
-              <CustomButtom onClick={e => this.addingNew('addNewCompany', 'companies', newCompany)}>
-                Añadir nueva Empresa
-              </CustomButtom>
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-        <div className={wraperStyle}>
-          <div className={sectionStyle}>
-            <RutinesComponent rutines={this.state.person.rutines} updateState={this.updateState} />
-          </div>
-        </div>
-        <div className={wraperStyle}>
-          <div className={sectionStyle}>
-            <LinksComponent links={this.state.person.links} />
-          </div>
-        </div>
-        <div id="wrapper" className={wraperStyle}>
-          <div id="familiar section" className={sectionStyle}>
-            <div id="familiar header" className={divStyle} onClick={event => this.onToggle(dataType.FAMILIAR)}>
-              <h2 className={h2Styled}>Familiares</h2>
-              {this.state.showFamiliar ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+            <div className={column}>
+              <div className={h2Styled} onClick={event => this.onToggle(dataType.COMPANY)}>
+                <AccountBalance className={iconStyle} />
+                {this.state.showCompany ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+              </div>
+              {this.state.person.companies.map((company, index) => (
+                <CompanyComponent
+                  addNew={this.state.addNewCompany}
+                  key={company.idCompany}
+                  index={index}
+                  company={company}
+                  showCompany={this.state.showCompany}
+                  onToggle={this.onToggle}
+                  removeFromList={this.removeFromList}
+                  updateState={this.updateState}
+                />
+              ))}
+              {this.state.showCompany ? (
+                <ButtonComponent onClick={e => this.addingNew('addNewCompany', 'companies', newCompany)}>
+                  Añadir nueva Empresa
+                </ButtonComponent>
+              ) : (
+                <></>
+              )}
             </div>
-            {this.state.person.familiars.map((familiar, index) => (
-              <FamiliarComponent
-                key={familiar.idFamiliar}
-                familiar={familiar}
-                showFamiliar={this.state.showFamiliar}
-                onToggle={this.onToggle}
-                addNew={this.state.addNewFamiliar}
-                removeFromList={this.removeFromList}
-                index={index}
-                updateState={this.updateState}
-              />
-            ))}
+          </div>
 
-            <CardActions>
-              {this.state.showFamiliar ? (
-                <CustomButtom onClick={e => this.addingNew('addNewFamiliar', 'familiars', newFamiliar)}>
-                  Añadir nuevo Familiar
-                </CustomButtom>
-              ) : null}
-            </CardActions>
+          <div className={row}>
+            <div className={column}>
+              <h2 className={h2Styled} onClick={() => this.onClickShowRutines()}>
+                Rutinas
+              </h2>
+              <RutinesComponent
+                rutines={this.state.person.rutines}
+                updateState={this.updateState}
+                showRutines={this.state.showRutines}
+              />
+            </div>
+            <div className={column}>
+              <h2 className={h2Styled} onClick={() => this.onClickShowLinks()}>
+                Conexiones
+              </h2>
+              <LinksComponent links={this.state.person.links} showlinks={this.state.showLinks} />
+            </div>
+          </div>
+          <div>
+            <div className={row}>
+              <div className={column}>
+
+                {/*
+                <div className={h2Styled} onClick={event => this.onToggle(dataType.COMPANY)}>
+                <AccountBalance className={iconStyle} />
+                {this.state.showCompany ? <ExpandLess className={iconStyle} /> : <ExpandMore className={iconStyle} />}
+              </div>
+              */}
+                <div className={h2Styled} onClick={event => this.onToggle(dataType.FAMILIAR)}>
+                  Familiares
+                  {this.state.showFamiliar ? (
+                    <ExpandLess className={iconStyle} />
+                  ) : (
+                    <ExpandMore className={iconStyle} />
+                  )}
+                  </div>
+                {this.state.person.familiars.map((familiar, index) => (
+                  <FamiliarComponent
+                    key={familiar.idFamiliar}
+                    familiar={familiar}
+                    showFamiliar={this.state.showFamiliar}
+                    onToggle={this.onToggle}
+                    addNew={this.state.addNewFamiliar}
+                    removeFromList={this.removeFromList}
+                    index={index}
+                    updateState={this.updateState}
+                  />
+                ))}
+                <CardActions>
+                  {this.state.showFamiliar ? (
+                    <ButtonComponent onClick={e => this.addingNew('addNewFamiliar', 'familiars', newFamiliar)}>
+                      Añadir nuevo Familiar
+                    </ButtonComponent>
+                  ) : null}
+                </CardActions>
+              </div>
+            </div>
           </div>
         </div>
       </>

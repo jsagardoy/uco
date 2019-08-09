@@ -6,11 +6,6 @@ import { removeElementFromArray, appendElementToArray, updateElementFromArray, c
 import { LinkFormComponent } from '../form';
 import {
   Button,
-  CardActionArea,
-  Card,
-  CardContent,
-  CardActions,
-  createStyles,
   ListItem,
   List,
   ListItemSecondaryAction,
@@ -23,11 +18,10 @@ import { ButtonComponent } from '../Common/buttonComponent';
 
 interface Props {
   links: Array<LinkEntity>;
+  showlinks: boolean;
 }
 interface State {
   links: Array<LinkEntity>;
-  showlink: boolean;
-  hideComponent: boolean;
 }
 
 export class LinksComponent extends React.Component<Props, State> {
@@ -37,8 +31,6 @@ export class LinksComponent extends React.Component<Props, State> {
     super(props);
     this.state = {
       links: this.props.links,
-      showlink: false,
-      hideComponent: true,
     };
     this.prevState = this.state;
   }
@@ -96,11 +88,8 @@ export class LinksComponent extends React.Component<Props, State> {
 
     this.setState({
       links: newList,
-      showlink: !this.state.showlink,
     });
   };
-
-  public handleHideComponent = () => this.setState({ ...this.state, hideComponent: !this.state.hideComponent });
 
   public onEdit = (index: number) => {
     if (index === -1) {
@@ -177,10 +166,7 @@ export class LinksComponent extends React.Component<Props, State> {
   public render() {
     return (
       <>
-        <h2 className={this.h2Styled} onClick={() => this.handleHideComponent()}>
-          Conexiones
-        </h2>
-        <div hidden={this.state.hideComponent}>
+        <div hidden={!this.props.showlinks}>
           {this.state.links.map((link: LinkEntity, index: number) => (
             <List>
               <ListItem>
@@ -199,7 +185,6 @@ export class LinksComponent extends React.Component<Props, State> {
                 {link.editable ? (
                   <>
                     <Button onClick={() => this.savelink(index, link)}>
-                      {' '}
                       <Save />
                     </Button>
                     <Button onClick={e => this.onCancel(index)}>
@@ -219,7 +204,7 @@ export class LinksComponent extends React.Component<Props, State> {
               </ListItemSecondaryAction>
             </List>
           ))}
-          <ButtonComponent text="Añadir una Conexión" onClick={e => this.addNewlink()}/>
+          <ButtonComponent text="Añadir una Conexión" onClick={e => this.addNewlink()} />
         </div>
       </>
     );

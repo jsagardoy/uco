@@ -15,10 +15,10 @@ import { ButtonComponent } from '../Common';
 interface Props {
   rutines: Array<RutineEntity>;
   updateState: (fieldId: string, state: any) => void;
+  showRutines: boolean;
 }
 interface State {
   rutines: Array<RutineEntity>;
-  showRutine: boolean;
 }
 
 export class RutinesComponent extends React.Component<Props, State> {
@@ -28,7 +28,6 @@ export class RutinesComponent extends React.Component<Props, State> {
     super(props);
     this.state = {
       rutines: this.props.rutines,
-      showRutine: false,
     };
     this.prevState = this.state;
   }
@@ -118,9 +117,7 @@ export class RutinesComponent extends React.Component<Props, State> {
       this.setState(newState);
     }
   };
-  public onClickButton = () => {
-    this.setState({ ...this.state, showRutine: !this.state.showRutine });
-  };
+
 
   // styles
   public wrapperStyles = css`
@@ -129,9 +126,6 @@ export class RutinesComponent extends React.Component<Props, State> {
   `;
   public divStyles = css`
     width: 100%;
-    border: 1px solid;
-    border-radius: 8px;
-    border-color: ${colors.GREEN};
     background-color: white;
   `;
   public h2Styled = css`
@@ -160,10 +154,7 @@ public buttonDivStyle =  css`
     const styleDiv: React.CSSProperties = null;
     return (
       <>
-        <h2 className={this.h2Styled} onClick={() => this.onClickButton()}>
-          Rutinas
-        </h2>
-        <div className={this.divStyles} hidden={!this.state.showRutine}>
+        <div className={this.divStyles} hidden={!this.props.showRutines}>
           {
             this.state.rutines.map((rutine: RutineEntity, index: number) => (
             <List key={index} dense={true}>

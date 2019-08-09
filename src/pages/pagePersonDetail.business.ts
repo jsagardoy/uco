@@ -12,6 +12,8 @@ export interface State {
   showVehicle: boolean;
   showCompany: boolean;
   showFamiliar: boolean;
+  showLinks: boolean;
+  showRutines: boolean;
   addNewPerson: boolean;
   addNewFamiliar: boolean;
   addNewCompany: boolean;
@@ -30,6 +32,8 @@ export const createInitialState = (person: PeopleEntity, editable: boolean = tru
   showVehicle: false,
   showCompany: false,
   showFamiliar: false,
+  showLinks: false,
+  showRutines: false,
   addNewFamiliar: false,
   addNewCompany: false,
   addNewVehicle: false,
