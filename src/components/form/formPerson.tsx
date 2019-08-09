@@ -30,10 +30,15 @@ const h1Styled = css`
   background-color: ${colors.GREEN};
   color: ${colors.YELLOW};
 `;
+
 const h2Styled = css`
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   text-align: center;
   background-color: ${colors.GREEN};
   color: ${colors.YELLOW};
+  border-radius: 10px;
+  font-size: 24px;
 `;
 const linkStyled = css`
   font-size: 20px;
@@ -126,7 +131,9 @@ export const PersonFormComponent: React.StatelessComponent<Props> = (props: Prop
       </div>
       {props.editable ? <InputFile group="person" name="picsLinks" onChange={props.handlefileSelectorChange} /> : null}
 
-      <h2 className={h2Styled} onClick={()=>props.handleShowAddressGallery()}>Fotografías del Domicilio</h2>
+      <h2 className={h2Styled} onClick={() => props.handleShowAddressGallery()}>
+        Fotografías del Domicilio
+      </h2>
       <div className={galleryStyle} hidden={!props.showAddressGallery}>
         <GalleryComponent list={props.person.addressPic} />
         {props.editable ? (

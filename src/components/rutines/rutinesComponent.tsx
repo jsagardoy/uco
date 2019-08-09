@@ -117,8 +117,6 @@ export class RutinesComponent extends React.Component<Props, State> {
       this.setState(newState);
     }
   };
-
-
   // styles
   public wrapperStyles = css`
     margin-left: 10%;
@@ -142,11 +140,11 @@ export class RutinesComponent extends React.Component<Props, State> {
     padding: 0px;
   `;
 
-public buttonDivStyle =  css`
-  width: 100%;
-  margin-bottom: 3em;
-  margin-right: 2em;
-`;
+  public buttonDivStyle = css`
+    width: 100%;
+    margin-bottom: 3em;
+    margin-right: 2em;
+  `;
   // end Styles
 
   public render() {
@@ -155,18 +153,19 @@ public buttonDivStyle =  css`
     return (
       <>
         <div className={this.divStyles} hidden={!this.props.showRutines}>
-          {
-            this.state.rutines.map((rutine: RutineEntity, index: number) => (
+          {this.state.rutines.map((rutine: RutineEntity, index: number) => (
             <List key={index} dense={true}>
               <ListItem>
                 {rutine.editable ? (
-                <RutineFormComponent
-                  key={index}
-                  rutine={rutine}
-                  onChange={this.handleChange(index)}
-                  editable={this.state.rutines[index].editable}
-                />
-                ) : ( rutine.data )}
+                  <RutineFormComponent
+                    key={index}
+                    rutine={rutine}
+                    onChange={this.handleChange(index)}
+                    editable={this.state.rutines[index].editable}
+                  />
+                ) : (
+                  rutine.data
+                )}
               </ListItem>
               <ListItemSecondaryAction>
                 {rutine.editable ? (
@@ -193,9 +192,9 @@ public buttonDivStyle =  css`
             </List>
           ))}
           <div id="buttonDiv" className={this.buttonDivStyle}>
-          <ButtonComponent text="Añadir una rutina" onClick={() => this.addNewRutine()}>
-            <Add />
-          </ButtonComponent>
+            <ButtonComponent text="Añadir una rutina" onClick={() => this.addNewRutine()}>
+              <Add />
+            </ButtonComponent>
           </div>
         </div>
       </>
