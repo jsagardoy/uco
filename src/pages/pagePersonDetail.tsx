@@ -375,7 +375,6 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
           <div>
             <div className={row}>
               <div className={column}>
-
                 {/*
                 <div className={h2Styled} onClick={event => this.onToggle(dataType.COMPANY)}>
                 <AccountBalance className={iconStyle} />
@@ -389,7 +388,7 @@ export class DetailPersonPage extends React.Component<RouteComponentProps<any>, 
                   ) : (
                     <ExpandMore className={iconStyle} />
                   )}
-                  </div>
+                </div>
                 {this.state.person.familiars.map((familiar, index) => (
                   <FamiliarComponent
                     key={familiar.idFamiliar}

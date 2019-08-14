@@ -14,7 +14,7 @@ createStyles({
   },
 });
 
-const TableHeaderComponentInner: React.StatelessComponent<Props> = (props:Props) => {
+const TableHeaderComponentInner: React.StatelessComponent<Props> = (props: Props) => {
   const {classes} = props;
   return (
     <TableRow  color="secondary">

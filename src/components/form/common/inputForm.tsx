@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 import styled from 'styled-components';
 import { TextField, FormLabel } from '@material-ui/core';
-import { colors } from "../../../common";
-import { css } from "emotion";
-//styles
+import { colors } from '../../../common';
+import { css } from 'emotion';
+// styles
 const divStyle = css`
   color: ${colors.GREEN};
   width: 100%;
@@ -14,7 +14,7 @@ const TextFieldStyled = css`
   padding-top: 2%;
 `;
 
-//end Styles
+// end Styles
 interface Props {
   name: string;
   label: string;
@@ -31,8 +31,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
   let type;
   if (!props.type) {
     type = 'text';
-  }
-  else {
+  } else {
     type = props.type;
   }
   return (
@@ -41,7 +40,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
         <label htmlFor={props.name}>{props.label}</label>
           {
             props.editable ?
-              <TextField 
+              <TextField
                 className={TextFieldStyled}
                 type={type}
                 name={props.name}
@@ -50,7 +49,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
                 onChange={onChangeInput(props)}
               />
               :
-              <TextField 
+              <TextField
                 className={TextFieldStyled}
                 type={type}
                 disabled
@@ -63,7 +62,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
         <div className="help-block">{props.error}</div>
       </div>
     </div>
-  )
+  );
 };
 
 const formatWrapperClass = (props: Props) => {

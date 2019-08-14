@@ -11,5 +11,5 @@ export const storeOperations = (operationList: Array<OperationEntity>) => {
   localStorage.setItem(_OPDETAIL, JSON.stringify(operationList));
 };
 
-export const initializeStateDetail = (state: StateOperation, operationList: Array<OperationEntity>, open:boolean) =>
+export const initializeStateDetail = (state: StateOperation, operationList: Array<OperationEntity>, open: boolean) =>
   !!state ? createInitialStateOperationDetail(state.operationList) : createInitialStateOperationDetail(operationList);

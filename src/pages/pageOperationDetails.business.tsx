@@ -9,4 +9,3 @@ export const createInitialStateOperationDetail = (operationList: Array<Operation
   operationList,
   open: false,
 });
-

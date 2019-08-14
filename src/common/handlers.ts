@@ -8,13 +8,13 @@ export const fileSelectedHandler: any = (
   state: any,
   callback
 ) => {
-  var newArray: Array<any> = [...state[fieldName]];
+  const newArray: Array<any> = [...state[fieldName]];
   const fileExtension = 'image/' + fileName.substring(fileName.lastIndexOf('.') + 1);
 
   readFile(value, data => {
-    let newElement = { img: { data: data, contentType: fileExtension } };
+    const newElement = { img: { data, contentType: fileExtension } };
     newArray.push(newElement);
-    var newState = {
+    const newState = {
       ...state,
       [fieldName]: newArray,
     };

@@ -1,14 +1,14 @@
 
-import * as React from "react";
+import * as React from 'react';
 
 interface Props {
   name: string;
-  group:string;
-  onChange: (fieldName: string, value: File,group:string,fileName:String) => void;
+  group: string;
+  onChange: (fieldName: string, value: File, group: string, fileName: String) => void;
   error?: string;
 }
 
-export const InputFile: React.StatelessComponent<Props> = (props:Props) => {
+export const InputFile: React.StatelessComponent<Props> = (props: Props) => {
   return (
     <div className={formatWrapperClass(props)}>
       <div className="field">
@@ -20,7 +20,7 @@ export const InputFile: React.StatelessComponent<Props> = (props:Props) => {
       </div>
       <div className="help-block">{props.error}</div>
     </div>
-  )
+  );
 };
 
 const formatWrapperClass = (props: Props) => {
@@ -33,5 +33,5 @@ const formatWrapperClass = (props: Props) => {
 
 const onChangeInput = (props: Props) => (e: React.ChangeEvent<HTMLInputElement>) => {
 
-  props.onChange(e.target.name, e.target.files[0] ,props.group, e.target.value);
+  props.onChange(e.target.name, e.target.files[0] , props.group, e.target.value);
 };

@@ -15,7 +15,6 @@ interface Props {
 }
 
 
-
 export const OpenTableComponent: React.StatelessComponent<Props> = (props: Props) => {
   // styles
   const headerStyles = css`
