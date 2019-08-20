@@ -13,7 +13,7 @@ module.exports = {
     },
     entry: [
         "@babel/polyfill",
-        './main.tsx'     
+        './main.tsx'
     ],
     output: {
         path: path.join(basePath, 'dist'),

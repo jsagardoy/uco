@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server  --mode development --inline --hot --open",
     "build": "webpack  --mode development",
+    "start:prod": "webpack-dev-server  --mode production --config prod.webpack.config.js --inline --hot --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:fix": "prettier --write src/**/*.{ts,tsx,js,jsx} && tslint --project . --fix"
   },
@@ -31,6 +32,7 @@
     "base-64": "^0.1.0",
     "base64-img": "^1.0.4",
     "bootstrap": "^4.3.1",
+    "dotenv-webpack": "^1.7.0",
     "emotion": "^10.0.9",
     "fine-uploader": "^5.16.2",
     "fs-sync": "^1.0.6",
