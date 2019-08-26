@@ -12,15 +12,16 @@ const styles = (theme: Theme) =>
     buttonStyle: {
       'border': '2px solid',
       'borderColor': colors.GREEN,
-      'color': colors.GREEN,
+      'backgroundColor': colors.GREEN,
+      'color': colors.YELLOW,
       'textTransform': 'capitalize',
       'float': 'right',
       'display': 'flex',
       'marginBottom': theme.spacing.unit * 2,
       'marginRight': theme.spacing.unit,
       '&:hover': {
-        backgroundColor: colors.GREEN,
-        color: colors.YELLOW,
+        backgroundColor: colors.YELLOW,
+        color: colors.GREEN,
       },
     },
   });

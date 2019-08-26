@@ -5,12 +5,16 @@ import { colors } from '../../../common';
 import { css } from 'emotion';
 // styles
 const divStyle = css`
+  display:flex;
+  flex-direction: column;
+  flex-grow: 1;
   color: ${colors.GREEN};
   width: 100%;
 `;
 
 const TextFieldStyled = css`
-  width:100%;
+  margin-right: 1em;
+  width: 100%;
   padding-top: 2%;
 `;
 
@@ -47,6 +51,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={onChangeInput(props)}
+                margin="dense"
               />
               :
               <TextField
@@ -57,6 +62,7 @@ export const Input: React.StatelessComponent<Props> = (props: Props) => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={onChangeInput(props)}
+                margin="dense"
               />
           }
         <div className="help-block">{props.error}</div>
