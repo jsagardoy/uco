@@ -5,8 +5,9 @@ export const dataType = {
 };
 
 export const machines = {
-  DEV: 'https://localhost:4000/api/operations',
-};
+         DEV: 'https://localhost:4000',
+         PRO: 'https://uco-back.herokuapp.com',
+       };
 
 export const colors = {
   GREEN: '#007A53',
