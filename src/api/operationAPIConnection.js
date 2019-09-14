@@ -1,8 +1,8 @@
 import axios from 'axios';
-import machines from '../common';
+import {machines} from '../common';
 
 const route = `/api/operations`
-const url = machines.PROD||machines.DEV;
+const url = `http://localhost:4000`;
 const newURL = `${url}${route}`;
 export const getOperations = async () => {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');

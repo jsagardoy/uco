@@ -37,6 +37,7 @@
     "base-64": "^0.1.0",
     "base64-img": "^1.0.4",
     "bootstrap": "^4.3.1",
+    "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
     "emotion": "^10.0.9",
     "fine-uploader": "^5.16.2",
