@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {machines} from '../common';
 
-const route = `/api/operations`
-const url = `http://localhost:4000`;
+const route = `/api/operations`;
+const url = `https://uco-back.herokuapp.com`;//`http://localhost:4000`;
 const newURL = `${url}${route}`;
+
 export const getOperations = async () => {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
 
