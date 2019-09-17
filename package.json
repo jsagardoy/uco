@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "webpack  --mode development",
-    "start": "node  --mode production --config prod.webpack.config.js --inline --hot --open",
+    "start": "webpack --mode production --config prod.webpack.config.js --inline --hot --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:fix": "prettier --write src/**/*.{ts,tsx,js,jsx} && tslint --project . --fix"
   },
