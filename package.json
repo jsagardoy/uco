@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "Uco Project",
   "main": "index.js",
-  "engines": {
-    "node": "10.16.0",
-    "npm": "6.9.0"
-  },
+  
   "scripts": {
     "build": "webpack  --mode development",
     "start": "webpack-dev-server --mode production --config webpack.prod.config.js --inline --hot --open",
